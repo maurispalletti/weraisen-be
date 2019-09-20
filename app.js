@@ -17,31 +17,31 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 // Pass Passport configuration
-require('./config/server/passportConfig')(passport)
-app.use(passport.initialize())
+// require('./config/server/passportConfig')(passport)
+// app.use(passport.initialize())
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, './commons/src/doc.html'))
-})
+// app.get('/', (req, res) => {
+//   res.sendFile(path.join(__dirname, './commons/src/doc.html'))
+// })
 
-// To validate protected with authentication
-app.use('/', (req, res, next) => {
-  if (req.url.endsWith('/checkout')) {
-    passport.authenticate('jwt', { session: false }, (err, user, info) => {
-      if (err || !user) {
-        res.status(401).json({ code: 2300, message: 'Invalid token' })
-        throw new AppError(exceptions.exceptionType.token.invalidToken)
-      }
-      req.user = user
-      return next()
-    })(req, res, next)
-  } else {
-    next()
-  }
-})
+// // To validate protected with authentication
+// app.use('/', (req, res, next) => {
+//   if (req.url.endsWith('/checkout')) {
+//     passport.authenticate('jwt', { session: false }, (err, user, info) => {
+//       if (err || !user) {
+//         res.status(401).json({ code: 2300, message: 'Invalid token' })
+//         throw new AppError(exceptions.exceptionType.token.invalidToken)
+//       }
+//       req.user = user
+//       return next()
+//     })(req, res, next)
+//   } else {
+//     next()
+//   }
+// })
 
-app.use('/carts', require('./routes/cartRoute'))
-app.use('/orders', require('./routes/orderRoute'))
+// app.use('/carts', require('./routes/cartRoute'))
+// app.use('/orders', require('./routes/orderRoute'))
 app.use('/', require('./routes/userRoute'))
 
 // catch 404 and forward to error handler
@@ -51,18 +51,18 @@ app.use((req, res, next) => {
   next(err)
 })
 
-const initializeBackingServices = async () => {
-  mongoose.Promise = global.Promise
-  try {
-    await mongoose.connect(config.get('mongo.url'), config.get('mongo.options'))
-    logger.info('Connected to MongoDB')
-    logger.info(`Application started in ${config.get('apiConfig')} mode`)
-  } catch (error) {
-    logger.error(`An error occur during Initialize Backing Services. Detail: ${error}`)
-    process.exit()
-  }
-}
-initializeBackingServices()
+// const initializeBackingServices = async () => {
+//   mongoose.Promise = global.Promise
+//   try {
+//     await mongoose.connect(config.get('mongo.url'), config.get('mongo.options'))
+//     logger.info('Connected to MongoDB')
+//     logger.info(`Application started in ${config.get('apiConfig')} mode`)
+//   } catch (error) {
+//     logger.error(`An error occur during Initialize Backing Services. Detail: ${error}`)
+//     process.exit()
+//   }
+// }
+// initializeBackingServices()
 
 module.exports = app
 
