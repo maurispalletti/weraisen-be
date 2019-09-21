@@ -1,4 +1,4 @@
-// const userDelegate = require('../delegates/userDelegate')
+const userDelegate = require('../delegates/userDelegate')
 // const validators = require('../commons/validators')
 
 // PUBLIC FUNCTIONS -----------------------------------------------------
@@ -22,7 +22,12 @@ const login = async (req, res) => {
 }
 
 const test = async (req, res) => {
-  res.json({ respuesta: `anduvo wacho` })
+
+  const saludo = req.body.saludo;
+
+  const respuestaDelDelegate = await userDelegate.test(saludo)
+
+  res.json({ respuesta: respuestaDelDelegate })
 }
 
 module.exports = {
