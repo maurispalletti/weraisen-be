@@ -1,5 +1,5 @@
-const userDelegate = require('../delegates/userDelegate')
-const validators = require('../commons/validators')
+// const userDelegate = require('../delegates/userDelegate')
+// const validators = require('../commons/validators')
 
 // PUBLIC FUNCTIONS -----------------------------------------------------
 
@@ -21,7 +21,12 @@ const login = async (req, res) => {
   res.json({ user })
 }
 
+const test = async (req, res) => {
+  res.json({ respuesta: `anduvo wacho` })
+}
+
 module.exports = {
   login,
-  signup
+  signup,
+  test
 }

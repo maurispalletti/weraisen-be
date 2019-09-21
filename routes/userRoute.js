@@ -16,8 +16,7 @@ router.post('/login', async (req, res) => {
 
 /* TEST. */
 router.get('/test', async (req, res) => {
-  console.log('workerdddd !!!!!!!!!!!!!!!!')
-  routeController.handleRequest(req, res, userController.login)
+  routeController.handleRequest(req, res, userController.test)
 })
 
 module.exports = router
