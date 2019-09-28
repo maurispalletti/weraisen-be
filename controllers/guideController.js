@@ -1,28 +1,38 @@
-const userDelegate = require('../delegates/userDelegate')
+const guideDelegate = require('../delegates/guideDelegate')
 const validators = require('../commons/validators')
 
-// PUBLIC FUNCTIONS //////////////////////////////////////////////////
+const registerGuide = async (req, res) => {
+  const requiredParams = [
+    'description',
+    'languages',
+    'knowledge',
+  ]
 
-// Crear usuario
-const signup = async (req, res) => {
-  validators.validateRequiredKeys(req.body, ['username', 'password'])
+  validators.validateRequiredKeys(req.params, ['userId'])
+  validators.validateRequiredKeys(req.body, requiredParams)
 
-  const { username, password } = req.body
+  const guide = req.body
+  guide['isActiveGuide'] = true
 
-  const user = await userDelegate.signup(username, password)
-  res.json({ user })
+  const newGuide = await guideDelegate.registerGuide(req.params.userId, guide)
+  res.json(newGuide)
 }
 
-const login = async (req, res) => {
-  validators.validateRequiredKeys(req.body, ['username', 'password'])
+const toggleActive = async (req, res) => {
+  validators.validateRequiredKeys(req.params, ['userId'])
 
-  const { username, password } = req.body
+  const updatedGuide = await guideDelegate.toggleActive(req.params.userId, req.body.isActiveGuide)
+  res.json(updatedGuide)
+}
 
-  const user = await userDelegate.login(username, password)
-  res.json({ user })
+const getGuides = async (req, res) => {
+  const filters = req.body
+  const guides = await guideDelegate.getGuides(filters)
+  res.json(guides)
 }
 
 module.exports = {
-  login,
-  signup,
+  registerGuide,
+  toggleActive,
+  getGuides,
 }

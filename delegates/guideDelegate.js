@@ -1,29 +1,40 @@
-const userService = require('../services/userService')
+const guideService = require('../services/guideService')
+const exceptions = require('../commons/exceptions')
+const error = require('../commons/error')
 
-// PUBLIC FUNCTIONS //////////////////////////////////////////////////
+const registerGuide = async (userId, guide) => {
+	const newGuide = guideService.registerGuide(userId, guide)
 
-const signup = data => {
-	return userService.createUser(data)
+	validateGuideExists(userId, newGuide)
+
+	return newGuide
 }
 
-const login = async (username, password) => {
-  return userService.login(username, password)
+const toggleActive = async (userId, isActiveGuide) => {
+	const updatedGuide = guideService.toggleActive(userId, isActiveGuide)
+
+	validateGuideExists(userId, updatedGuide)
+
+	return updatedGuide
 }
 
-// const findUserIdByUsername = async username => {
-//   logger.info(`updateUser - username[${username}]`)
+const getGuides = async (filters) => {
+	const { languages, knowledge, city, age, gender } = filters
+	return guideService.getGuides(languages, knowledge, city, age, gender)
+}
 
-//   const user = await userService.findUserByUserName(username)
-
-//   if (!user) {
-//     throw new error.AppError(exceptions.exceptionType.user.userNotFound, 'userDelegate.findUserIdByUsername', [
-//       { key: 'username', value: username }
-//     ])
-//   }
-//   return user.id
-// }
+const validateGuideExists = (id, guide) => {
+	if (!guide) {
+		throw new error.AppError(
+			exceptions.exceptionType.guide.guideNotFound,
+			'guideDelegate.validateGuideExists',
+			{ key: 'userId', value: id }
+		)
+	}
+}
 
 module.exports = {
-	signup,
-	login
+	registerGuide,
+	toggleActive,
+	getGuides,
 }

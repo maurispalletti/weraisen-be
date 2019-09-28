@@ -235,6 +235,20 @@ const exceptionType = {
       httpStatus: 400
     }
   },
+  tourist: {
+    touristNotFound: {
+      code: 6003,
+      message: 'Tourist not found',
+      httpStatus: 404
+    },
+  },
+  guide: {
+    guideNotFound: {
+      code: 7003,
+      message: 'Guide not found',
+      httpStatus: 404
+    },
+  },
   token: {
     tokenNotFound: {
       code: 5100,

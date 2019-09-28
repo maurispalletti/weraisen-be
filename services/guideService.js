@@ -1,43 +1,50 @@
 const UserModel = require('../models/userModel')
-const exceptions = require('../commons/exceptions')
-const error = require('../commons/error')
+const constants = require('../commons/constants')
 
-// PUBLIC FUNCTIONS //////////////////////////////////////////////////
-
-const createUser = async user => {
-  const newUser = new UserModel(user)
-  const savedUser = await newUser.save({ new: true })
-
-  if (savedUser) {
-    return { id: savedUser.id }
-  }
-
-  throw new error.AppError(exceptions.exceptionType.user.cannotCreateUser, 'userService.createUser')
+const registerGuide = async (userId, guide) => {
+  return UserModel.findByIdAndUpdate(userId, { $set: guide }, { new: true })
 }
 
-const login = async (username, password) => {
-  const user = await UserModel.findOne({ username })
-
-  if (user) {
-    return user
-  }
-
-  throw new error.AppError(exceptions.exceptionType.user.invalidUserOrPassword, 'userService.login')
+const toggleActive = async (userId, isActiveGuide) => {
+  return UserModel.findByIdAndUpdate(userId, { $set: { isActiveGuide } }, { new: true })
 }
 
-// const findUserByUserName = async username => {
-//   logger.info(`updateUser - userName[${username}]`)
-//   return UserModel.findOne({ username: username })
-// }
+const getGuides = async (languages, knowledge, city, age, gender) => {
+  const query = buildMatchQuery(languages, knowledge, city, age, gender)
 
-// const findUserByToken = async token => {
-//   logger.info(`findUserByToken - token[${token}]`)
-//   return UserModel.findOne({ recoveryToken: token })
-// }
+  return UserModel.find(query)
+}
+
+const buildMatchQuery = (languages, knowledge, city, age, gender) => {
+
+  const query = { $and: [] }
+
+  // Status Active
+  query.$and.push({ status: constants.users.status.ACTIVE })
+
+  // Available guides
+  query.$and.push({ isActiveGuide: true })
+
+  // City
+  if (city) query.$and.push({ city })
+
+  // Age
+  if (age) query.$and.push({ age })
+
+  // Gender
+  if (gender) query.$and.push({ gender })
+
+  // Languages
+  if (languages) query.$and.push({ languages })
+  
+  // Knowledge
+  if (knowledge) query.$and.push({ knowledge })
+  
+  return query
+}
 
 module.exports = {
-  createUser,
-  login
-  // findUserByUserName,
-  // findUserByToken,
+  registerGuide,
+  toggleActive,
+  getGuides
 }

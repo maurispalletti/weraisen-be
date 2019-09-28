@@ -2,8 +2,6 @@ const UserModel = require('../models/userModel')
 const exceptions = require('../commons/exceptions')
 const error = require('../commons/error')
 
-// PUBLIC FUNCTIONS //////////////////////////////////////////////////
-
 const createUser = async user => {
   const newUser = new UserModel(user)
   const savedUser = await newUser.save({ new: true })

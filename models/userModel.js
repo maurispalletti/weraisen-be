@@ -1,14 +1,14 @@
 const mongoose = require('mongoose')
 const timestamps = require('mongoose-timestamp')
 const Schema = mongoose.Schema
-
 const constants = require('../commons/constants')
 // const bcrypt = require('bcrypt')
 
-const { users: {
-  gender: { MALE, FEMALE, OTHER },
-  status: { PENDING, ACTIVE, DELETED },
-} } = constants;
+const {
+  users: {
+    gender: { MALE, FEMALE, OTHER },
+    status: { PENDING, ACTIVE, DELETED },
+  } } = constants;
 
 const UserSchema = new Schema({
   // for all users, tourists as default
