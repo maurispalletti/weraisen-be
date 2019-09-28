@@ -3,17 +3,20 @@ require('dotenv').config()
 module.exports = {
   apiConfig: 'default',
   apiPrefix: '/api/v1',
-//   mongo: {
-//     url: 'mongodb://ec2-52-53-254-96.us-west-1.compute.amazonaws.com:27017/admin',
-//     options: {
-//       dbName: 'job-nation',
-//       socketTimeoutMS: 10000,
-//       keepAlive: true,
-//       reconnectTries: 30,
-//       reconnectInterval: 1000,
-//       useNewUrlParser: true
-//     }
-//   },
+  mongo: {
+    // url: 'mongodb+srv://spallettimauricio:7a016B22%2F@weraisen-test-mjlak.mongodb.net/test',
+    url: 'mongodb://127.0.0.1:27017',
+    options: {
+      dbName: 'weraisen-test',
+      socketTimeoutMS: 30000,
+      keepAlive: true,
+      reconnectTries: 40,
+      reconnectInterval: 1000,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+    }
+  },
 //   aws: {
 //     S3: {
 //       accessKeyId: 'AKIAIYCJDSNVINT54HPQ',

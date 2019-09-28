@@ -15,8 +15,8 @@ const createUser = async user => {
   throw new error.AppError(exceptions.exceptionType.user.cannotCreateUser, 'userService.createUser')
 }
 
-const login = async (username, password) => {
-  const user = await UserModel.findOne({ username })
+const login = async (email, password) => {
+  const user = await UserModel.findOne({ email, password })
 
   if (user) {
     return user

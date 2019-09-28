@@ -5,20 +5,33 @@ const validators = require('../commons/validators')
 
 // Crear usuario
 const signup = async (req, res) => {
-  validators.validateRequiredKeys(req.body, ['username', 'password'])
 
-  const { username, password } = req.body
+  // info needed to create new user
+  const requiredParams = [
+    'email',
+    'password',
+    'fistName',
+    'lastName',
+    'identification',
+    'age',
+    'city',
+    'gender',
+  ]
 
-  const user = await userDelegate.signup(username, password)
+  validators.validateRequiredKeys(req.body, requiredParams)
+
+  const newUser = req.body
+
+  const user = await userDelegate.signup(newUser)
   res.json({ user })
 }
 
 const login = async (req, res) => {
-  validators.validateRequiredKeys(req.body, ['username', 'password'])
+  validators.validateRequiredKeys(req.body, ['email', 'password'])
 
-  const { username, password } = req.body
+  const { email, password } = req.body
 
-  const user = await userDelegate.login(username, password)
+  const user = await userDelegate.login(email, password)
   res.json({ user })
 }
 

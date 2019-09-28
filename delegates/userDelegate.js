@@ -2,12 +2,12 @@ const userService = require('../services/userService')
 
 // PUBLIC FUNCTIONS //////////////////////////////////////////////////
 
-const signup = data => {
-	return userService.createUser(data)
+const signup = newUser => {
+	return userService.createUser(newUser)
 }
 
-const login = async (username, password) => {
-  return userService.login(username, password)
+const login = async (email, password) => {
+	return userService.login(email, password)
 }
 
 // const findUserIdByUsername = async username => {
