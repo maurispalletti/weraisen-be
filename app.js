@@ -22,6 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // ROUTES
 app.use('/users', require('./routes/userRoute'))
+app.use('/guides', require('./routes/guideRoute'))
 
 ////////////////////////////////////////////////
 

@@ -4,19 +4,18 @@ const routeController = require('../commons/routeController')
 
 const router = express.Router()
 
-/* POST user signup. */
+// POST user signup
+
+// agregar datos de turista a esta creacion de usuario (va a ser el user por defecto)
+// quiza cambiar el nombre por crear turista
+
 router.post('/signup', async (req, res) => {
   routeController.handleRequest(req, res, userController.signup)
 })
 
-/* POST user login. */
+// POST user login
 router.post('/login', async (req, res) => {
   routeController.handleRequest(req, res, userController.login)
-})
-
-/* TEST. */
-router.get('/test', async (req, res) => {
-  routeController.handleRequest(req, res, userController.test)
 })
 
 module.exports = router
