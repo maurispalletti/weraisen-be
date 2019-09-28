@@ -2,29 +2,23 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
+const mongoose = require('mongoose')
+const config = require('config')
+const apiPrefix = config.get('apiPrefix')
 
-// const config = require('config')
-// const mongoose = require('mongoose')
 // const passportConfig = require('./config/server/passportConfig')
 
 const app = express();
 
-// view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'pug');
-
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ROUTES
-app.use('/users', require('./routes/userRoute'))
-app.use('/guides', require('./routes/guideRoute'))
-
-////////////////////////////////////////////////
+app.use(apiPrefix + '/users', require('./routes/userRoute'))
+app.use(apiPrefix + '/tourists', require('./routes/touristRoute'))
+app.use(apiPrefix + '/guides', require('./routes/guideRoute'))
 
 /* GET home page. */
 app.get('/', (req, res) => {
@@ -47,4 +41,18 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+const initializeBackingServices = async () => {
+  mongoose.Promise = global.Promise
+  try {
+    await Promise.all([
+      mongoose.connect(config.get('mongo.url'), config.get('mongo.options')),
+    ])
+    console.log(`~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [ Connected to MongoDB ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`)
+    console.log(`~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [ Listening on port ${process.env.PORT} ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`)
+  } catch (error) {
+    console.log(`An error occur during Initialize Backing Services. Detail: ${error}`)
+    process.exit()
+  }
+}
+initializeBackingServices()
 module.exports = app;

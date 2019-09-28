@@ -4,14 +4,16 @@ const routeController = require('../commons/routeController')
 
 const router = express.Router()
 
-// POST create guide
-router.post('/:userId', async (req, res) => {
-  routeController.handleRequest(req, res, userController.signup)
+router.put('/toggle-active/:userId', async (req, res) => {
+  routeController.handleRequest(req, res, guideController.toggleActive)
 })
 
-// GET find guides !!!!!!!!!
+router.put('/:userId', async (req, res) => {
+  routeController.handleRequest(req, res, guideController.registerGuide)
+})
+
 router.get('/', async (req, res) => {
-  routeController.handleRequest(req, res, userController.signup)
+  routeController.handleRequest(req, res, guideController.getGuides)
 })
 
 module.exports = router
