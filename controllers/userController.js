@@ -23,7 +23,7 @@ const signup = async (req, res) => {
   const newUser = req.body
 
   const user = await userDelegate.signup(newUser)
-  res.json({ user })
+  res.json(user)
 }
 
 const login = async (req, res) => {
@@ -32,10 +32,20 @@ const login = async (req, res) => {
   const { email, password } = req.body
 
   const user = await userDelegate.login(email, password)
-  res.json({ user })
+  res.json(user)
+}
+
+const findUserById = async (req, res) => {
+  validators.validateRequiredKeys(req.params, ['id'])
+
+  const id = req.params.id
+
+  const user = await userDelegate.findUserById(id)
+  res.json(user)
 }
 
 module.exports = {
   login,
   signup,
+  findUserById,
 }
