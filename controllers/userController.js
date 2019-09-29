@@ -1,22 +1,21 @@
 const userDelegate = require('../delegates/userDelegate')
 const validators = require('../commons/validators')
 
-// PUBLIC FUNCTIONS //////////////////////////////////////////////////
-
-// Crear usuario
 const signup = async (req, res) => {
 
   // info needed to create new user
   const requiredParams = [
     'email',
     'password',
-    'fistName',
+    'firstName',
     'lastName',
     'identification',
     'age',
     'city',
     'gender',
   ]
+
+  console.log(req.body)
 
   validators.validateRequiredKeys(req.body, requiredParams)
 

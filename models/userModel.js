@@ -14,7 +14,7 @@ const UserSchema = new Schema({
   // for all users, tourists as default
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  fistName: { type: String, required: true },
+  firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   identification: { type: String, required: true, unique: true },
   age: { type: Number, required: true },

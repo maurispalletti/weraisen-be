@@ -4,7 +4,7 @@ const validators = require('../commons/validators')
 const updateTourist = async (req, res) => {
   
   const requiredParams = [
-    'fistName',
+    'firstName',
     'lastName',
     'identification',
     'age',

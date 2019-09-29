@@ -16,6 +16,7 @@ const login = async (email, password) => {
   if (user) {
     return user
   }
+  return null
   throw new error.AppError(exceptions.exceptionType.user.invalidUserOrPassword, 'userService.login')
 }
 
