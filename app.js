@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose')
 const config = require('config')
 const apiPrefix = config.get('apiPrefix')
+const cors = require('cors');
 
 // const passportConfig = require('./config/server/passportConfig')
 
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors())
 
 // ROUTES
 app.use(apiPrefix + '/users', require('./routes/userRoute'))

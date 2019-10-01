@@ -6,9 +6,9 @@ module.exports = {
       DELETED: 'DELETED',
     },
     gender: {
-      FEMALE: 'FEMALE',
-      MALE: 'MALE',
-      OTHER: 'OTHER',
+      FEMALE: 'Femenino',
+      MALE: 'Masculino',
+      OTHER: 'Otro',
     },
   },
   publicUrls: [

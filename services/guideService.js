@@ -9,13 +9,14 @@ const toggleActive = async (userId, isActiveGuide) => {
   return UserModel.findByIdAndUpdate(userId, { $set: { isActiveGuide } }, { new: true })
 }
 
-const getGuides = async (languages, knowledge, city, age, gender) => {
-  const query = buildMatchQuery(languages, knowledge, city, age, gender)
+const getGuides = async (language, knowledge, city, fromAge, toAge, gender) => {
+
+  const query = buildMatchQuery(language, knowledge, fromAge, toAge, city, gender)
 
   return UserModel.find(query)
 }
 
-const buildMatchQuery = (languages, knowledge, city, age, gender) => {
+const buildMatchQuery = (language, knowledge, fromAge, toAge, city, gender) => {
 
   const query = { $and: [] }
 
@@ -29,13 +30,13 @@ const buildMatchQuery = (languages, knowledge, city, age, gender) => {
   if (city) query.$and.push({ city })
 
   // Age
-  if (age) query.$and.push({ age })
+  if (fromAge && toAge) query.$and.push({ age: { $gte: fromAge, $lte: toAge } })
 
   // Gender
-  if (gender) query.$and.push({ gender })
+  if (gender !== 'Cualquiera') query.$and.push({ gender })
 
   // Languages
-  if (languages) query.$and.push({ languages })
+  if (language) query.$and.push({ languages: language })
   
   // Knowledge
   if (knowledge) query.$and.push({ knowledge })
