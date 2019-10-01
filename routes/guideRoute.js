@@ -12,7 +12,7 @@ router.put('/:userId', async (req, res) => {
   routeController.handleRequest(req, res, guideController.registerGuide)
 })
 
-router.get('/', async (req, res) => {
+router.post('/', async (req, res) => {
   routeController.handleRequest(req, res, guideController.getGuides)
 })
 
