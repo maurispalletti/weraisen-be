@@ -249,6 +249,23 @@ const exceptionType = {
       httpStatus: 404
     },
   },
+  chat: {
+    cannotCreateChat: {
+      code: 8000,
+      message: 'Chat can not be created',
+      httpStatus: 500
+    },
+    cannotUpdateChat: {
+      code: 8001,
+      message: 'Chat can not be updated',
+      httpStatus: 500
+    },
+    notFound: {
+      code: 8002,
+      message: 'Chat not found',
+      httpStatus: 404
+    }
+  },
   token: {
     tokenNotFound: {
       code: 5100,
