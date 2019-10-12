@@ -2,16 +2,17 @@ const mongoose = require('mongoose')
 const timestamps = require('mongoose-timestamp')
 const Schema = mongoose.Schema
 
-const message = {
-  date: String,
+const MessageSchema = new Schema({
+  date: Date,
   emisor: String,
   receptor: String,
   text: String,
-}
+})
+
 const ChatSchema = new Schema({
   user1: { type: String, required: true },
   user2: { type: String, required: true },
-  messages: { type: [message], default: [] }
+  messages: [MessageSchema]
 })
 
 ChatSchema.plugin(timestamps, {
