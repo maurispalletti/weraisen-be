@@ -21,6 +21,7 @@ app.use(cors())
 app.use(apiPrefix + '/users', require('./routes/userRoute'))
 app.use(apiPrefix + '/tourists', require('./routes/touristRoute'))
 app.use(apiPrefix + '/guides', require('./routes/guideRoute'))
+app.use(apiPrefix + '/languages', require('./routes/languageRoute'))
 
 /* GET home page. */
 app.get('/', (req, res) => {
