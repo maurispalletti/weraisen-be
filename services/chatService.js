@@ -2,8 +2,8 @@ const ChatModel = require('../models/chatModel')
 const exceptions = require('../commons/exceptions')
 const error = require('../commons/error')
 
-const createChat = async ({ user1, user2 }) => {
-  const newChat = new ChatModel({ user1, user2 })
+const createChat = async ({ tourist, guide }) => {
+  const newChat = new ChatModel({ tourist, guide })
   const savedChat = await newChat.save({ new: true })
   if (savedChat) {
     return savedChat
@@ -15,12 +15,17 @@ const addMessage = async (id, messages) => {
   return ChatModel.findByIdAndUpdate(id, { $set: { messages } }, { new: true })
 }
 
-const getChatByUserIds = async ({ user1, user2 }) => {
-  const chat = await ChatModel.findOne({ user1, user2 })
+const getChatByUserIds = async ({ tourist, guide }) => {
+  const chat = await ChatModel.findOne({ user1: tourist, user2: guide })
   if (chat) {
     return chat
+  } else {
+    const chat = await ChatModel.findOne({ user1: guide, user2: tourist })
+    if (chat) {
+      return chat
+    }
+    return null
   }
-  return null
 }
 
 const getChat = async id => {

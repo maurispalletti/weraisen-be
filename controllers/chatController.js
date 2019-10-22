@@ -3,17 +3,17 @@ const validators = require('../commons/validators')
 
 const createChat = async (req, res) => {
   const requiredParams = [
-    'user1',
-    'user2'
+    'tourist',
+    'guide'
   ]
 
   console.log(req.body)
 
   validators.validateRequiredKeys(req.body, requiredParams)
 
-  const { user1, user2 } = req.body
+  const { tourist, guide } = req.body
 
-  const chat = await chatDelegate.createChat({ user1, user2 })
+  const chat = await chatDelegate.createChat({ tourist, guide })
   res.json(chat)
 }
 
@@ -37,8 +37,19 @@ const getChat = async (req, res) => {
   res.json(chat)
 }
 
+const getConversation = async (req, res) => {
+  validators.validateRequiredKeys(req.body, ['guideId', 'touristId'])
+
+  const { guideId, touristId } = req.body;
+
+  // extraer solo el array de mensajes de aca, en base a los id de ambos usuarios
+  const chat = await chatDelegate.getChatByUserIds({ guideId, touristId })
+  res.json(chat)
+}
+
 module.exports = {
   createChat,
   addMessage,
   getChat,
+  getConversation,
 }

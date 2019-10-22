@@ -1,10 +1,11 @@
 const chatService = require('../services/chatService')
 
-const createChat = async ({ user1, user2 }) => {
-	const createdChat = await getChatByUserIds({user1, user2})
+const createChat = async ({ tourist, guide }) => {
+
+	const createdChat = await getChatByUserIds({ tourist, guide })
 
 	if (!createdChat) {
-		return chatService.createChat({ user1, user2 })
+		return chatService.createChat({ tourist, guide })
 	} else {
 		return createdChat;
 	}
@@ -18,12 +19,13 @@ const getChat = async id => {
 	return chatService.getChat(id)
 }
 
-const getChatByUserIds = async ({ user1, user2 }) => {
-	return chatService.getChatByUserIds({ user1, user2 })
+const getChatByUserIds = async ({ tourist, guide }) => {
+	return chatService.getChatByUserIds({ tourist, guide })
 }
 
 module.exports = {
 	createChat,
 	addMessage,
-	getChat
+	getChat,
+	getChatByUserIds,
 }
