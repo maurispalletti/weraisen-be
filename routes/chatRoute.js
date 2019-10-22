@@ -15,4 +15,8 @@ router.get('/:id', async (req, res) => {
   routeController.handleRequest(req, res, chatController.getChat)
 })
 
+router.post('/conversation', async (req, res) => {
+  routeController.handleRequest(req, res, chatController.getConversation)
+})
+
 module.exports = router
