@@ -7,8 +7,6 @@ const createMatch = async (req, res) => {
     'guide',
   ]
 
-  console.log(req.body)
-
   validators.validateRequiredKeys(req.body, requiredParams)
 
   const { tourist, guide } = req.body
@@ -40,8 +38,6 @@ const getMatchesByUser = async (req, res) => {
 
   const { userId } = req.params
   const matches = await matchDelegate.getMatchesByUser(userId)
-
-  console.log(matches)
 
   res.json(matches)
 }

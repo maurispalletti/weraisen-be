@@ -5,7 +5,7 @@ const constants = require('../commons/constants')
 
 const {
   matches: {
-    status: { INICIATED, CANCELATED, CREATED, ENDED, ANULATED },
+    status: { INICIATED, CANCELATED, ACTIVE, ENDED, ANULATED },
   } } = constants;
 
 

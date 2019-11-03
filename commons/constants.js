@@ -13,11 +13,11 @@ module.exports = {
   },
   matches: {
     status: {
-      INICIATED: 'INICIATED',
-      CANCELATED: 'CANCELATED',
-      CREATED: 'CREATED',
-      ENDED: 'ENDED',
-      ANULATED: 'ANULATED',
+      INICIATED: 'Iniciado',
+      CANCELATED: 'Cancelado',
+      ACTIVE: 'Activo',
+      ENDED: 'Finalizado',
+      ANULATED: 'Anulado',
     },
   },
   publicUrls: [
