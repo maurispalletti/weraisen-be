@@ -2,8 +2,8 @@ const MatchModel = require('../models/MatchModel')
 const exceptions = require('../commons/exceptions')
 const error = require('../commons/error')
 
-const createMatch = async ({ tourist, guide }) => {
-  const newMatch = new MatchModel({ tourist, guide, status, chatId })
+const createMatch = async ({ tourist, guide, chatId }) => {
+  const newMatch = new MatchModel({ tourist, guide, chatId })
 
   const savedMatch = await newMatch.save({ new: true })
 

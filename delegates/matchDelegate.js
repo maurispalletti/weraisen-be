@@ -1,11 +1,11 @@
 const matchService = require('../services/matchService')
 const chatDelegate = require('../delegates/chatDelegate')
 
-const createMatch = async ({ tourist, guide, status }) => {
+const createMatch = async ({ tourist, guide }) => {
   try {
     const { id: chatId } = await chatDelegate.createChat({ tourist, guide })
 
-    return matchService.createMatch({ tourist, guide, status, chatId })
+    return matchService.createMatch({ tourist, guide, chatId })
 
   } catch (error) {
     console.error(`Error creating chat or match`)
