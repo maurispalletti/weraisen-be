@@ -5,7 +5,6 @@ const createMatch = async (req, res) => {
   const requiredParams = [
     'tourist',
     'guide',
-    'status',
   ]
 
   console.log(req.body)
@@ -41,6 +40,9 @@ const getMatchesByUser = async (req, res) => {
 
   const { userId } = req.params
   const matches = await matchDelegate.getMatchesByUser(userId)
+
+  console.log(matches)
+
   res.json(matches)
 }
 

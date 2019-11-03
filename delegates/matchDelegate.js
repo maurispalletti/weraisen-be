@@ -3,10 +3,15 @@ const chatDelegate = require('../delegates/chatDelegate')
 
 const createMatch = async ({ tourist, guide }) => {
   try {
+
+    const match = await matchService.getActiveMatchByUserIds({ tourist, guide })
+
+    if (match) {
+      return match
+    } else {
     const { id: chatId } = await chatDelegate.createChat({ tourist, guide })
-
     return matchService.createMatch({ tourist, guide, chatId })
-
+    }
   } catch (error) {
     console.error(`Error creating chat or match`)
   }
