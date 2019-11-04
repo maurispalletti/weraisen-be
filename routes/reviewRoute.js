@@ -7,7 +7,7 @@ router.post('/', async (req, res) => {
   routeController.handleRequest(req, res, matchController.postReview)
 })
 
-router.get('/owner/:userId', async (req, res) => {
+router.get('/user/:userId', async (req, res) => {
   routeController.handleRequest(req, res, matchController.getReviewsByUser)
 })
 
