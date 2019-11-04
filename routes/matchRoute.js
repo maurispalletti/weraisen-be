@@ -20,7 +20,7 @@ router.get('/user/:userId', async (req, res) => {
 })
 
 router.get('/chat/:chatId', async (req, res) => {
-  routeController.handleRequest(req, res, matchController.getMatchByChatId)
+  routeController.handleRequest(req, res, matchController.getMatcByChatId)
 })
 
 router.put('/chat/:chatId', async (req, res) => {
