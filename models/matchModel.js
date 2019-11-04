@@ -15,9 +15,9 @@ const MatchSchema = new Schema({
   chatId: { type: String, required: true },
   status: {
     type: String,
-    enum: [INICIATED, CANCELATED, CREATED, ENDED, ANULATED],
+    enum: [INICIATED, CANCELATED, ACTIVE, ENDED, ANULATED],
     required: true,
-    default: CREATED
+    default: ACTIVE
   },
 })
 

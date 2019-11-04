@@ -19,4 +19,12 @@ router.get('/user/:userId', async (req, res) => {
   routeController.handleRequest(req, res, matchController.getMatchesByUser)
 })
 
+router.get('/chat/:chatId', async (req, res) => {
+  routeController.handleRequest(req, res, matchController.getMatchByChatId)
+})
+
+router.put('/chat/:chatId', async (req, res) => {
+  routeController.handleRequest(req, res, matchController.updateMatch)
+})
+
 module.exports = router
