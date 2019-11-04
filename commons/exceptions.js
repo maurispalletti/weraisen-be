@@ -283,6 +283,18 @@ const exceptionType = {
       httpStatus: 404
     }
   },
+  review: {
+    cannotCreateReview: {
+      code: 10000,
+      message: 'Review can not be created',
+      httpStatus: 500
+    },
+    notFound: {
+      code: 10001,
+      message: 'Review not found',
+      httpStatus: 404
+    }
+  },
   token: {
     tokenNotFound: {
       code: 5100,
