@@ -39,7 +39,7 @@ const buildMatchQuery = (language, knowledge, fromAge, toAge, city, gender) => {
   if (language) query.$and.push({ languages: language })
   
   // Knowledge
-  if (knowledge) query.$and.push({ knowledge })
+  if (knowledge) query.$and.push({ knowledge: { "$in" : knowledge } })
   
   return query
 }
