@@ -11,11 +11,18 @@ module.exports = {
       OTHER: 'Otro',
     },
   },
+  matches: {
+    status: {
+      INICIATED: 'Iniciado',
+      CANCELATED: 'Cancelado',
+      ACTIVE: 'Activo',
+      ENDED: 'Finalizado',
+      ANULATED: 'Anulado',
+    },
+  },
   publicUrls: [
     { url: '/refresh-token' },
     { url: '/login' },
     { url: '/password-recovery' },
-    // example
-    // { url: '/talent-partners', methods: ['POST'] }
   ]
 }

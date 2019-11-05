@@ -266,6 +266,35 @@ const exceptionType = {
       httpStatus: 404
     }
   },
+  match: {
+    cannotCreateMatch: {
+      code: 9000,
+      message: 'Match can not be created',
+      httpStatus: 500
+    },
+    cannotUpdateMatch: {
+      code: 9001,
+      message: 'Match can not be updated',
+      httpStatus: 500
+    },
+    notFound: {
+      code: 9002,
+      message: 'Match not found',
+      httpStatus: 404
+    }
+  },
+  review: {
+    cannotCreateReview: {
+      code: 10000,
+      message: 'Review can not be created',
+      httpStatus: 500
+    },
+    notFound: {
+      code: 10001,
+      message: 'Review not found',
+      httpStatus: 404
+    }
+  },
   token: {
     tokenNotFound: {
       code: 5100,
