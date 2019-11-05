@@ -14,7 +14,14 @@ const registerGuide = async (req, res) => {
   const guide = req.body
   guide['isActiveGuide'] = true
 
+  console.log(`guide`)
+  console.log(guide)
+
   const newGuide = await guideDelegate.registerGuide(req.params.userId, guide)
+
+  console.log(`newGuide`)
+  console.log(newGuide)
+
   res.json(newGuide)
 }
 
