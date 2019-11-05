@@ -20,7 +20,8 @@ const toggleActive = async (userId, isActiveGuide) => {
 
 const getGuides = async (filters) => {
 	const { language, knowledge, city, fromAge, toAge, gender } = filters
-	return guideService.getGuides(language, knowledge, city, fromAge, toAge, gender)
+	const guides = await guideService.getGuides(language, knowledge, city, fromAge, toAge, gender)
+	return guides
 }
 
 const validateGuideExists = (id, guide) => {
