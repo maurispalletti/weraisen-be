@@ -29,9 +29,19 @@ const getMatchesByUser = async userId => {
   return matchService.getMatchesByUser(userId)
 }
 
+const getMatchByChatId = async chatId => {
+  return matchService.getMatchByChatId(chatId)
+}
+
+const updateMatch = async (chatId, status) => {
+  return matchService.updateMatch(chatId, status)
+}
+
 module.exports = {
   createMatch,
   getMatchByUserIds,
   getMatch,
   getMatchesByUser,
+  getMatchByChatId,
+  updateMatch,
 }

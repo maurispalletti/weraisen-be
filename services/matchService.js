@@ -60,10 +60,26 @@ const getMatchesByUser = async userId => {
   return []
 }
 
+const getMatchByChatId = async chatId => {
+  const match = await MatchModel.findOne({ chatId })
+
+  if (match) {
+    return match
+  }
+  throw new error.AppError(exceptions.exceptionType.match.notFound, 'matchService.getMatch')
+}
+
+const updateMatch = async (chatId, status) => {
+  return MatchModel.findOneAndUpdate(chatId, { $set: { status } }, { new: true })
+}
+
+
 module.exports = {
   createMatch,
   getMatchByUserIds,
   getMatch,
   getMatchesByUser,
   getActiveMatchByUserIds,
+  getMatchByChatId,
+  updateMatch,
 }

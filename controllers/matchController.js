@@ -42,9 +42,32 @@ const getMatchesByUser = async (req, res) => {
   res.json(matches)
 }
 
+const getMatchByChatId = async (req, res) => {
+  validators.validateRequiredKeys(req.params, ['chatId'])
+
+  const { chatId } = req.params
+  
+  const match = await matchDelegate.getMatchByChatId(chatId)
+
+  res.json(match)
+}
+
+const updateMatch = async (req, res) => {
+  validators.validateRequiredKeys(req.params, ['chatId'])
+  validators.validateRequiredKeys(req.body, ['status'])
+
+  const { chatId } = req.params
+  const { status } = req.body
+
+  const match = await matchDelegate.updateMatch(chatId, status)
+  res.json(match)
+}
+
 module.exports = {
   createMatch,
   getMatchByUserIds,
   getMatch,
   getMatchesByUser,
+  getMatchByChatId,
+  updateMatch,
 }
