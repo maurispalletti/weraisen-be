@@ -24,6 +24,7 @@ app.use(apiPrefix + '/guides', require('./routes/guideRoute'))
 app.use(apiPrefix + '/chat', require('./routes/chatRoute'))
 app.use(apiPrefix + '/matches', require('./routes/matchRoute'))
 app.use(apiPrefix + '/reviews', require('./routes/reviewRoute'))
+app.use(apiPrefix + '/charts', require('./routes/chartRoute'))
 
 /* GET home page. */
 app.get('/', (req, res) => {

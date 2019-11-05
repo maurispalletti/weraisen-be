@@ -281,7 +281,12 @@ const exceptionType = {
       code: 9002,
       message: 'Match not found',
       httpStatus: 404
-    }
+    },
+    queryFailed: {
+      code: 9003,
+      message: 'Query failed',
+      httpStatus: 500
+    },
   },
   review: {
     cannotCreateReview: {
