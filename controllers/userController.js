@@ -43,8 +43,16 @@ const findUserById = async (req, res) => {
   res.json(user)
 }
 
+const uploadIdentification = async (req, res) => {
+  validators.validateRequiredKeys(req, ['file'])
+
+  const imageUrl = await userDelegate.uploadIdentification(req.file)
+  res.json(imageUrl)
+}
+
 module.exports = {
   login,
   signup,
   findUserById,
+  uploadIdentification,
 }

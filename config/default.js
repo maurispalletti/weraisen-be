@@ -18,16 +18,16 @@ module.exports = {
       useFindAndModify: false,
     }
   },
-//   aws: {
-//     S3: {
-//       accessKeyId: 'AKIAIYCJDSNVINT54HPQ',
-//       secretAccessKey: process.env.S3_SECRET_KEY_ENV,
-//       region: 'us-west-1',
-//       apiVersion: '2006-03-01',
-//       buckets: {
-//         rchilli: 'jn-dev-cvs'
-//       }
-//     },
-//   },
+  aws: {
+    S3: {
+      accessKeyId: 'AKIAJS3PPDF7HG7ZJPTA',
+      secretAccessKey: process.env.S3_SECRET_KEY_ENV,
+      region: 'us-west-2',
+      apiVersion: '2006-03-01',
+      buckets: {
+        userImagesWeraisen: 'user-images-weraisen'
+      }
+    },
+  },
   domain: 'http://localhost:3001',
 }
