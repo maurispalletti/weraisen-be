@@ -20,6 +20,17 @@ module.exports = {
       ANULATED: 'Anulado',
     },
   },
+  notifications: {
+    status: {
+      ACTIVE: 'Activa',
+      CLOSED: 'Cerrada',
+    },
+    type: {
+      REVIEW: 'Review',
+      REQUEST: 'Solicitud',
+      MATCH: 'Encuentro',
+    },
+  },
   publicUrls: [
     { url: '/refresh-token' },
     { url: '/login' },

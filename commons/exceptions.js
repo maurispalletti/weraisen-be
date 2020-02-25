@@ -287,6 +287,13 @@ const exceptionType = {
       message: 'Query failed',
       httpStatus: 500
     },
+  },  
+  notification: {
+    cannotCreateNotification: {
+      code: 9020,
+      message: 'Notification can not be created',
+      httpStatus: 500
+    },
   },
   review: {
     cannotCreateReview: {
