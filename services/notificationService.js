@@ -23,7 +23,6 @@ const createNotification = async (notificationData) => {
   throw new error.AppError(exceptions.exceptionType.notification.cannotCreateNotification, 'notificationService.createNotification')
 }
 
-
 module.exports = {
   getNotificationsByUserId,
   createNotification,

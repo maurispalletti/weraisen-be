@@ -3,10 +3,11 @@ const timestamps = require('mongoose-timestamp')
 const Schema = mongoose.Schema
 const constants = require('../commons/constants')
 
-const { notifications: {
-  status: { ACTIVE, CLOSED },
-  type: { REQUEST, MATCH, REVIEW },
-} } = constants;
+const {
+  notifications: {
+    status: { ACTIVE, CLOSED },
+    type: { REQUEST, MATCH, REVIEW },
+  } } = constants;
 
 const NotificationSchema = new Schema({
   userId: { type: String, required: true },

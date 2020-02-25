@@ -295,6 +295,13 @@ const exceptionType = {
       httpStatus: 500
     },
   },
+  request: {
+    cannotCreateRequest: {
+      code: 9030,
+      message: 'Request can not be created',
+      httpStatus: 500
+    },
+  },
   review: {
     cannotCreateReview: {
       code: 10000,

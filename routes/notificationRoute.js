@@ -7,4 +7,8 @@ router.get('/', async (req, res) => {
   routeController.handleRequest(req, res, notificationController.getNotificationsByUserId)
 })
 
+router.post('/', async (req, res) => {
+  routeController.handleRequest(req, res, notificationController.createNotification)
+})
+
 module.exports = router

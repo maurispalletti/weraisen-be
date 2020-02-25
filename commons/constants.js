@@ -14,7 +14,7 @@ module.exports = {
   matches: {
     status: {
       INICIATED: 'Iniciado',
-      CANCELATED: 'Cancelado',
+      CANCELED: 'Cancelado',
       ACTIVE: 'Activo',
       ENDED: 'Finalizado',
       ANULATED: 'Anulado',
@@ -29,6 +29,26 @@ module.exports = {
       REVIEW: 'Review',
       REQUEST: 'Solicitud',
       MATCH: 'Encuentro',
+    },
+    messages: {
+      requests: {
+        CREATED: 'te envió una solicitud de encuentro.',
+        CONFIRMED: 'aceptó tu solicitud de encuentro.',
+        CANCELED: 'rechazoó tu solicitud de encuentro.',
+      },      
+      matches: {
+        CANCELED: 'canceló el encuentro.',
+      }, 
+      review: {
+        FINISHED: 'Tu encuentro finalizó. Dejale una review a tu acompañante',
+      },
+    },
+  },  
+  requests: {
+    status: {
+      CREATED: 'Creada',
+      CONFIRMED: 'Confirmada',
+      CANCELED: 'Cancelada',
     },
   },
   publicUrls: [
