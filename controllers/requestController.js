@@ -13,7 +13,7 @@ const getRequestsByUserId = async (req, res) => {
 const createRequest = async (req, res) => {
   const requiredParams = [
     'userId',
-    'requestedId',
+    'userRequestedId',
     'status',
   ]
 
@@ -26,13 +26,15 @@ const createRequest = async (req, res) => {
 }
 
 const updateRequest = async (req, res) => {
+
   const requiredParams = [
     'requestId',
     'status',
   ]
-
+  
   console.log(req.body)
-
+  
+  // cambiar -- aca sacar el requestId del path no del body
   const { requestId, status } = req.body
 
   validators.validateRequiredKeys(req.body, requiredParams)

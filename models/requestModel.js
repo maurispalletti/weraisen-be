@@ -10,7 +10,7 @@ const {
 
 const RequestSchema = new Schema({
   userId: { type: String, required: true },
-  requestedId: { type: String, required: true },
+  userRequestedId: { type: String, required: true },
   status: {
     type: String,
     enum: [CREATED, CONFIRMED, CANCELED],
