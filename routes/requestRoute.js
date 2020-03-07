@@ -3,7 +3,7 @@ const requestController = require('../controllers/requestController')
 const routeController = require('../commons/routeController')
 const router = express.Router()
 
-router.get('/', async (req, res) => {
+router.get('/:userId', async (req, res) => {
   routeController.handleRequest(req, res, requestController.getRequestsByUserId)
 })
 

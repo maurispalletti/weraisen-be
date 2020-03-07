@@ -6,8 +6,7 @@ const constants = require('../commons/constants')
 const { requests: { status: { CREATED, CONFIRMED, CANCELED } } } = constants;
 
 const getRequestsByUserId = async (userId) => {
-  const requests = await RequestModel.find(userId)
-
+  const requests = await RequestModel.find({userId})
   if (requests && requests.length) {
     return requests
   }
@@ -24,7 +23,14 @@ const createRequest = async (requestData) => {
 }
 
 const updateRequest = async (requestId, status) => {
-  return RequestModel.findByIdAndUpdate(requestId, { $set: status }, { new: true })
+  try {
+    const updatedRequest = await RequestModel.findByIdAndUpdate(requestId, { $set: { status } }, { new: true })
+    return updatedRequest
+  } catch (error) {
+    console.log(`!@!!!!!!!!@!@#!#!@#!@#@242342374234234728342123#`)
+    console.log(error)
+  }
+
 }
 
 module.exports = {

@@ -300,6 +300,11 @@ const exceptionType = {
       code: 9030,
       message: 'Request can not be created',
       httpStatus: 500
+    },    
+    cannotUpdateRequest: {
+      code: 9031,
+      message: 'Request can not be updated',
+      httpStatus: 500
     },
   },
   review: {

@@ -8,10 +8,13 @@ const { notifications: { status: { ACTIVE } } } = constants;
 const getNotificationsByUserId = async (userId) => {
   const notifications = await NotificationModel.find({ userId, status: ACTIVE })
 
-  if (notifications && notifications.length) {
-    return notifications
-  }
-  return null
+  console.log(`1asdaskhfhfewlhflsdkfsdklfdsjfdjljklsd`)
+  console.log(notifications)
+
+if (notifications && notifications.length) {
+  return notifications
+}
+return null
 }
 
 const createNotification = async (notificationData) => {

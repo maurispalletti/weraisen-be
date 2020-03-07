@@ -3,7 +3,7 @@ const notificationController = require('../controllers/notificationController')
 const routeController = require('../commons/routeController')
 const router = express.Router()
 
-router.get('/', async (req, res) => {
+router.get('/:userId', async (req, res) => {
   routeController.handleRequest(req, res, notificationController.getNotificationsByUserId)
 })
 

@@ -4,7 +4,7 @@ const validators = require('../commons/validators')
 const getNotificationsByUserId = async (req, res) => {
   validators.validateRequiredKeys(req.params, ['userId'])
 
-  const { userId } = req.body
+  const { userId } = req.params
 
   const notifications = await notificationDelegate.getNotificationsByUserId(userId)
   res.json(notifications)
