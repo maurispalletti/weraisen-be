@@ -7,8 +7,8 @@ const constants = require('../commons/constants')
 
 const {
   notifications: {
-    status: { ACTIVE, CLOSED },
-    type: { REQUEST, MATCH, REVIEW },
+    status: { ACTIVE },
+    type: { REQUEST },
   },
   requests: {
     status: { CREATED, CONFIRMED, CANCELED },
