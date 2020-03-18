@@ -8,6 +8,9 @@ const {
     status: { ACTIVE },
     type: { MATCH },
   },
+  matches: {
+    status: { CANCELED },
+  },
 } = constants
 
 const createMatch = async ({ tourist, guide }) => {
@@ -29,6 +32,7 @@ const createMatch = async ({ tourist, guide }) => {
         const { id: matchId, tourist: touristId, guide: guideId } = newMatch
 
         const { firstName: guideName, lastName: guideLastName } = await userService.findUserById(guideId)
+        const { firstName: touristName, lastName: touristLastName } = await userService.findUserById(touristId)
 
         // Create notification for tourist
         const touristNotificationContent = {
@@ -45,7 +49,7 @@ const createMatch = async ({ tourist, guide }) => {
           userId: guideId,
           status: ACTIVE,
           type: MATCH,
-          message: `Aceptaste la solicitud del turista ${guideName} ${guideLastName}. Ponete en contacto para organizar la salida.`,
+          message: `Aceptaste la solicitud del turista ${touristName} ${touristLastName}. Ponete en contacto para organizar la salida.`,
           contentId: matchId,
         }
         notificationService.createNotification(guideNotificationContent)
@@ -79,7 +83,36 @@ const getMatchByChatId = async chatId => {
 }
 
 const updateMatch = async (chatId, status) => {
-  return matchService.updateMatch(chatId, status)
+  const updatedMatch = await matchService.updateMatch(chatId, status)
+
+  if (updatedMatch && updatedMatch.status === CANCELED) {
+
+    const { id: matchId, tourist: touristId, guide: guideId } = updatedMatch
+
+    const { firstName: guideName, lastName: guideLastName } = await userService.findUserById(guideId)
+    const { firstName: touristName, lastName: touristLastName } = await userService.findUserById(touristId)
+
+    // Create notification cancelation for tourist
+    const touristNotificationContent = {
+      userId: touristId,
+      status: ACTIVE,
+      type: MATCH,
+      message: `El encuentro con ${guideName} ${guideLastName} fue cancelado.`,
+      contentId: matchId,
+    }
+    notificationService.createNotification(touristNotificationContent)
+
+    // Create notification cancelation for guide
+    const guideNotificationContent = {
+      userId: guideId,
+      status: ACTIVE,
+      type: MATCH,
+      message: `El encuentro con ${touristName} ${touristLastName} fue cancelado.`,
+      contentId: matchId,
+    }
+    notificationService.createNotification(guideNotificationContent)
+  }
+  return updatedMatch
 }
 
 module.exports = {

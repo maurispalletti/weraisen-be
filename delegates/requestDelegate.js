@@ -30,11 +30,11 @@ const createRequest = async (requestData) => {
       userId: userRequestedId,
       status: ACTIVE,
       type: REQUEST,
-      message: `El turista ${firstName} ${lastName} te envió una solicitud de encuentro`,
+      message: `El turista ${firstName} ${lastName} te envió una solicitud de encuentro.`,
       contentId: id,
     }
 
-    const newNotification = notificationService.createNotification(notificationContent)
+    notificationService.createNotification(notificationContent)
 
     return newRequest
   } else {
@@ -51,10 +51,11 @@ const updateRequest = async (requestId, status) => {
 
       if (status === CONFIRMED) {
         const { firstName, lastName } = await userService.findUserById(updatedRequest.userRequestedId)
-        message = `El guía ${firstName} ${lastName} aceptó tu solicitud de encuentro`
+        message = `El guía ${firstName} ${lastName} aceptó tu solicitud de encuentro.`
       }
       if (status === CANCELED) {
-        message = `El encuentro fue cancelado`
+        const { firstName, lastName } = await userService.findUserById(updatedRequest.userRequestedId)
+        message = `El encuentro con ${firstName} ${lastName} fue cancelado.`
       }
 
       const notificationContent = {
@@ -64,11 +65,10 @@ const updateRequest = async (requestId, status) => {
         message,
         contentId: updatedRequest.id,
       }
+      
+      notificationService.createNotification(notificationContent)
 
-      const newNotification = await notificationService.createNotification(notificationContent)
-
-      return newNotification
-      // return updatedRequest
+      return updatedRequest
     } else {
       console.log(`hubo un error actualizando el estado de la solicitud: ${error}`)
       throw new error.AppError(exceptions.exceptionType.request.cannotUpdateRequest, 'requestDelegate.updateRequest')
