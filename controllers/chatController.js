@@ -7,8 +7,6 @@ const createChat = async (req, res) => {
     'guide'
   ]
 
-  console.log(req.body)
-
   validators.validateRequiredKeys(req.body, requiredParams)
 
   const { tourist, guide } = req.body

@@ -5,7 +5,7 @@ const constants = require('../commons/constants')
 
 const {
   matches: {
-    status: { INICIATED, CANCELED, ACTIVE, ENDED, ANULATED },
+    status: { CREATED, CANCELED, ENDED },
   } } = constants;
 
 
@@ -15,9 +15,9 @@ const MatchSchema = new Schema({
   chatId: { type: String, required: true },
   status: {
     type: String,
-    enum: [INICIATED, CANCELED, ACTIVE, ENDED, ANULATED],
+    enum: [CREATED, CANCELED, ENDED],
     required: true,
-    default: ACTIVE
+    default: CREATED
   },
 })
 
