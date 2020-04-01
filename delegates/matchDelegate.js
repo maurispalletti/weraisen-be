@@ -70,6 +70,55 @@ const getMatchByUserIds = async ({ tourist, guide }) => {
   return matchService.getMatchByUserIds({ tourist, guide })
 }
 
+
+
+
+
+
+
+const getEndedMatchesByUserToReview = async ({ tourist, guide }) => {
+
+  if (updatedMatch && updatedMatch.status === CANCELED) {
+
+    const { id: matchId, tourist: touristId, guide: guideId } = updatedMatch
+
+    const { firstName: guideName, lastName: guideLastName } = await userService.findUserById(guideId)
+    const { firstName: touristName, lastName: touristLastName } = await userService.findUserById(touristId)
+
+    // Create notification cancelation for tourist
+    const touristNotificationContent = {
+      userId: touristId,
+      status: ACTIVE,
+      type: MATCH,
+      message: `El encuentro con ${guideName} ${guideLastName} fue cancelado.`,
+      contentId: matchId,
+    }
+    notificationService.createNotification(touristNotificationContent)
+
+    // Create notification cancelation for guide
+    const guideNotificationContent = {
+      userId: guideId,
+      status: ACTIVE,
+      type: MATCH,
+      message: `El encuentro con ${touristName} ${touristLastName} fue cancelado.`,
+      contentId: matchId,
+    }
+    notificationService.createNotification(guideNotificationContent)
+  }
+
+
+
+
+
+
+
+
+
+
+
+  return matchService.getMatchByUserIds({ tourist, guide })
+}
+
 const getMatch = async id => {
   return matchService.getMatch(id)
 }
@@ -119,6 +168,7 @@ module.exports = {
   createMatch,
   getMatchByUserIds,
   getMatch,
+  getEndedMatchesByUserToReview,
   getMatchesByUser,
   getMatchByChatId,
   updateMatch,

@@ -15,15 +15,19 @@ router.get('/:id', async (req, res) => {
   routeController.handleRequest(req, res, matchController.getMatch)
 })
 
-router.get('/user/:userId', async (req, res) => {
+router.get('/users/:userId', async (req, res) => {
   routeController.handleRequest(req, res, matchController.getMatchesByUser)
 })
 
-router.get('/chat/:chatId', async (req, res) => {
+router.get('/reviews/:userId', async (req, res) => {
+  routeController.handleRequest(req, res, matchController.getEndedMatchesByUserToReview)
+})
+
+router.get('/chats/:chatId', async (req, res) => {
   routeController.handleRequest(req, res, matchController.getMatchByChatId)
 })
 
-router.put('/chat/:chatId', async (req, res) => {
+router.put('/chats/:chatId', async (req, res) => {
   routeController.handleRequest(req, res, matchController.updateMatch)
 })
 

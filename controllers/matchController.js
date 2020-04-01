@@ -42,6 +42,15 @@ const getMatchesByUser = async (req, res) => {
   res.json(matches)
 }
 
+const getEndedMatchesByUserToReview = async (req, res) => {
+  validators.validateRequiredKeys(req.params, ['userId'])
+
+  const { userId } = req.params
+  const matches = await matchDelegate.getEndedMatchesByUserToReview(userId)
+
+  res.json(matches)
+}
+
 const getMatchByChatId = async (req, res) => {
   validators.validateRequiredKeys(req.params, ['chatId'])
 
@@ -70,4 +79,5 @@ module.exports = {
   getMatchesByUser,
   getMatchByChatId,
   updateMatch,
+  getEndedMatchesByUserToReview,
 }
