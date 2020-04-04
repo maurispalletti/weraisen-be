@@ -4,29 +4,27 @@ const Schema = mongoose.Schema
 const constants = require('../commons/constants')
 
 const {
-  matches: {
-    status: { CREATED, CANCELED, ENDED },
+  requests: {
+    status: { CREATED, CONFIRMED, CANCELED },
   } } = constants;
 
-
-const MatchSchema = new Schema({
-  guide: { type: String, required: true },
-  tourist: { type: String, required: true },
-  chatId: { type: String, required: true },
+const RequestSchema = new Schema({
+  userId: { type: String, required: true },
+  userRequestedId: { type: String, required: true },
   status: {
     type: String,
-    enum: [CREATED, CANCELED, ENDED],
+    enum: [CREATED, CONFIRMED, CANCELED],
     required: true,
     default: CREATED
   },
 })
 
-MatchSchema.plugin(timestamps, {
+RequestSchema.plugin(timestamps, {
   createdAt: 'createdAt',
   updatedAt: 'modifiedAt'
 })
 
-MatchSchema.options.toJSON = {
+RequestSchema.options.toJSON = {
   transform: function (doc, ret) {
     ret.id = ret._id
     delete ret._id
@@ -35,4 +33,4 @@ MatchSchema.options.toJSON = {
   }
 }
 
-module.exports = mongoose.model('matches', MatchSchema)
+module.exports = mongoose.model('requests', RequestSchema)

@@ -3,11 +3,7 @@ const exceptions = require('../commons/exceptions')
 const error = require('../commons/error')
 const constants = require('../commons/constants')
 
-const {
-  matches: {
-    status: { INICIATED, CREATED },
-  } } = constants;
-
+const { matches: { status: { CREATED } } } = constants;
 
 const createMatch = async ({ tourist, guide, chatId }) => {
   const newMatch = new MatchModel({ tourist, guide, chatId })
@@ -31,7 +27,7 @@ const getMatchByUserIds = async ({ tourist, guide }) => {
 }
 
 const getActiveMatchByUserIds = async ({ tourist, guide }) => {
-  const query = { tourist, guide, $or: [{ status: INICIATED }, { status: CREATED }] }
+  const query = { tourist, guide, status: CREATED }
 
   const match = await MatchModel.findOne(query)
 
@@ -39,6 +35,17 @@ const getActiveMatchByUserIds = async ({ tourist, guide }) => {
     return match
   }
   return null
+}
+
+const getActiveMatchesByUser = async userId => {
+  const query = { $or: [{ tourist: userId }, { guide: userId }], status: CREATED }
+
+  const matches = await MatchModel.find(query)
+
+  if (matches) {
+    return matches
+  }
+  return []
 }
 
 const getMatch = async id => {
@@ -73,6 +80,9 @@ const updateMatch = async (chatId, status) => {
   return MatchModel.findOneAndUpdate(chatId, { $set: { status } }, { new: true })
 }
 
+const updateMatchById = async (id, status) => {
+  return MatchModel.findByIdAndUpdate(id, { $set: { status } }, { new: true })
+}
 
 const getQuantityPerMonth = async () => {
   let results = [];
@@ -159,4 +169,6 @@ module.exports = {
   getMatchByChatId,
   updateMatch,
   getQuantityPerMonth,
+  getActiveMatchesByUser,
+  updateMatchById,
 }
