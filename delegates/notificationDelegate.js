@@ -1,13 +1,12 @@
 const notificationService = require('../services/notificationService')
+const matchDelegate = require('../delegates/matchDelegate')
 
 const getNotificationsByUserId = async (userId) => {
-  return notificationService.getNotificationsByUserId(userId)
+  await matchDelegate.getEndedMatchesByUserToReview(userId);
+  return notificationService.getNotificationsByUserId(userId);
 }
 
 const createNotification = async (notificationData) => {
-
-  // add notification content here!!!
-
   return notificationService.createNotification(notificationData)
 }
 

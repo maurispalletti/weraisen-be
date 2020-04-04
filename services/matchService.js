@@ -37,6 +37,17 @@ const getActiveMatchByUserIds = async ({ tourist, guide }) => {
   return null
 }
 
+const getActiveMatchesByUser = async userId => {
+  const query = { $or: [{ tourist: userId }, { guide: userId }], status: CREATED }
+
+  const matches = await MatchModel.find(query)
+
+  if (matches) {
+    return matches
+  }
+  return []
+}
+
 const getMatch = async id => {
   const match = MatchModel.findById(id)
   if (match) {
@@ -69,6 +80,9 @@ const updateMatch = async (chatId, status) => {
   return MatchModel.findOneAndUpdate(chatId, { $set: { status } }, { new: true })
 }
 
+const updateMatchById = async (id, status) => {
+  return MatchModel.findByIdAndUpdate(id, { $set: { status } }, { new: true })
+}
 
 const getQuantityPerMonth = async () => {
   let results = [];
@@ -155,4 +169,6 @@ module.exports = {
   getMatchByChatId,
   updateMatch,
   getQuantityPerMonth,
+  getActiveMatchesByUser,
+  updateMatchById,
 }

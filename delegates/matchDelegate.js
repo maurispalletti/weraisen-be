@@ -9,7 +9,7 @@ const {
     type: { MATCH },
   },
   matches: {
-    status: { CANCELED },
+    status: { CANCELED, ENDED },
   },
 } = constants
 
@@ -76,47 +76,53 @@ const getMatchByUserIds = async ({ tourist, guide }) => {
 
 
 
-const getEndedMatchesByUserToReview = async ({ tourist, guide }) => {
 
-  if (updatedMatch && updatedMatch.status === CANCELED) {
 
-    const { id: matchId, tourist: touristId, guide: guideId } = updatedMatch
+const getEndedMatchesByUserToReview = async (userId) => {
 
-    const { firstName: guideName, lastName: guideLastName } = await userService.findUserById(guideId)
-    const { firstName: touristName, lastName: touristLastName } = await userService.findUserById(touristId)
+  const matches = await matchService.getActiveMatchesByUser(userId)
 
-    // Create notification cancelation for tourist
-    const touristNotificationContent = {
-      userId: touristId,
-      status: ACTIVE,
-      type: MATCH,
-      message: `El encuentro con ${guideName} ${guideLastName} fue cancelado.`,
-      contentId: matchId,
+  if (matches.length > 0) {
+    const today = new Date();
+    for (let index = 0; index < matches.length; index++) {
+      const match = match[index];
+
+      if (today > match.updatedAt) {
+        try {
+          // update state of match and send notification here
+          const updatedMatch = await matchService.updateMatchById(match.id, ENDED)
+
+
+          const { id: matchId, tourist: touristId, guide: guideId } = updatedMatch
+
+          const { firstName: guideName, lastName: guideLastName } = await userService.findUserById(guideId)
+          const { firstName: touristName, lastName: touristLastName } = await userService.findUserById(touristId)
+
+          // Create notification review for tourist
+          const touristNotificationContent = {
+            userId: touristId,
+            status: ACTIVE,
+            type: MATCH,
+            message: `El encuentro con ${guideName} ${guideLastName} finalizó. Por favor escribi una review.`,
+            contentId: matchId,
+          }
+          notificationService.createNotification(touristNotificationContent)
+
+          // Create notification cancelation for guide
+          const guideNotificationContent = {
+            userId: guideId,
+            status: ACTIVE,
+            type: MATCH,
+            message: `El encuentro con ${touristName} ${touristLastName} finalizó. Por favor escribi una review.`,
+            contentId: matchId,
+          }
+          notificationService.createNotification(guideNotificationContent)
+        } catch (error) {
+          throw error;
+        }
+      }
     }
-    notificationService.createNotification(touristNotificationContent)
-
-    // Create notification cancelation for guide
-    const guideNotificationContent = {
-      userId: guideId,
-      status: ACTIVE,
-      type: MATCH,
-      message: `El encuentro con ${touristName} ${touristLastName} fue cancelado.`,
-      contentId: matchId,
-    }
-    notificationService.createNotification(guideNotificationContent)
   }
-
-
-
-
-
-
-
-
-
-
-
-  return matchService.getMatchByUserIds({ tourist, guide })
 }
 
 const getMatch = async id => {
