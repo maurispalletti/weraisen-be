@@ -28,6 +28,15 @@ const findUserById = async id => {
   throw new error.AppError(exceptions.exceptionType.user.userNotFound, 'userService.findUserById')
 }
 
+
+const updateUserStatus = async (id, status) => {
+  return UserModel.findByIdAndUpdate(id, { $set: { status } }, { new: true })
+}
+
+const findUsersByStatus = async (status) => {
+  return UserModel.find({ status })
+}
+
 // const findUserByToken = async token => {
 //   logger.info(`findUserByToken - token[${token}]`)
 //   return UserModel.findOne({ recoveryToken: token })
@@ -37,4 +46,6 @@ module.exports = {
   createUser,
   login,
   findUserById,
+  findUsersByStatus,
+  updateUserStatus,
 }
