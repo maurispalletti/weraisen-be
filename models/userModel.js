@@ -7,7 +7,7 @@ const constants = require('../commons/constants')
 const {
   users: {
     gender: { MALE, FEMALE, OTHER },
-    status: { PENDING, ACTIVE, DELETED },
+    status: { PENDING, ACTIVE, DELETED, BLOCKED },
   } } = constants;
 
 const UserSchema = new Schema({
@@ -26,7 +26,7 @@ const UserSchema = new Schema({
   },
   status: {
     type: String,
-    enum: [PENDING, ACTIVE, DELETED],
+    enum: [PENDING, ACTIVE, DELETED, BLOCKED],
     required: true,
     default: ACTIVE
   },

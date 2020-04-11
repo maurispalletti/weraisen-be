@@ -4,6 +4,7 @@ module.exports = {
       PENDING: 'Pendiente',
       ACTIVE: 'Activo',
       REJECTED: 'Rechazado',
+      BLOCKED: 'Bloqueado',
       DELETED: 'Borrado',
     },
     gender: {
@@ -21,6 +22,21 @@ module.exports = {
       ANULATED: 'Anulado',
     },
   },
+  compliants: {
+    status: {
+      CREATED: 'Creado',
+      BLOCKED: 'Bloqueado',
+      RESOLVED: 'Resuelto',
+    },
+    reason: {
+      SEXUAL: 'Sexual',
+      VIOLENCE: 'Violencia',
+      DISCRIMINATION: 'Discriminacion',
+      PUNTUALITY: 'Puntualidad',
+      FAKE: 'Suplantacion',
+      THREAT: 'Amenaza',
+    },
+  },
   notifications: {
     status: {
       ACTIVE: 'Activa',
@@ -30,6 +46,7 @@ module.exports = {
       REVIEW: 'Review',
       REQUEST: 'Solicitud',
       MATCH: 'Encuentro',
+      COMPLIANT: 'Denuncia',
     },
     messages: {
       requests: {

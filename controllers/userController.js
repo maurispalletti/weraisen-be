@@ -50,9 +50,40 @@ const uploadIdentification = async (req, res) => {
   res.json(imageUrl)
 }
 
+const uploadIdImage = async (req, res) => {
+
+  // check validation here - what to use for checking images
+  // validators.validateRequiredKeys(req.body, ['email', 'password'])
+
+  const { email, password } = req.body
+
+  const user = await userDelegate.login(email, password)
+  res.json(user)
+}
+
+const createCompliant = async (req, res) => {
+  const requiredParams = [
+    'userId',
+    'accussedId',
+    'description',
+    'status',
+    'reason',
+  ]
+
+  validators.validateRequiredKeys(req.body, requiredParams)
+
+  const newCompliant = req.body
+
+  const compliant = await userDelegate.createCompliant(newCompliant)
+  res.json(compliant)
+}
+
+
 module.exports = {
   login,
   signup,
   findUserById,
   uploadIdentification,
+  uploadIdImage,
+  createCompliant,
 }

@@ -319,6 +319,18 @@ const exceptionType = {
       httpStatus: 404
     }
   },
+  compliant: {
+    cannotCreateCompliant: {
+      code: 10000,
+      message: 'Compliant can not be created',
+      httpStatus: 500
+    },
+    cannotUpdateCompliant: {
+      code: 10001,
+      message: 'Cannot update compliant',
+      httpStatus: 500
+    }
+  },
   token: {
     tokenNotFound: {
       code: 5100,

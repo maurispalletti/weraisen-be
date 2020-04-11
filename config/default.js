@@ -29,5 +29,27 @@ module.exports = {
       }
     },
   },
+  //     accessKeyId: 'AKIAIVVCSRCETXJA22BQ',
+  //     secretAccessKey: process.env.S3_SECRET_KEY_ENV,
+  //     // secretAccessKey: 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,    ///// sacar de aca!!!!!!!
+  //     region: 'uswest-1',
+  //     apiVersion: '2006-03-01',
+  //     buckets: {
+  //       identifications: 'identifications'
+  //     }
+  //   },
+  // },
+//   aws: {
+//     S3: {
+//       accessKeyId: 'AKIAIVVCSRCETXJA22BQ',
+//       secretAccessKey: process.env.S3_SECRET_KEY_ENV,
+//       secretAccessKey: 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,    ///// sacar de aca!!!!!!!
+//       region: 'uswest-1',
+//       apiVersion: '2006-03-01',
+//       buckets: {
+//         rchilli: 'jn-dev-cvs'
+//       }
+//     },
+//   },
   domain: 'http://localhost:3001',
 }
