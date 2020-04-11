@@ -8,6 +8,14 @@ router.get('/pending', async (req, res) => {
   routeController.handleRequest(req, res, adminController.getPendingUsersList)
 })
 
+router.get('/compliant', async (req, res) => {
+  routeController.handleRequest(req, res, adminController.getCompliantsList)
+})
+
+router.put('/compliant/:userId', async (req, res) => {
+  routeController.handleRequest(req, res, adminController.updateCompliantStatus)
+})
+
 router.put('/:userId', async (req, res) => {
   routeController.handleRequest(req, res, adminController.updateUserStatus)
 })

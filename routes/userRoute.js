@@ -22,4 +22,12 @@ router.get('/:id', async (req, res) => {
   routeController.handleRequest(req, res, userController.findUserById)
 })
 
+router.post('/uploadIdImage', async (req, res) => {
+  routeController.handleRequest(req, res, userController.uploadIdImage)
+})
+
+router.post('/compliant', async (req, res) => {
+  routeController.handleRequest(req, res, userController.createCompliant)
+})
+
 module.exports = router
