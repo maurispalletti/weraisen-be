@@ -23,7 +23,7 @@ const signup = newUser => {
 	return userService.createUser(newUser)
 }
 
-const createCompliant = newCompliant => {
+const createCompliant = async newCompliant => {
 	const compliant = await compliantService.createCompliant(newCompliant)
 
 	if (compliant) {
