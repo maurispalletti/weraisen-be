@@ -1,6 +1,7 @@
 const UserModel = require('../models/userModel')
 const exceptions = require('../commons/exceptions')
 const error = require('../commons/error')
+const constants = require('../commons/constants')
 
 const createUser = async user => {
   const newUser = new UserModel(user)
@@ -12,7 +13,7 @@ const createUser = async user => {
 }
 
 const login = async (email, password) => {
-  const user = await UserModel.findOne({ email, password })
+  const user = await UserModel.findOne({ email, password, status: constants.users.status.ACTIVE })
   if (user) {
     return user
   }
