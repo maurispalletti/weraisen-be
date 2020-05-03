@@ -26,8 +26,8 @@ const toggleActive = async (req, res) => {
 }
 
 const getGuides = async (req, res) => {
-  const filters = req.body
-  const guides = await guideDelegate.getGuides(filters)
+ const filters = req.body
+   const guides = await guideDelegate.getGuides(filters)
   res.json(guides)
 }
 
