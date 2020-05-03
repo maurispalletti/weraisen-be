@@ -19,7 +19,10 @@ const toggleActive = async (userId, isActiveGuide) => {
 }
 
 const getGuides = async (filters) => {
-	const { language, knowledge, city, fromAge, toAge, gender } = filters
+	let { language, knowledge, city, fromAge, toAge, gender } = filters
+
+	city = city === 'Córdoba' ? 'Cordoba' : city;
+
 	const guides = await guideService.getGuides(language, knowledge, city, fromAge, toAge, gender)
 	return guides
 }

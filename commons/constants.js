@@ -1,11 +1,11 @@
 module.exports = {
   users: {
     status: {
-      PENDING: 'Pendiente',
-      ACTIVE: 'Activo',
-      REJECTED: 'Rechazado',
-      BLOCKED: 'Bloqueado',
-      DELETED: 'Borrado',
+      PENDING: 'PENDING',
+      ACTIVE: 'ACTIVE',
+      REJECTED: 'REJECTED',
+      BLOCKED: 'BLOCKED',
+      DELETED: 'DELETED',
     },
     gender: {
       FEMALE: 'Femenino',
