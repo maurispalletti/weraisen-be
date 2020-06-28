@@ -10,8 +10,7 @@ const signup = async (req, res) => {
     'firstName',
     'lastName',
     'identification',
-    'age',
-    'city',
+    'birthDate',
     'gender',
   ]
 

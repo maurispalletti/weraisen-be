@@ -30,7 +30,7 @@ const buildMatchQuery = (language, knowledge, fromAge, toAge, city, gender) => {
   if (city) query.$and.push({ city })
 
   // Age
-  if (fromAge && toAge) query.$and.push({ age: { $gte: fromAge, $lte: toAge } })
+  // if (fromAge && toAge) query.$and.push({ age: { $gte: fromAge, $lte: toAge } })
 
   // Gender
   if (gender) query.$and.push({ gender })
