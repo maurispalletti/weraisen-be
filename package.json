@@ -9,6 +9,7 @@
     "aws-sdk": "^2.621.0",
     "config": "^3.2.2",
     "cookie-parser": "~1.4.4",
+    "core-js": "^3.6.5",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "dotenv": "^8.1.0",

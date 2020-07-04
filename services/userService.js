@@ -13,7 +13,8 @@ const createUser = async user => {
 }
 
 const login = async (email, password) => {
-  const user = await UserModel.findOne({ email, password, status: constants.users.status.ACTIVE })
+  // const user = await UserModel.findOne({ email, password, status: constants.users.status.ACTIVE })
+  const user = await UserModel.findOne({ email, password})
   if (user) {
     return user
   }
