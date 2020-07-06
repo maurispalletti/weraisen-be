@@ -29,8 +29,8 @@ const createRequest = async (requestData) => {
     const notificationContent = {
       userId: userRequestedId,
       status: ACTIVE,
-      type: REQUEST,
-      message: `El turista ${firstName} ${lastName} te envió una solicitud de encuentro.`,
+      type: ELECTED,
+      message: `¡Felicitaciones! ${firstName} ${lastName} te envió una solicitud de encuentro.`,
       contentId: id,
     }
 
@@ -51,20 +51,27 @@ const updateRequest = async (requestId, status) => {
 
       if (status === CONFIRMED) {
         const { firstName, lastName } = await userService.findUserById(updatedRequest.userRequestedId)
-        message = `El guía ${firstName} ${lastName} aceptó tu solicitud de encuentro.`
+        const notificationContent = {
+          userId: updatedRequest.userId,
+          status: ACTIVE,
+          type: APROVED,
+          message: `${firstName} ${lastName} aceptó tu solicitud de encuentro.`,
+          contentId: updatedRequest.id,
+        }
+
       }
       if (status === CANCELED) {
         const { firstName, lastName } = await userService.findUserById(updatedRequest.userRequestedId)
-        message = `El encuentro con ${firstName} ${lastName} fue cancelado.`
+        const notificationContent = {
+          userId: updatedRequest.userId,
+          status: ACTIVE,
+          type: REJECTED,
+          message: `${firstName} ${lastName} rechazó tu solicitud de encuentro.`,
+          contentId: updatedRequest.id,
+        }
       }
 
-      const notificationContent = {
-        userId: updatedRequest.userId,
-        status: ACTIVE,
-        type: REQUEST,
-        message,
-        contentId: updatedRequest.id,
-      }
+      
       
       notificationService.createNotification(notificationContent)
 
