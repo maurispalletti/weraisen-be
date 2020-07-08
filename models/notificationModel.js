@@ -6,7 +6,7 @@ const constants = require('../commons/constants')
 const {
   notifications: {
     status: { ACTIVE, CLOSED },
-    type: { REQUEST, MATCH, REVIEW, COMPLIANT },
+    type: { REVIEW, ADVICE, ELECTED, APROVED, REJECTED },
   } } = constants;
 
 const NotificationSchema = new Schema({
@@ -19,7 +19,7 @@ const NotificationSchema = new Schema({
   },
   type: {
     type: String,
-    enum: [REQUEST, MATCH, REVIEW, COMPLIANT],
+    enum: [REVIEW, ADVICE, ELECTED, APROVED, REJECTED],
     required: true
   },
   message: { type: String, required: true },
