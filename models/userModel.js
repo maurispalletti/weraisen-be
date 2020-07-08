@@ -31,7 +31,8 @@ const UserSchema = new Schema({
   },
   // following info is not mandatory, only for guides
   isActiveGuide: { type: Boolean, required: true, default: false },
-  description: { type: String, required: true },
+  isAdmindAccount: { type: Boolean, required: false, default: false },
+  description: String,
   languages: [String],
   knowledge: [String],
   availableDays: [String],
