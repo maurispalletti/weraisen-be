@@ -31,9 +31,12 @@ const UserSchema = new Schema({
   },
   // following info is not mandatory, only for guides
   isActiveGuide: { type: Boolean, required: true, default: false },
-  description: String,
+  description: { type: String, required: true },
   languages: [String],
-  knowledge: [String]
+  knowledge: [String],
+  availableDays: [String],
+  groupwalk: { type: Boolean, required: true, default: false },
+  city: String,
 })
 
 UserSchema.plugin(timestamps, {
