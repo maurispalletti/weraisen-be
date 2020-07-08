@@ -6,6 +6,8 @@ const registerGuide = async (req, res) => {
     'description',
     'languages',
     'knowledge',
+    'availableDays',
+    'city',
   ]
 
   validators.validateRequiredKeys(req.params, ['userId'])

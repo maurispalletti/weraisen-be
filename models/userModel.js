@@ -34,7 +34,10 @@ const UserSchema = new Schema({
   isAdmindAccount: { type: Boolean, required: false, default: false },
   description: String,
   languages: [String],
-  knowledge: [String]
+  knowledge: [String],
+  availableDays: [String],
+  groupwalk: { type: Boolean, required: true, default: false },
+  city: String,
 })
 
 UserSchema.plugin(timestamps, {
