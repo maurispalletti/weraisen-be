@@ -11,12 +11,18 @@ const toggleActive = async (userId, isActiveGuide) => {
 
 const getGuides = async (language, knowledge, city, fromAge, toAge, gender) => {
 
-  const query = buildMatchQuery(language, knowledge, fromAge, toAge, city, gender)
+const año = new Date();
+const añoActual = año.getFullYear()
+const fromYear = añoActual - toAge;
+const toYear= añoActual - fromAge;
+
+
+  const query = buildMatchQuery(language, knowledge, fromYear, toYear, city, gender)
 
   return UserModel.find(query)
 }
 
-const buildMatchQuery = (language, knowledge, fromAge, toAge, city, gender) => {
+const buildMatchQuery = (language, knowledge, fromYear, toYear, city, gender) => {
 
   const query = { $and: [] }
 
@@ -30,7 +36,7 @@ const buildMatchQuery = (language, knowledge, fromAge, toAge, city, gender) => {
   if (city) query.$and.push({ city })
 
   // Age
-  // if (fromAge && toAge) query.$and.push({ age: { $gte: fromAge, $lte: toAge } })
+  if (fromYear && toYear) query.$and.push({ birthDate: { $gte: fromYear, $lte: toYear } })
 
   // Gender
   if (gender) query.$and.push({ gender })
@@ -40,6 +46,9 @@ const buildMatchQuery = (language, knowledge, fromAge, toAge, city, gender) => {
 
   // Knowledge
   if (knowledge) query.$and.push({ knowledge: { "$in": knowledge } })
+
+  //Salida grupal
+  
 
   return query
 }
