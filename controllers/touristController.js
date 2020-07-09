@@ -6,8 +6,6 @@ const updateTourist = async (req, res) => {
   const requiredParams = [
     'firstName',
     'lastName',
-    'identification',
-    'birthDate',
     'gender',
   ]
 
