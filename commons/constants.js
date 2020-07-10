@@ -44,23 +44,28 @@ module.exports = {
     },
     type: {
       REVIEW: 'Review',
-      REQUEST: 'Solicitud',
-      MATCH: 'Encuentro',
-      COMPLIANT: 'Denuncia',
+      ADVICE: 'Aviso',
+      ELECTED: 'Elegido',
+      APROVED: 'Aprobado',
+      REJECTED: 'Rechazado'
     },
-    messages: {
-      requests: {
-        CREATED: 'te envió una solicitud de encuentro.',
-        CONFIRMED: 'aceptó tu solicitud de encuentro.',
-        CANCELED: 'rechazoó tu solicitud de encuentro.',
-      },      
-      matches: {
-        CANCELED: 'canceló el encuentro.',
-      }, 
-      review: {
-        FINISHED: 'Tu encuentro finalizó. Dejale una review a tu acompañante',
-      },
-    },
+    // messages: {
+    //   requests: {
+    //     CREATED: 'Tu solicitud fue enviada correctamente a ',
+    //     CONFIRMED: 'aceptó tu solicitud de encuentro.',
+    //     CANCELED: 'rechazó tu solicitud de encuentro.',
+    //     PENDING: '¡Felicitaciones! Fuiste elegido para guiar en su recorrido a '
+    //   },      
+    //   matches: {
+    //     CANCELED: 'canceló el encuentro por',
+    //   }, 
+    //   review: {
+    //     FINISHED: 'Tu encuentro finalizó. Para ayudar a futuros usuarios a elegir su mejor opción, puntuá a ',
+    //   },
+    //   compliant: {
+    //     COMPLIANT: 'Gracias por ayudar a que WeRaisen sea una comunidad segura. Evaluaremos tu denuncia y tomaremos una decisión si infringe nuestras normas comunitarias.'
+    //   }
+    // },
   },  
   requests: {
     status: {

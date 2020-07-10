@@ -27,12 +27,12 @@ const createCompliant = async newCompliant => {
 	const compliant = await compliantService.createCompliant(newCompliant)
 
 	if (compliant) {
-		// Create notification for accused
+		// Create notification for informer
 		const compliantNotificationContent = {
-			userId: compliant.accusedId,
+			userId: compliant.userId,
 			status: ACTIVE,
-			type: COMPLIANT,
-			message: `Fuiste denunciado por el motivo de ${compliant.reason}. Investigaremos el caso para tomar las medidas necesarias.`,
+			type: ADVICE,
+			message: `Gracias por ayudar a que WeRaisen sea una comunidad segura. Evaluaremos tu denuncia y tomaremos una decisión si infringe nuestras normas comunitarias. `,
 			contentId: compliant.id,
 		}
 		notificationService.createNotification(compliantNotificationContent)

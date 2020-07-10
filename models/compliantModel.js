@@ -23,7 +23,7 @@ const CompliantSchema = new Schema({
     type: String,
     enum: [SEXUAL, VIOLENCE, DISCRIMINATION, PUNTUALITY, FAKE, THREAT],
     required: true,
-    default: CREATED
+    default: VIOLENCE
   },
 })
 
