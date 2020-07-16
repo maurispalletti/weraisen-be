@@ -22,6 +22,8 @@ const getGuides = async (filters) => {
 	let { language, knowledge, city, fromAge, toAge, gender } = filters
 
 	city = city === 'Córdoba' ? 'Cordoba' : city;
+	
+	console.log(JSON.stringify(filters))
 
 	const guides = await guideService.getGuides(language, knowledge, city, fromAge, toAge, gender)
 	return guides
