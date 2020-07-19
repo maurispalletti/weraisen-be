@@ -19,13 +19,13 @@ const toggleActive = async (userId, isActiveGuide) => {
 }
 
 const getGuides = async (filters) => {
-	let { language, knowledge, city, fromAge, toAge, gender } = filters
+	let { language, knowledge, city, fromAge, toAge, gender, groupwalk, tourDay } = filters
 
-	city = city === 'Córdoba' ? 'Cordoba' : city;
+	city = city === 'Córdoba' ? 'Cordoba'  : city;
 	
 	console.log(JSON.stringify(filters))
 
-	const guides = await guideService.getGuides(language, knowledge, city, fromAge, toAge, gender)
+	const guides = await guideService.getGuides(language, knowledge, city, fromAge, toAge, gender, groupwalk, tourDay)
 	return guides
 }
 

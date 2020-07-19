@@ -12,6 +12,7 @@ module.exports = {
       MALE: 'Masculino',
       OTHER: 'Otro',
     },
+    
   },
   matches: {
     status: {
