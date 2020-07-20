@@ -43,7 +43,7 @@ const UserSchema = new Schema({
     type: String,
     enum: [PENDING, ACTIVE, DELETED, BLOCKED],
     required: true,
-    default: ACTIVE
+    default: PENDING
   },
   // following info is not mandatory, only for guides
   isActiveGuide: { type: Boolean, required: true, default: false },
