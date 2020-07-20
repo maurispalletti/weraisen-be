@@ -16,7 +16,7 @@ module.exports = {
   },
   matches: {
     status: {
-      INICIATED: 'Iniciado',
+      PENDING: 'Pendiente',
       CANCELED: 'Cancelado',
       ACTIVE: 'Activo',
       ENDED: 'Finalizado',

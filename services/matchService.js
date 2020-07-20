@@ -3,10 +3,10 @@ const exceptions = require('../commons/exceptions')
 const error = require('../commons/error')
 const constants = require('../commons/constants')
 
-const { matches: { status: { CREATED } } } = constants;
+const { matches: { status: { ACTIVE } } } = constants;
 
-const createMatch = async ({ tourist, guide, chatId }) => {
-  const newMatch = new MatchModel({ tourist, guide, chatId })
+const createMatch = async ({ tourist, guide, chatId, status }) => {
+  const newMatch = new MatchModel({ tourist, guide, chatId, status })
 
   const savedMatch = await newMatch.save({ new: true })
 
@@ -27,7 +27,7 @@ const getMatchByUserIds = async ({ tourist, guide }) => {
 }
 
 const getActiveMatchByUserIds = async ({ tourist, guide }) => {
-  const query = { tourist, guide, status: CREATED }
+  const query = { tourist, guide, status: ACTIVE }
 
   const match = await MatchModel.findOne(query)
 
@@ -38,7 +38,7 @@ const getActiveMatchByUserIds = async ({ tourist, guide }) => {
 }
 
 const getActiveMatchesByUser = async userId => {
-  const query = { $or: [{ tourist: userId }, { guide: userId }], status: CREATED }
+  const query = { $or: [{ tourist: userId }, { guide: userId }], status: ACTIVE }
 
   const matches = await MatchModel.find(query)
 
@@ -59,7 +59,7 @@ const getMatch = async id => {
 const getMatchesByUser = async userId => {
   const query = { $or: [{ tourist: userId }, { guide: userId }] }
 
-  const matches = await MatchModel.find(query)
+  const matches = await MatchModel.find(query).sort({createdAt: -1})
 
   if (matches) {
     return matches

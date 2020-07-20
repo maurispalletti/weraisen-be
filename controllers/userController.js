@@ -25,6 +25,9 @@ const signup = async (req, res) => {
 }
 
 const login = async (req, res) => {
+
+console.log(`TRATANDO DE LOGUEARSE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`)
+
   validators.validateRequiredKeys(req.body, ['email', 'password'])
 
   const { email, password } = req.body

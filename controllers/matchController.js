@@ -72,6 +72,17 @@ const updateMatch = async (req, res) => {
   res.json(match)
 }
 
+const updateMatchStatus = async (req, res) => {
+  validators.validateRequiredKeys(req.params, ['matchId'])
+  validators.validateRequiredKeys(req.body, ['status'])
+
+  const { matchId } = req.params
+  const { status } = req.body
+
+  const match = await matchDelegate.updateMatchStatus(matchId, status)
+  res.json(match)
+}
+
 module.exports = {
   createMatch,
   getMatchByUserIds,
@@ -80,4 +91,5 @@ module.exports = {
   getMatchByChatId,
   updateMatch,
   getEndedMatchesByUserToReview,
+  updateMatchStatus,
 }
