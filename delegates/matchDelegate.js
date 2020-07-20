@@ -71,22 +71,13 @@ const getMatchByUserIds = async ({ tourist, guide }) => {
   return matchService.getMatchByUserIds({ tourist, guide })
 }
 
-
-
-
-
-
-
-
-
 const getEndedMatchesByUserToReview = async (userId) => {
-
   const matches = await matchService.getActiveMatchesByUser(userId)
-
+  
   if (matches.length > 0) {
     const today = new Date();
     for (let index = 0; index < matches.length; index++) {
-      const match = match[index];
+      const match = matches[index];
 
       if (today > match.updatedAt) {
         try {
