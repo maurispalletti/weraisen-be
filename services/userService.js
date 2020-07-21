@@ -8,8 +8,10 @@ const createUser = async user => {
   const savedUser = await newUser.save({ new: true })
   if (savedUser) {
     return { id: savedUser.id }
+    
   }
   throw new error.AppError(exceptions.exceptionType.user.cannotCreateUser, 'userService.createUser')
+  
 }
 
 const login = async (email, password) => {
