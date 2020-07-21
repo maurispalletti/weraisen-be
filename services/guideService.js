@@ -30,19 +30,20 @@ const buildMatchQuery = (language, knowledge, fromAge, toAge, city, gender, grou
   if (city) query.$and.push({ city })
 
   // Age
-  const año = new Date();
-  const añoActual = año.getFullYear()
-  const fromYear = añoActual - toAge; // 2000
-  const toYear= añoActual - fromAge; // 2005
+  if(fromAge && toAge){
 
-  const fechaDesde= new Date (fromYear, 01, 01)
-  const fechaHasta= new Date (toYear, 01, 01)
+    const año = new Date();
+    const añoActual = año.getFullYear()
+    const fromYear = añoActual - toAge; // 2000
+    const toYear= añoActual - fromAge; // 2005
 
+    const fechaDesde= new Date (fromYear, 01, 01)
+    const fechaHasta= new Date (toYear, 01, 01)
 
-  
-  if (fechaDesde && fechaHasta) query.$and.push({ birthDate: { $gte: fechaDesde, $lte: fechaHasta } })
-  console.log('FECHA DESDE: '+fechaDesde)
-  console.log('FECHA HASTA: '+fechaHasta)
+    if (fechaDesde && fechaHasta) query.$and.push({ birthDate: { $gte: fechaDesde, $lte: fechaHasta } })
+    console.log('fecha desde:' +fechaDesde)
+    console.log('FECHA HASTA: '+fechaHasta)
+  }
   // Gender
   if (gender) query.$and.push({ gender })
 
@@ -54,7 +55,10 @@ const buildMatchQuery = (language, knowledge, fromAge, toAge, city, gender, grou
   if (knowledge) query.$and.push({ knowledge: { "$in": knowledge } })
 
   //Salida grupal
-  if (groupwalk) query.$and.push({groupwalk: true}) 
+  if (groupwalk=== false) {
+    query.$and.push({groupwalk:false })
+
+  }
 
 
   //AvailableDays
