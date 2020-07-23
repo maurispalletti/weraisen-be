@@ -63,7 +63,6 @@ const uploadIdentification = async file => {
 	}
 
 	const url = await s3Service.uploadFileBase64(base64File, fileName, config.get('aws.S3.buckets.userImagesWeraisen'))
-
 	return url
 }
 

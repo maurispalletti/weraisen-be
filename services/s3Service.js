@@ -58,6 +58,7 @@ const uploadFileBase64 = async (base64data, key, bucket) => {
     return buildAWSUrl(bucket, key)
   } catch (e) {
     // logger.error(e)
+    console.log(e)
     throw new error.AppError(exceptions.exceptionType.services.amazonS3Error, e)
   }
 }
