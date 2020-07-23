@@ -6,7 +6,7 @@ const constants = require('../commons/constants')
 const { notifications: { status: { ACTIVE } } } = constants;
 
 const getNotificationsByUserId = async (userId) => {
-  const notifications = await NotificationModel.find({ userId, status: ACTIVE })
+  const notifications = await NotificationModel.find({ userId, status: ACTIVE }).sort({createdAt: -1})
 
 if (notifications && notifications.length) {
   return notifications
