@@ -20,12 +20,12 @@ module.exports = {
   },
   aws: {
     S3: {
-      accessKeyId: 'AKIAJS3PPDF7HG7ZJPTA',
+      accessKeyId: 'AKIAZDZG5OW5HQ6K33WZ',
       secretAccessKey: process.env.S3_SECRET_KEY_ENV,
-      region: 'us-west-2',
+      region: 'sa-east-1',
       apiVersion: '2006-03-01',
       buckets: {
-        userImagesWeraisen: 'user-images-weraisen'
+        userImagesWeraisen: 'weraisen-images'
       }
     },
   },

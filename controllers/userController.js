@@ -12,6 +12,9 @@ const signup = async (req, res) => {
     'identification',
     'birthDate',
     'gender',
+    'idFront',
+    'idBack',
+    'profilePicture',
   ]
 
   console.log(req.body)
@@ -25,9 +28,6 @@ const signup = async (req, res) => {
 }
 
 const login = async (req, res) => {
-
-console.log(`TRATANDO DE LOGUEARSE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`)
-
   validators.validateRequiredKeys(req.body, ['email', 'password'])
 
   const { email, password } = req.body
@@ -48,7 +48,17 @@ const findUserById = async (req, res) => {
 const uploadIdentification = async (req, res) => {
   validators.validateRequiredKeys(req, ['file'])
 
+
+  console.log(`controller - req.file:`);
+  console.log(req.file);
+ 
+  
   const imageUrl = await userDelegate.uploadIdentification(req.file)
+  // res.json(imageUrl)
+
+  console.log(`!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`)
+  console.log(imageUrl)
+  console.log(`!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`)
   res.json(imageUrl)
 }
 
