@@ -17,7 +17,11 @@ const updateCompliant = async (id, status) => {
 }
 
 const getCompliantsList = async (status) => {
-  return CompliantModel.find({ status })
+  const pendingCompliances = await CompliantModel.find({ status })
+
+  console.log(pendingCompliances)
+
+  return pendingCompliances
 }
 
 module.exports = {
