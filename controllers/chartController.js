@@ -10,7 +10,21 @@ const getChartCategory = async (req, res) => {
   res.json(data)
 }
 
+const getUsersCreatedPerMonth = async (req, res) => {
+
+  const data = await chartDelegate.getUsersCreatedPerMonth()
+  res.json(data)
+}
+
+const getUsersReportedPerReason= async(req, res) => {
+  const data = await chartDelegate.getUsersReportedPerReason()
+  res.json(data)
+
+}
+
 module.exports = {
   getQuantityPerMonth,
-  getChartCategory
+  getChartCategory,
+  getUsersCreatedPerMonth,
+  getUsersReportedPerReason
 }

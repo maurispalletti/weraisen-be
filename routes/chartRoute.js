@@ -8,6 +8,16 @@ router.get('/matchesPerMonth', async (req, res) => {
   routeController.handleRequest(req, res, chartController.getQuantityPerMonth)
 })
 
+//GRAFICO USUARIOS CREDOS POR MES
+router.get('/UsersCreatedPerMonth', async (req, res) => {
+  routeController.handleRequest(req, res, chartController.getUsersCreatedPerMonth)
+})
+
+//GRAFICO USUARIOS DENUNCIADOS POR TIPO
+router.get('/UsersReportedPerReason', async (req, res) => {
+  routeController.handleRequest(req, res, chartController.getUsersReportedPerReason)
+})
+
 
 //GRÁFICO CATEOGRÍA POR SEXO Y EDAD 
 
