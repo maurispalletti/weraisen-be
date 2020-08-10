@@ -9,6 +9,10 @@ const {
   },
   compliants: {
     status: { CREATED, BLOCKED }
+  },
+  notifications: {
+    status: { ACTIVE },
+    type: { ADVICE },
   }
 } = constants
 
@@ -25,19 +29,19 @@ const updateUserStatus = async (userId, status) => {
   return updatedUser
 }
 
-const updateCompliantStatus = async (userId, status) => {
-  const updatedCompliant = await compliantService.updateCompliant(userId, status)
+const updateCompliantStatus = async (compliantId, status) => {
+  const updatedCompliant = await compliantService.updateCompliant(compliantId, status)
 
   if (status === BLOCKED) {
-    await userService.updateUserStatus(userId, BLOCKED)
+    await userService.updateUserStatus(updatedCompliant.accusedId, constants.users.status.BLOCKED)
     const compliantNotificationContent = {
-			userId,
-			status: ACTIVE,
-			type: COMPLIANT,
-			message: `Fuiste bloqueado por no cumplir con las políticas de uso aceptadas por WeRaisen.`,
-			contentId: userId,
-		}
-		notificationService.createNotification(compliantNotificationContent)
+      userId: updatedCompliant.accusedId,
+      status: ACTIVE,
+      type: ADVICE,
+      message: `Fuiste bloqueado por no cumplir con las políticas de uso aceptadas por WeRaisen.`,
+      contentId: updatedCompliant.id,
+    }
+    notificationService.createNotification(compliantNotificationContent)
   }
 
   return updatedCompliant

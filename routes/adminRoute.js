@@ -12,7 +12,7 @@ router.get('/compliant', async (req, res) => {
   routeController.handleRequest(req, res, adminController.getCompliantsList)
 })
 
-router.put('/compliant/:userId', async (req, res) => {
+router.put('/compliant/:compliantId', async (req, res) => {
   routeController.handleRequest(req, res, adminController.updateCompliantStatus)
 })
 

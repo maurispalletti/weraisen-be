@@ -22,13 +22,13 @@ const updateUserStatus = async (req, res) => {
 }
 
 const updateCompliantStatus = async (req, res) => {
-  validators.validateRequiredKeys(req.params, ['userId'])
+  validators.validateRequiredKeys(req.params, ['compliantId'])
   validators.validateRequiredKeys(req.body, ['status'])
 
-  const { userId } = req.params
+  const { compliantId } = req.params
   const { status } = req.body
 
-  const updatedCompliant = await adminDelegate.updateCompliantStatus(userId, status)
+  const updatedCompliant = await adminDelegate.updateCompliantStatus(compliantId, status)
   res.json(updatedCompliant)
 }
 

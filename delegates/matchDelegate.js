@@ -49,7 +49,7 @@ const createMatch = async ({ tourist, guide }) => {
           userId: guideId,
           status: ACTIVE,
           type: ELECTED,
-          message: `El turista ${touristName} ${touristLastName} te envió una solicitud. Ponete en contacto para organizar la salida.`,
+          message: `${touristName} ${touristLastName} te envió una solicitud. Ponete en contacto para organizar la salida.`,
           contentId: matchId,
         }
         notificationService.createNotification(guideNotificationContent)
@@ -167,8 +167,9 @@ const updateMatch = async (chatId, status) => {
       contentId: matchId,
     }
     notificationService.createNotification(guideNotificationContent)
-  }
+ 
   return updatedMatch
+}
 }
 
 const updateMatchStatus = async (matchId, status) => {
@@ -200,6 +201,34 @@ const updateMatchStatus = async (matchId, status) => {
       message: `El encuentro con ${touristName} ${touristLastName} fue cancelado.`,
       contentId: matchId,
     }
+    notificationService.createNotification(guideNotificationContent)
+  }
+
+  // This notification is for Ended requests
+  if (updatedMatch && updatedMatch.status === ENDED) {
+    const { id: matchId, tourist: touristId, guide: guideId } = updatedMatch
+    const { firstName: guideName, lastName: guideLastName } = await userService.findUserById(guideId)
+    const { firstName: touristName, lastName: touristLastName } = await userService.findUserById(touristId)
+
+    // Create notification review for tourist
+    const touristNotificationContent = {
+      userId: touristId,
+      status: ACTIVE,
+      type: REVIEW,
+      message: `¡Tu encuentro con ${guideName} ${guideLastName} ha finalizado! Por favor, puntualo para ayudar a futuros turistas a elegir su mejor opción.`,
+      contentId: matchId,
+    }
+    notificationService.createNotification(touristNotificationContent)
+
+    // Create notification cancelation for guide
+    const guideNotificationContent = {
+      userId: guideId,
+      status: ACTIVE,
+      type: REVIEW,
+      message: `¡Tu encuentro con ${touristName} ${touristLastName} ha finalizado! Por favor, puntualo para ayudar a futuros guías a elegir su mejor opción.`,
+      contentId: matchId,
+    }
+   
     notificationService.createNotification(guideNotificationContent)
   }
   return updatedMatch
