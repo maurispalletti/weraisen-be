@@ -1,7 +1,8 @@
 const chartDelegate = require('../delegates/chartDelegate')
+const validators = require('../commons/validators')
 
-const getQuantityPerMonth = async (req, res) => {
-  const data = await chartDelegate.getQuantityPerMonth()
+const getMatchesPerMonth = async (req, res) => {
+  const data = await chartDelegate.getMatchesPerMonth()
   res.json(data)
 }
 
@@ -11,20 +12,29 @@ const getChartCategory = async (req, res) => {
 }
 
 const getUsersCreatedPerMonth = async (req, res) => {
-
-  const data = await chartDelegate.getUsersCreatedPerMonth()
+ validators.validateRequiredKeys(req.params, ['añoUsuariosCreados'])
+ const {añoUsuariosCreados}= req.params
+  const data = await chartDelegate.getUsersCreatedPerMonth(añoUsuariosCreados)
   res.json(data)
 }
 
 const getUsersReportedPerReason= async(req, res) => {
+
+ 
   const data = await chartDelegate.getUsersReportedPerReason()
   res.json(data)
 
 }
 
+const getCitiesPerMonth= async(req, res)=> {
+  const data = await chartDelegate.getCitiesPerMonth()
+  res.json(data)
+
+}
+
 module.exports = {
-  getQuantityPerMonth,
+  getMatchesPerMonth,
   getChartCategory,
   getUsersCreatedPerMonth,
-  getUsersReportedPerReason
+  getUsersReportedPerReason,
 }

@@ -1,7 +1,8 @@
 const MatchModel = require('../models/MatchModel')
 const exceptions = require('../commons/exceptions')
 const error = require('../commons/error')
-const constants = require('../commons/constants')
+const constants = require('../commons/constants');
+//const { getCitiesPerMonth } = require('../delegates/chartDelegate');
 
 const { matches: { status: { ACTIVE } } } = constants;
 
@@ -84,9 +85,9 @@ const updateMatchById = async (id, status) => {
   return MatchModel.findByIdAndUpdate(id, { $set: { status } }, { new: true })
 }
 
-const getQuantityPerMonth = async () => {
+const getMatchesPerMonth = async () => {
   let results = [];
-
+console.log('ENTROOOO')
   try {
 
     const queryJanuary = { createdAt: { $gte: new Date(2020, 0, 01), $lte: new Date(2020, 0, 31) } }
@@ -168,7 +169,7 @@ module.exports = {
   getActiveMatchByUserIds,
   getMatchByChatId,
   updateMatch,
-  getQuantityPerMonth,
+  getMatchesPerMonth,
   getActiveMatchesByUser,
   updateMatchById,
 }

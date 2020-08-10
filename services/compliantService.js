@@ -25,13 +25,15 @@ const getCompliantsList = async (status) => {
 }
 
 const getUsersReportedPerReason= async()=>{
-
+console.log('REPORTED USERS')
 let results=[];
 try{
   
-const queryViolence ={reason: "Violencia"}
+const queryViolence ={ reason: {VIOLENCE}}
 const violence = await CompliantModel.find(queryViolence)
 results.push({reason: "Violencia", value: violence.length})
+
+console.log('RESULTS'+ results)
 
 const querySexual ={reason: SEXUAL}
 const sexual = await CompliantModel.find(querySexual)

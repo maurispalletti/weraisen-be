@@ -47,67 +47,67 @@ const findUsersByStatus = async (status) => {
 // }
 
 
-const getUsersCreatedPerMonth = async () => {
+const getUsersCreatedPerMonth = async añoUsuariosCreados=> {
   let results = [];
 
   try {
 
-    const queryJanuary = { createdAt: { $gte: new Date(2020, 0, 01), $lte: new Date(2020, 0, 31) } }
+    const queryJanuary = { createdAt: { $gte: new Date(añoUsuariosCreados, 0, 01), $lte: new Date(añoUsuariosCreados, 0, 31) } }
     const january = await UserModel.find(queryJanuary);
     results.push({ month: "Enero", value: january.length })
     // results.push({ january: january.length })
 
-    const queryFebruary = { createdAt: { $gte: new Date(2020, 01, 01), $lte: new Date(2020, 01, 28) } }
+    const queryFebruary = { createdAt: { $gte: new Date(añoUsuariosCreados, 01, 01), $lte: new Date(añoUsuariosCreados, 01, 28) } }
     const february = await UserModel.find(queryFebruary);
     results.push({ month: "Febrero", value: february.length })
     // results.push({ february: february.length })
 
-    const queryMarch = { createdAt: { $gte: new Date(2020, 02, 01), $lte: new Date(2020, 02, 31) } }
+    const queryMarch = { createdAt: { $gte: new Date(añoUsuariosCreados, 02, 01), $lte: new Date(añoUsuariosCreados, 02, 31) } }
     const march = await UserModel.find(queryMarch);
     results.push({ month: "Marzo", value: march.length })
     // results.push({ march: march.length })
 
-    const queryApril = { createdAt: { $gte: new Date(2020, 03, 01), $lte: new Date(2020, 03, 30) } }
+    const queryApril = { createdAt: { $gte: new Date(añoUsuariosCreados, 03, 01), $lte: new Date(añoUsuariosCreados, 03, 30) } }
     const april = await UserModel.find(queryApril);
     results.push({ month: "Abril", value: april.length })
     // results.push({ april: april.length })
 
-    const queryMay = { createdAt: { $gte: new Date(2020, 04, 01), $lte: new Date(2020, 04, 31) } }
+    const queryMay = { createdAt: { $gte: new Date(añoUsuariosCreados, 04, 01), $lte: new Date(añoUsuariosCreados, 04, 31) } }
     const may = await UserModel.find(queryMay);
     results.push({ month: "Mayo", value: may.length })
     // results.push({ may: may.length })
 
-    const queryJune = { createdAt: { $gte: new Date(2020, 05, 01), $lte: new Date(2020, 05, 30) } }
+    const queryJune = { createdAt: { $gte: new Date(añoUsuariosCreados, 05, 01), $lte: new Date(añoUsuariosCreados, 05, 30) } }
     const june = await UserModel.find(queryJune);
     results.push({ month: "Junio", value: june.length })
     // results.push({ june: june.length })
 
-    const queryJuly = { createdAt: { $gte: new Date(2020, 06, 01), $lte: new Date(2020, 06, 31) } }
+    const queryJuly = { createdAt: { $gte: new Date(añoUsuariosCreados, 06, 01), $lte: new Date(añoUsuariosCreados, 06, 31) } }
     const july = await UserModel.find(queryJuly);
     results.push({ month: "Julio", value: july.length })
     // results.push({ july: july.length })
 
-    const queryAugust = { createdAt: { $gte: new Date(2020, 07, 01), $lte: new Date(2020, 07, 31) } }
+    const queryAugust = { createdAt: { $gte: new Date(añoUsuariosCreados, 07, 01), $lte: new Date(añoUsuariosCreados, 07, 31) } }
     const august = await UserModel.find(queryAugust);
     results.push({ month: "Agosto", value: august.length })
     // results.push({ august: august.length })
 
-    const querySeptember = { createdAt: { $gte: new Date(2020, 08, 01), $lte: new Date(2020, 08, 30) } }
+    const querySeptember = { createdAt: { $gte: new Date(añoUsuariosCreados, 08, 01), $lte: new Date(añoUsuariosCreados, 08, 30) } }
     const september = await UserModel.find(querySeptember);
     results.push({ month: "Septiembre", value: september.length })
     // results.push({ september: september.length })
 
-    const queryOctober = { createdAt: { $gte: new Date(2020, 09, 01), $lte: new Date(2020, 09, 31) } }
+    const queryOctober = { createdAt: { $gte: new Date(añoUsuariosCreados, 09, 01), $lte: new Date(añoUsuariosCreados, 09, 31) } }
     const october = await UserModel.find(queryOctober);
     results.push({ month: "Octubre", value: october.length })
     // results.push({ october: october.length })
 
-    const queryNovember = { createdAt: { $gte: new Date(2020, 10, 01), $lte: new Date(2020, 10, 30) } }
+    const queryNovember = { createdAt: { $gte: new Date(añoUsuariosCreados, 10, 01), $lte: new Date(añoUsuariosCreados, 10, 30) } }
     const november = await UserModel.find(queryNovember);
     results.push({ month: "Noviembre", value: november.length })
     // results.push({ november: november.length })
 
-    const queryDecember = { createdAt: { $gte: new Date(2020, 11, 01), $lte: new Date(2020, 11, 31) } }
+    const queryDecember = { createdAt: { $gte: new Date(añoUsuariosCreados, 11, 01), $lte: new Date(añoUsuariosCreados, 11, 31) } }
     const december = await UserModel.find(queryDecember);
     results.push({ month: "Diciembre", value: december.length })
     // results.push({ december: december.length })

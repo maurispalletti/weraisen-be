@@ -45,12 +45,12 @@ try{
 
 const getUsersReportedPerReason= async()=>{
 
-    const querySexual ={reason= SEXUAL}
-    const queryViolence ={reason= VIOLENCE}
-    const queryDiscrimination ={reason= DISCRIMINATION}
-    const queryFake={reason= FAKE}
-    const queryPuntuality={reason= PUNTUALITY}
-    const queryThread={reason= THREAD}
+    const querySexual ={reason: SEXUAL}
+    const queryViolence ={reason: VIOLENCE}
+    const queryDiscrimination ={reason: DISCRIMINATION}
+    const queryFake={reason: FAKE}
+    const queryPuntuality={reason: PUNTUALITY}
+    const queryThread={reason: THREAD}
 try{
 const query=compliantModel.find(querySexual&&queryViolence&& queryThread&& queryPuntuality&&queryDiscrimination&& queryFake)
 
