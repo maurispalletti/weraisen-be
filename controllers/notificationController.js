@@ -26,7 +26,18 @@ const createNotification = async (req, res) => {
   res.json(notification)
 }
 
+const sendEmail = async (req, res) => {
+ 
+
+  console.log(req.body)
+  
+
+  const email = await notificationDelegate.sendEmail(req.body)
+  res.json(email)
+}
+
 module.exports = {
   getNotificationsByUserId,
   createNotification,
+  sendEmail,
 }
