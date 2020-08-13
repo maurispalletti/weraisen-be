@@ -5,13 +5,14 @@ const createMatch = async (req, res) => {
   const requiredParams = [
     'tourist',
     'guide',
+    'city',
   ]
 
   validators.validateRequiredKeys(req.body, requiredParams)
 
-  const { tourist, guide } = req.body
+  const { tourist, guide, city } = req.body
 
-  const match = await matchDelegate.createMatch({ tourist, guide })
+  const match = await matchDelegate.createMatch({ tourist, guide, city })
   res.json(match)
 }
 

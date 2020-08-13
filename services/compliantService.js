@@ -25,41 +25,34 @@ const getCompliantsList = async (status) => {
 }
 
 const getUsersReportedPerReason= async()=>{
-console.log('REPORTED USERS')
+
 let results=[];
-try{
+
   
-const queryViolence ={ reason: {VIOLENCE}}
+const queryViolence ={ reason:"Violencia"}
 const violence = await CompliantModel.find(queryViolence)
-results.push({reason: "Violencia", value: violence.length})
+results.push({category: "Violencia", value: violence.length})
 
-console.log('RESULTS'+ results)
-
-const querySexual ={reason: SEXUAL}
+const querySexual ={reason: "Sexual"}
 const sexual = await CompliantModel.find(querySexual)
-results.push({reason: "Acoso sexual y/o verbal", value: sexual.length})
+results.push({category: "Acoso sexual y/o verbal", value: sexual.length})
 
-const queryDiscrimination ={reason: DISCRIMINATION}
+const queryDiscrimination ={reason: "Discriminacion"}
 const discrimination = await CompliantModel.find(queryDiscrimination)
-results.push({reason: "Discriminación", value: discrimination.length})
+results.push({category: "Discriminacion", value: discrimination.length})
 
-const queryPuntuality ={reason: PUNTUALITY}
-const puntuality = await CompliantModel.find(queryPuntuality)
-results.push({reason: "Puntualidad", value: puntuality.length})
 
-const queryFake={reason: FAKE}
+const queryFake={reason: "Suplantación"}
 const fake = await CompliantModel.find(queryFake)
-results.push({reason: "Perfil Falso", value: fake.length})
+results.push({category: "Perfil Falso", value: fake.length})
 
-const queryThreat={reason: THREAT}
-const threat = await CompliantModel.find(queryThreat)
-results.push({reason: "Perfil Falso", value: threat.length})
+const queryOther={reason: "Otro"}
+const other= await CompliantModel.find(queryOther)
+results.push({category: "Otros motivos", value: other.length})
 
 return results;
 
-}catch (error){
-  throw new error.AppError(exceptions.exceptionType.match.queryFailed, 'compliantService.getUsersReportedPerReason')
-}
+
 
 }
 

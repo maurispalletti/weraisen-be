@@ -5,12 +5,13 @@ const chartController = require('../controllers/chartController')
 
 //GRÁFICO CANTIDAD POR MESES 
 router.get('/matchesPerMonth', async (req, res) => {
+  
   routeController.handleRequest(req, res, chartController.getMatchesPerMonth)
 })
 
-//GRAFICO USUARIOS CREDOS POR MES
-router.get('/usersCreatedPerMonth/:añoUsuariosCreados', async (req, res) => {
-  console.log('enrto')
+//GRAFICO USUARIOS CREDOS POR MES por año
+router.get('/usersCreatedPerMonth/:date', async (req, res) => {
+  
   routeController.handleRequest(req, res, chartController.getUsersCreatedPerMonth)
 })
 
@@ -21,10 +22,15 @@ router.get('/usersReportedPerReason', async (req, res) => {
 
 
 //GRAFICO CIUDADES MAS ELEGIDAS POR MESS
-router.get('/citiesPerMonth', async (req, res) => {
-  routeController.handleRequest(req, res, chartController.getCitiesPerMonth)
+router.get('/citiesPerMatch', async (req, res) => {
+  routeController.handleRequest(req, res, chartController.getCitiesPerMatch)
 })
 
+//GRAFICO CATEGORIAS POR GENERO
+
+router.get('/categoriesPerGender', async (req, res) => {
+  routeController.handleRequest(req, res, chartController.getCategoriesPerGender)
+})
 
 //GRÁFICO CATEOGRÍA POR SEXO Y EDAD 
 

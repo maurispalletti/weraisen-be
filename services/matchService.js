@@ -6,8 +6,8 @@ const constants = require('../commons/constants');
 
 const { matches: { status: { ACTIVE } } } = constants;
 
-const createMatch = async ({ tourist, guide, chatId, status }) => {
-  const newMatch = new MatchModel({ tourist, guide, chatId, status })
+const createMatch = async ({ tourist, guide, chatId, status, city }) => {
+  const newMatch = new MatchModel({ tourist, guide, chatId, status, city })
 
   const savedMatch = await newMatch.save({ new: true })
 
@@ -60,7 +60,7 @@ const getMatch = async id => {
 const getMatchesByUser = async userId => {
   const query = { $or: [{ tourist: userId }, { guide: userId }] }
 
-  const matches = await MatchModel.find(query).sort({createdAt: -1})
+  const matches = await MatchModel.find(query).sort({ createdAt: -1 })
 
   if (matches) {
     return matches
@@ -87,7 +87,7 @@ const updateMatchById = async (id, status) => {
 
 const getMatchesPerMonth = async () => {
   let results = [];
-console.log('ENTROOOO')
+
   try {
 
     const queryJanuary = { createdAt: { $gte: new Date(2020, 0, 01), $lte: new Date(2020, 0, 31) } }
@@ -159,6 +159,49 @@ console.log('ENTROOOO')
 }
 
 
+const getCitiesPerMatch = async () => {
+
+  let ciudades = ["Cordoba", "Buenos Aires", "Mendoza"];
+  let results = [];
+
+  for (let index = 0; index < ciudades.length; index++) {
+    const ciudad = ciudades[index];
+
+    const queryCiudad = { city: ciudad }
+
+    const resultadoCiudades = await MatchModel.find(queryCiudad);
+    //return { category: ciudad, value: resultadoCiudades.length }
+    results.push({ category: ciudad, value: resultadoCiudades.length })
+
+  }
+  /*
+    const ciudadesProcesadas= await ciudades.map(async (ciudad) => {
+ 
+     const queryCiudad = { city: ciudad }
+ 
+     const resultadoCiudades = await MatchModel.find(queryCiudad);
+      return { category: ciudad, value: resultadoCiudades.length }
+     //results.push({ category: ciudad, value: resultadoCiudades.length })
+   })
+ 
+  
+     const queryCordoba = { city: "Cordoba" }
+     const cordoba = await MatchModel.find(queryCordoba);
+     results.push({ category: "Córdoba", value: cordoba.length })
+   
+     const queryBsAs = { city: "Buenos Aires" }
+     const bsas = await MatchModel.find(queryBsAs);
+     results.push({ category: "Buenos Aires", value: bsas.length })
+   
+     const queryMendoza = { city: "Mendoza" }
+     const mendoza = await MatchModel.find(queryMendoza);
+     results.push({ category: "Mendoza", value: mendoza.length })
+ 
+   */
+  
+  return results
+}
+
 
 
 module.exports = {
@@ -172,4 +215,6 @@ module.exports = {
   getMatchesPerMonth,
   getActiveMatchesByUser,
   updateMatchById,
+  getCitiesPerMatch,
+
 }

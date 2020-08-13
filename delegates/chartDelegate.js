@@ -13,25 +13,28 @@ const getMatchesPerMonth = async () => {
 //   return chartService.getChartCategory()
 // }
 
-const getUsersCreatedPerMonth= async añoUsuariosCreados =>{
-  return userService.getUsersCreatedPerMonth(añoUsuariosCreados)
+const getUsersCreatedPerMonth= async date =>{
+  return userService.getUsersCreatedPerMonth(date)
 }
 
 const getUsersReportedPerReason = async()=>{
   return compliantService.getUsersReportedPerReason()
 }
 
-const getCitiesPerMonth= async()=>{
-  return matchService.getCitiesPerMonth()
+const getCitiesPerMatch= async()=>{
+  return matchService.getCitiesPerMatch()
 }
 
-
+const getCategoriesPerGender = async()=>{
+  return userService.getCategoriesPerGender()
+}
 
   
   module.exports = {
     getMatchesPerMonth,
     getUsersCreatedPerMonth,
     getUsersReportedPerReason,
-    getCitiesPerMonth,
+    getCitiesPerMatch,
+    getCategoriesPerGender,
     // getChartCategory
   }

@@ -1,4 +1,4 @@
-const MatchModel = require('../models/MatchModel')
+/*const MatchModel = require('../models/MatchModel')
 const exceptions = require('../commons/exceptions')
 const error = require('../commons/error')
 const userModel = require('../models/userModel')
@@ -68,3 +68,4 @@ module.exports = {
     getUsersCreatedPerMonth,
     getUsersReportedPerReason,
 }
+*/
