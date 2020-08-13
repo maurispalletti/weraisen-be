@@ -7,7 +7,7 @@ const createCompliant = async compliant => {
   const newCompliant = new CompliantModel(compliant)
   const savedCompliant = await newCompliant.save({ new: true })
   if (savedCompliant) {
-    return { id: savedCompliant.id }
+    return savedCompliant 
   }
   throw new error.AppError(exceptions.exceptionType.compliant.cannotCreateCompliant, 'compliantService.createCompliant')
 }

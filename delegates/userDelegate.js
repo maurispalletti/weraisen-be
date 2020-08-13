@@ -13,7 +13,7 @@ const constants = require('../commons/constants')
 const {
   notifications: {
     status: { ACTIVE },
-    type: { COMPLIANT },
+    type: { ADVICE },
   },
 } = constants
 
@@ -25,7 +25,7 @@ const signup = newUser => {
 
 const createCompliant = async newCompliant => {
 	const compliant = await compliantService.createCompliant(newCompliant)
-
+	console.log(compliant);
 	if (compliant) {
 		// Create notification for informer
 		const compliantNotificationContent = {
