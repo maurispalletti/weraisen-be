@@ -13,8 +13,8 @@ const getMatchesPerMonth = async () => {
 //   return chartService.getChartCategory()
 // }
 
-const getUsersCreatedPerMonth= async date =>{
-  return userService.getUsersCreatedPerMonth(date)
+const getUsersCreatedPerMonth = async () =>{
+  return userService.getUsersCreatedPerMonth()
 }
 
 const getUsersReportedPerReason = async()=>{
@@ -28,13 +28,32 @@ const getCitiesPerMatch= async()=>{
 const getCategoriesPerGender = async()=>{
   return userService.getCategoriesPerGender()
 }
-
-  
+const getCategoriesMostSelected= async()=>{
+  return userService.getCategoriesMostSelected()
+}
+const getUsersPerAge= async()=>{
+  return userService.getUsersPerAge()
+}
+const getUsersPerLanguages= async()=>{
+  return userService.getUsersPerLanguages()
+}
+const getUsersPerGender= async()=>{
+  return userService.getUsersPerGender()
+}
+const getMatchesPerCategories= async()=>{
+  return matchService.getMatchesPerCategories()
+}
   module.exports = {
     getMatchesPerMonth,
     getUsersCreatedPerMonth,
     getUsersReportedPerReason,
     getCitiesPerMatch,
     getCategoriesPerGender,
+    getCategoriesMostSelected,
+    getUsersPerAge,
+    getUsersPerLanguages,
+    getUsersPerGender,
+    getMatchesPerCategories,
+   
     // getChartCategory
   }

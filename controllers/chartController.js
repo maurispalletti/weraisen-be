@@ -12,9 +12,8 @@ const getChartCategory = async (req, res) => {
 }
 
 const getUsersCreatedPerMonth = async (req, res) => {
- validators.validateRequiredKeys(req.params, ['date'])
- const { date }= req.params
-  const data = await chartDelegate.getUsersCreatedPerMonth(date)
+
+  const data = await chartDelegate.getUsersCreatedPerMonth()
   res.json(data)
 }
 
@@ -38,7 +37,26 @@ const getCategoriesPerGender = async (req, res) =>{
 
 
 }
-
+const getCategoriesMostSelected = async (req, res) =>{
+  const data = await chartDelegate.getCategoriesMostSelected()
+  res.json(data)
+}
+const getUsersPerAge = async (req, res) =>{
+  const data = await chartDelegate.getUsersPerAge()
+  res.json(data)
+}
+const getUsersPerLanguages = async (req, res) =>{
+  const data = await chartDelegate.getUsersPerLanguages()
+  res.json(data)
+}
+const getUsersPerGender = async (req, res) =>{
+  const data = await chartDelegate.getUsersPerGender()
+  res.json(data)
+}
+const getMatchesPerCategories = async (req, res) =>{
+  const data = await chartDelegate.getMatchesPerCategories()
+  res.json(data)
+}
 
 module.exports = {
   getMatchesPerMonth,
@@ -47,4 +65,9 @@ module.exports = {
   getUsersReportedPerReason,
   getCitiesPerMatch,
   getCategoriesPerGender,
+  getCategoriesMostSelected,
+  getUsersPerAge,
+  getUsersPerLanguages,
+  getUsersPerGender,
+  getMatchesPerCategories,
 }

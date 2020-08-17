@@ -10,7 +10,7 @@ router.get('/matchesPerMonth', async (req, res) => {
 })
 
 //GRAFICO USUARIOS CREDOS POR MES por año
-router.get('/usersCreatedPerMonth/:date', async (req, res) => {
+router.get('/usersCreatedPerMonth', async (req, res) => {
   
   routeController.handleRequest(req, res, chartController.getUsersCreatedPerMonth)
 })
@@ -32,12 +32,30 @@ router.get('/categoriesPerGender', async (req, res) => {
   routeController.handleRequest(req, res, chartController.getCategoriesPerGender)
 })
 
-//GRÁFICO CATEOGRÍA POR SEXO Y EDAD 
+//GRÁFICO CATEOGRÍA mas elegidad
+router.get('/categoriesMostSelected', async (req, res) => {
+  routeController.handleRequest(req, res, chartController.getCategoriesMostSelected)
+})
+//GRÁFICO usuarios por edad
+router.get('/usersPerAge', async (req, res) => {
+  routeController.handleRequest(req, res, chartController.getUsersPerAge)
+})
+
+router.get('/usersPerLanguages', async (req, res) => {
+  routeController.handleRequest(req, res, chartController.getUsersPerLanguages)
+})
 
 //router.get('/category', async (req, res) => {
 //   routeController.handleRequest(req, res, chartController.getChartCategory)
 // })
-
+//grafico usuarios por género
+router.get('/usersPerGender', async (req, res) => {
+  routeController.handleRequest(req, res, chartController.getUsersPerGender)
+})
+//grafico encuentros por categoria por ciudad
+router.get('/matchesPerCategories', async (req, res) => {
+  routeController.handleRequest(req, res, chartController.getMatchesPerCategories)
+})
 
 
 module.exports = router

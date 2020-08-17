@@ -2,6 +2,7 @@ const MatchModel = require('../models/MatchModel')
 const exceptions = require('../commons/exceptions')
 const error = require('../commons/error')
 const constants = require('../commons/constants');
+const userModel = require('../models/userModel');
 //const { getCitiesPerMonth } = require('../delegates/chartDelegate');
 
 const { matches: { status: { ACTIVE } } } = constants;
@@ -85,70 +86,88 @@ const updateMatchById = async (id, status) => {
   return MatchModel.findByIdAndUpdate(id, { $set: { status } }, { new: true })
 }
 
+
+//informes
+const queryJanuary = { createdAt: { $gte: new Date(2020, 0, 01), $lte: new Date(2020, 0, 31) } }
+const queryFebruary = { createdAt: { $gte: new Date(2020, 01, 01), $lte: new Date(2020, 01, 28) } }
+const queryMarch = { createdAt: { $gte: new Date(2020, 02, 01), $lte: new Date(2020, 02, 31) } }
+const queryApril = { createdAt: { $gte: new Date(2020, 03, 01), $lte: new Date(2020, 03, 30) } }
+const queryMay = { createdAt: { $gte: new Date(2020, 04, 01), $lte: new Date(2020, 04, 31) } }
+const queryJune = { createdAt: { $gte: new Date(2020, 05, 01), $lte: new Date(2020, 05, 30) } }
+const queryJuly = { createdAt: { $gte: new Date(2020, 06, 01), $lte: new Date(2020, 06, 31) } }
+const queryAugust = { createdAt: { $gte: new Date(2020, 07, 01), $lte: new Date(2020, 07, 31) } }
+const querySeptember = { createdAt: { $gte: new Date(2020, 08, 01), $lte: new Date(2020, 08, 30) } }
+const queryOctober = { createdAt: { $gte: new Date(2020, 09, 01), $lte: new Date(2020, 09, 31) } }
+const queryNovember = { createdAt: { $gte: new Date(2020, 10, 01), $lte: new Date(2020, 10, 30) } }
+const queryDecember = { createdAt: { $gte: new Date(2020, 11, 01), $lte: new Date(2020, 11, 31) } }
+
+
+
 const getMatchesPerMonth = async () => {
   let results = [];
 
   try {
 
-    const queryJanuary = { createdAt: { $gte: new Date(2020, 0, 01), $lte: new Date(2020, 0, 31) } }
     const january = await MatchModel.find(queryJanuary);
-    results.push({ month: "Enero", value: january.length })
-    // results.push({ january: january.length })
+    if (january.length > 0) {
+      results.push({ category: "Enero", value: january.length })
+    }
 
-    const queryFebruary = { createdAt: { $gte: new Date(2020, 01, 01), $lte: new Date(2020, 01, 28) } }
     const february = await MatchModel.find(queryFebruary);
-    results.push({ month: "Febrero", value: february.length })
-    // results.push({ february: february.length })
+    if (february.length > 0) {
+      results.push({ category: "Febrero", value: february.length })
+    }
 
-    const queryMarch = { createdAt: { $gte: new Date(2020, 02, 01), $lte: new Date(2020, 02, 31) } }
     const march = await MatchModel.find(queryMarch);
-    results.push({ month: "Marzo", value: march.length })
-    // results.push({ march: march.length })
+    if (march.length > 0) {
+      results.push({ category: "Marzo", value: march.length })
+    }
 
-    const queryApril = { createdAt: { $gte: new Date(2020, 03, 01), $lte: new Date(2020, 03, 30) } }
     const april = await MatchModel.find(queryApril);
-    results.push({ month: "Abril", value: april.length })
-    // results.push({ april: april.length })
+    if (april.length > 0) {
+      results.push({ category: "Abril", value: april.length })
+    }
 
-    const queryMay = { createdAt: { $gte: new Date(2020, 04, 01), $lte: new Date(2020, 04, 31) } }
     const may = await MatchModel.find(queryMay);
-    results.push({ month: "Mayo", value: may.length })
-    // results.push({ may: may.length })
+    if (may.length > 0) {
+      results.push({ category: "Mayo", value: may.length })
+    }
 
-    const queryJune = { createdAt: { $gte: new Date(2020, 05, 01), $lte: new Date(2020, 05, 30) } }
     const june = await MatchModel.find(queryJune);
-    results.push({ month: "Junio", value: june.length })
-    // results.push({ june: june.length })
+    if (june.length > 0) {
+      results.push({ category: "Junio", value: june.length })
+    }
 
-    const queryJuly = { createdAt: { $gte: new Date(2020, 06, 01), $lte: new Date(2020, 06, 31) } }
     const july = await MatchModel.find(queryJuly);
-    results.push({ month: "Julio", value: july.length })
-    // results.push({ july: july.length })
+    if (july.length > 0) {
+      results.push({ category: "Julio", value: july.length })
+    }
 
-    const queryAugust = { createdAt: { $gte: new Date(2020, 07, 01), $lte: new Date(2020, 07, 31) } }
     const august = await MatchModel.find(queryAugust);
-    results.push({ month: "Agosto", value: august.length })
-    // results.push({ august: august.length })
+    if (august.length > 0) {
+      results.push({ category: "Agosto", value: august.length })
+    }
 
-    const querySeptember = { createdAt: { $gte: new Date(2020, 08, 01), $lte: new Date(2020, 08, 30) } }
     const september = await MatchModel.find(querySeptember);
-    results.push({ month: "Septiembre", value: september.length })
-    // results.push({ september: september.length })
+    if (september.length > 0) {
+      results.push({ category: "Septiembre", value: september.length })
+    }
 
-    const queryOctober = { createdAt: { $gte: new Date(2020, 09, 01), $lte: new Date(2020, 09, 31) } }
     const october = await MatchModel.find(queryOctober);
-    results.push({ month: "Octubre", value: october.length })
-    // results.push({ october: october.length })
+    if (october.length > 0) {
+      results.push({ category: "Octubre", value: october.length })
+    }
 
-    const queryNovember = { createdAt: { $gte: new Date(2020, 10, 01), $lte: new Date(2020, 10, 30) } }
     const november = await MatchModel.find(queryNovember);
-    results.push({ month: "Noviembre", value: november.length })
-    // results.push({ november: november.length })
+    if (november.length > 0) {
+      results.push({ category: "Noviembre", value: november.length })
+    }
 
-    const queryDecember = { createdAt: { $gte: new Date(2020, 11, 01), $lte: new Date(2020, 11, 31) } }
     const december = await MatchModel.find(queryDecember);
-    results.push({ month: "Diciembre", value: december.length })
-    // results.push({ december: december.length })
+    if (december.length > 0) {
+      results.push({ category: "Diciembre", value: december.length })
+    }
+
 
     return results;
 
@@ -159,9 +178,16 @@ const getMatchesPerMonth = async () => {
 }
 
 
+
+
 const getCitiesPerMatch = async () => {
 
-  let ciudades = ["Cordoba", "Buenos Aires", "Mendoza"];
+  let ciudades = ["Buenos Aires", "Bariloche", "Comodoro Rivadavia", "Cordoba", "Corrientes", "Cosquin", "El Bolson", "El Chalten", "Esquel", "Formosa", "General Pico",
+    "Gualeguaychu", "Humauaca", "La Cumbrecita", "LaPlata", "La Rioja", "Mardel", "Mendoza", "Merlo", "Neuquen", "Mina Clavero", "Monte Hermoso", "Parana", "Perito Moreno",
+    "Pinamar", "Posadas", "Puerto Iguazu", "Puerto Madryn", "Resistencia", "Rio Gallegos", "Rio Grande", "Rosario", "Salta", "San Fernando del Valle de Catamarca", "San Juan", "San Luis", "San Martin de los Andes",
+    "San Miguel de Tucuman", "San Rafael", "San Salvador de Jujuy", "Santa Fe", "Santa Rosa", "Santiago Del Estero", "Termas de Rio Hondo", "Tilcara", "Trelew", "Ushuaia", "Villa Carlos Paz",
+    "Villa Maria",];
+
   let results = [];
 
   for (let index = 0; index < ciudades.length; index++) {
@@ -169,40 +195,24 @@ const getCitiesPerMatch = async () => {
 
     const queryCiudad = { city: ciudad }
 
+
+
     const resultadoCiudades = await MatchModel.find(queryCiudad);
     //return { category: ciudad, value: resultadoCiudades.length }
-    results.push({ category: ciudad, value: resultadoCiudades.length })
-
+    if (resultadoCiudades.length > 0) {
+      results.push({ category: ciudad, value: resultadoCiudades.length })
+    }
   }
-  /*
-    const ciudadesProcesadas= await ciudades.map(async (ciudad) => {
- 
-     const queryCiudad = { city: ciudad }
- 
-     const resultadoCiudades = await MatchModel.find(queryCiudad);
-      return { category: ciudad, value: resultadoCiudades.length }
-     //results.push({ category: ciudad, value: resultadoCiudades.length })
-   })
- 
-  
-     const queryCordoba = { city: "Cordoba" }
-     const cordoba = await MatchModel.find(queryCordoba);
-     results.push({ category: "Córdoba", value: cordoba.length })
-   
-     const queryBsAs = { city: "Buenos Aires" }
-     const bsas = await MatchModel.find(queryBsAs);
-     results.push({ category: "Buenos Aires", value: bsas.length })
-   
-     const queryMendoza = { city: "Mendoza" }
-     const mendoza = await MatchModel.find(queryMendoza);
-     results.push({ category: "Mendoza", value: mendoza.length })
- 
-   */
-  
+
+
   return results
 }
 
+const getMatchesPerCategories = async () => {
 
+  let results = [];
+  return results;
+}
 
 module.exports = {
   createMatch,
@@ -216,5 +226,6 @@ module.exports = {
   getActiveMatchesByUser,
   updateMatchById,
   getCitiesPerMatch,
+  getMatchesPerCategories,
 
 }
