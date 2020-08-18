@@ -6,7 +6,7 @@ const constants = require('../commons/constants')
 const {
   compliants: {
     status: { CREATED, BLOCKED, RESOLVED },
-    reason: { SEXUAL, VIOLENCE, DISCRIMINATION, PUNTUALITY, FAKE, THREAT },
+    reason: { SEXUAL, VIOLENCE, DISCRIMINATION, FAKE, OTHER },
   } } = constants;
 
 const CompliantSchema = new Schema({
@@ -21,7 +21,7 @@ const CompliantSchema = new Schema({
   },
   reason: {
     type: String,
-    enum: [SEXUAL, VIOLENCE, DISCRIMINATION, PUNTUALITY, FAKE, THREAT],
+    enum: [SEXUAL, VIOLENCE, DISCRIMINATION, FAKE, OTHER],
     required: true,
     default: VIOLENCE
   },

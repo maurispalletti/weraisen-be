@@ -76,7 +76,7 @@ const uploadIdImage = async (req, res) => {
 const createCompliant = async (req, res) => {
   const requiredParams = [
     'userId',
-    'accussedId',
+    'accusedId',
     'description',
     'status',
     'reason',
