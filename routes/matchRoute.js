@@ -19,6 +19,10 @@ router.put('/:matchId', async (req, res) => {
   routeController.handleRequest(req, res, matchController.updateMatchStatus)
 })
 
+router.put('/updateDate/:matchId', async (req, res) => {
+  routeController.handleRequest(req, res, matchController.updateMatchDate)
+})
+
 router.get('/users/:userId', async (req, res) => {
   routeController.handleRequest(req, res, matchController.getMatchesByUser)
 })
