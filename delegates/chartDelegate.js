@@ -43,6 +43,9 @@ const getUsersPerGender= async()=>{
 const getMatchesPerCategories= async()=>{
   return matchService.getMatchesPerCategories()
 }
+const getCategoriesPerCity= async()=>{
+  return userService.getCategoriesPerCity()
+}
   module.exports = {
     getMatchesPerMonth,
     getUsersCreatedPerMonth,
@@ -54,6 +57,7 @@ const getMatchesPerCategories= async()=>{
     getUsersPerLanguages,
     getUsersPerGender,
     getMatchesPerCategories,
+    getCategoriesPerCity,
    
     // getChartCategory
   }

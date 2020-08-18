@@ -57,5 +57,7 @@ router.get('/matchesPerCategories', async (req, res) => {
   routeController.handleRequest(req, res, chartController.getMatchesPerCategories)
 })
 
-
+router.get('/categoriesPerCity', async (req, res) => {
+  routeController.handleRequest(req, res, chartController.getCategoriesPerCity)
+})
 module.exports = router

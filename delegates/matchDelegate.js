@@ -14,7 +14,7 @@ const {
   },
 } = constants
 
-const createMatch = async ({ tourist, guide, city }) => {
+const createMatch = async ({ tourist, guide, city , knowledge}) => {
   try {
     const match = await matchService.getMatchByUserIds({ tourist, guide })
     if (match && match.length > 0) {
@@ -25,16 +25,16 @@ const createMatch = async ({ tourist, guide, city }) => {
       console.log(`Chat created - id ${chatId}`)
 
       console.log('Creating new match')
-      const newMatch = await matchService.createMatch({ tourist, guide, chatId, status: PENDING, city})
+      const newMatch = await matchService.createMatch({ tourist, guide, chatId, status: PENDING, city, knowledge})
       console.log(`Match created - new Match ${newMatch}`)
 
       if (newMatch) {
-        const { id: matchId, tourist: touristId, guide: guideId, city: city } = newMatch
+        const { id: matchId, tourist: touristId, guide: guideId, city: city, knowledge:knowledge } = newMatch
 
         const { firstName: guideName, lastName: guideLastName } = await userService.findUserById(guideId)
         
         const { firstName: touristName, lastName: touristLastName } = await userService.findUserById(touristId)
-        console.log("CIUDAD"+ city)
+        console.log("conocimientos"+ knowledge)
         
         // // Create notification for tourist
         // const touristNotificationContent = {

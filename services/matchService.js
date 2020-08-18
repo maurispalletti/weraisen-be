@@ -7,8 +7,8 @@ const userModel = require('../models/userModel');
 
 const { matches: { status: { ACTIVE } } } = constants;
 
-const createMatch = async ({ tourist, guide, chatId, status, city }) => {
-  const newMatch = new MatchModel({ tourist, guide, chatId, status, city })
+const createMatch = async ({ tourist, guide, chatId, status, city, knowledge }) => {
+  const newMatch = new MatchModel({ tourist, guide, chatId, status, city, knowledge })
 
   const savedMatch = await newMatch.save({ new: true })
 
@@ -211,6 +211,26 @@ const getCitiesPerMatch = async () => {
 const getMatchesPerCategories = async () => {
 
   let results = [];
+
+  const queryNoche = ({ knowledge: "noche" })
+  const queryDeportes = ({ knowledge: "deportes" })
+  const queryAventura = ({ knowledge: "aventura" })
+  const queryShopping = ({ knowledge: "shopping" })
+  const queryCultura = ({ knowledge: "cultura" })
+  const queryGastronomia = ({ knowledge: "gastronomia" })
+
+  const noche= await MatchModel.find(queryNoche)
+  results.push({label:"Noche", value: noche.length, color:"#F9AA68"})
+  const deportes = await MatchModel.find(queryDeportes)
+  results.push({label:"Deportes", value: deportes.length, color:"#9CD6AE"})
+  const aventura = await MatchModel.find(queryAventura)
+  results.push({label:"Aventura", value: aventura.length, color:"#EA4E41"})
+  const shopping = await MatchModel.find(queryShopping)
+  results.push({label:"Shopping", value: shopping.length, color:"#883128"})
+  const cultura = await MatchModel.find(queryCultura)
+  results.push({label:"Cultura", value: cultura.length, color:"#F7913C"})
+  const gastronomia = await MatchModel.find(queryGastronomia)
+  results.push({label:"Gastronomía", value: gastronomia.length, color:"#7DCA96"})
   return results;
 }
 

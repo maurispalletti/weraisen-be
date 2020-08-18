@@ -3,6 +3,7 @@ const exceptions = require('../commons/exceptions')
 const error = require('../commons/error')
 const constants = require('../commons/constants')
 const userModel = require('../models/userModel')
+const { query } = require('express')
 
 const createUser = async user => {
   const newUser = new UserModel(user)
@@ -47,123 +48,135 @@ const findUsersByStatus = async (status) => {
 //   return UserModel.findOne({ recoveryToken: token })
 // }
 
-  const queryFem = ({ gender: "Femenino" })
-  const queryMasc = ({ gender: "Masculino" })
-  const queryOtro = ({ gender: "Otro" })
-  const queryNoche = ({ knowledge: "noche" })
-  const queryDeportes = ({ knowledge: "deportes" })
-  const queryAventura = ({ knowledge: "aventura" })
-  const queryShopping = ({ knowledge: "shopping" })
-  const queryCultura = ({ knowledge: "cultura" })
-  const queryGastronomia = ({ knowledge: "gastronomia" })
-  const queryGuia = ({ isActiveGuide: true })
+const queryFem = ({ gender: "Femenino" })
+const queryMasc = ({ gender: "Masculino" })
+const queryOtro = ({ gender: "Otro" })
+const queryNoche = ({ knowledge: "noche" })
+const queryDeportes = ({ knowledge: "deportes" })
+const queryAventura = ({ knowledge: "aventura" })
+const queryShopping = ({ knowledge: "shopping" })
+const queryCultura = ({ knowledge: "cultura" })
+const queryGastronomia = ({ knowledge: "gastronomia" })
+const queryGuia = ({ isActiveGuide: true })
 
 const getUsersCreatedPerMonth = async () => {
   let results = [];
 
- /* const usuarios = await userModel.find({createdAt: {$exists: true}})
-  results.push({usuarios})
-*/
-const date =2020;
-  
-
-    const queryJanuary = { createdAt: { $gte: new Date(date, 0, 01), $lte: new Date(date, 0, 31) } }
-    const january = await UserModel.find(queryJanuary);
-    if (january.length>0){
-    results.push({ category: "Enero", value: january.length })}
-    // results.push({ january: january.length })
-
-    const queryFebruary = { createdAt: { $gte: new Date(date, 01, 01), $lte: new Date(date, 01, 28) } }
-    const february = await UserModel.find(queryFebruary);
-    if (february.length>0){
-    results.push({ category: "Febrero", value: february.length })}
-    // results.push({ february: february.length })
-
-    const queryMarch = { createdAt: { $gte: new Date(date, 02, 01), $lte: new Date(date, 02, 31) } }
-    const march = await UserModel.find(queryMarch);
-    if (march.length>0){
-    results.push({ category: "Marzo", value: march.length })}
-    // results.push({ march: march.length })
-
-    const queryApril = { createdAt: { $gte: new Date(date, 03, 01), $lte: new Date(date, 03, 30) } }
-    const april = await UserModel.find(queryApril);
-    if (april.length>0){
-    results.push({ category: "Abril", value: april.length })}
-    // results.push({ april: april.length })
-
-    const queryMay = { createdAt: { $gte: new Date(date, 04, 01), $lte: new Date(date, 04, 31) } }
-    const may = await UserModel.find(queryMay);
-    if (may.length>0){
-    results.push({ category: "Mayo", value: may.length })}
-    // results.push({ may: may.length })
-
-    const queryJune = { createdAt: { $gte: new Date(date, 05, 01), $lte: new Date(date, 05, 30) } }
-    const june = await UserModel.find(queryJune);
-    if (june.length>0){
-    results.push({ category: "Junio", value: june.length })}
-    // results.push({ june: june.length })
-
-    const queryJuly = { createdAt: { $gte: new Date(date, 06, 01), $lte: new Date(date, 06, 31) } }
-    const july = await UserModel.find(queryJuly);
-    if (july.length>0){
-    results.push({ category: "Julio", value: july.length })}
-    // results.push({ july: july.length })
-
-    const queryAugust = { createdAt: { $gte: new Date(date, 07, 01), $lte: new Date(date, 07, 31) } }
-    const august = await UserModel.find(queryAugust);
-    if (august.length>0){
-    results.push({ category: "Agosto", value: august.length })}
-    // results.push({ august: august.length })
-
-    const querySeptember = { createdAt: { $gte: new Date(date, 08, 01), $lte: new Date(date, 08, 30) } }
-    const september = await UserModel.find(querySeptember);
-    if (september.length>0){
-    results.push({ category: "Septiembre", value: september.length })}
-    // results.push({ september: september.length })
-
-    const queryOctober = { createdAt: { $gte: new Date(date, 09, 01), $lte: new Date(date, 09, 31) } }
-    const october = await UserModel.find(queryOctober);
-    if (october.length>0){
-    results.push({ category: "Octubre", value: october.length })}
-    // results.push({ october: october.length })
-
-    const queryNovember = { createdAt: { $gte: new Date(date, 10, 01), $lte: new Date(date, 10, 30) } }
-    const november = await UserModel.find(queryNovember);
-    if (november.length>0){
-    results.push({ category: "Noviembre", value: november.length })}
-    // results.push({ november: november.length })
-
-    const queryDecember = { createdAt: { $gte: new Date(date, 11, 01), $lte: new Date(date, 11, 31) } }
-    const december = await UserModel.find(queryDecember);
-    if (december.length>0){
-    results.push({ category: "Diciembre", value: december.length })}
-    // results.push({ december: december.length })
+  /* const usuarios = await userModel.find({createdAt: {$exists: true}})
+   results.push({usuarios})
+ */
+  const date = 2020;
 
 
+  const queryJanuary = { createdAt: { $gte: new Date(date, 0, 01), $lte: new Date(date, 0, 31) } }
+  const january = await UserModel.find(queryJanuary);
+  if (january.length > 0) {
+    results.push({ category: "Enero", value: january.length })
+  }
+  // results.push({ january: january.length })
 
-    return results;
+  const queryFebruary = { createdAt: { $gte: new Date(date, 01, 01), $lte: new Date(date, 01, 28) } }
+  const february = await UserModel.find(queryFebruary);
+  if (february.length > 0) {
+    results.push({ category: "Febrero", value: february.length })
+  }
+  // results.push({ february: february.length })
 
-  
+  const queryMarch = { createdAt: { $gte: new Date(date, 02, 01), $lte: new Date(date, 02, 31) } }
+  const march = await UserModel.find(queryMarch);
+  if (march.length > 0) {
+    results.push({ category: "Marzo", value: march.length })
+  }
+  // results.push({ march: march.length })
+
+  const queryApril = { createdAt: { $gte: new Date(date, 03, 01), $lte: new Date(date, 03, 30) } }
+  const april = await UserModel.find(queryApril);
+  if (april.length > 0) {
+    results.push({ category: "Abril", value: april.length })
+  }
+  // results.push({ april: april.length })
+
+  const queryMay = { createdAt: { $gte: new Date(date, 04, 01), $lte: new Date(date, 04, 31) } }
+  const may = await UserModel.find(queryMay);
+  if (may.length > 0) {
+    results.push({ category: "Mayo", value: may.length })
+  }
+  // results.push({ may: may.length })
+
+  const queryJune = { createdAt: { $gte: new Date(date, 05, 01), $lte: new Date(date, 05, 30) } }
+  const june = await UserModel.find(queryJune);
+  if (june.length > 0) {
+    results.push({ category: "Junio", value: june.length })
+  }
+  // results.push({ june: june.length })
+
+  const queryJuly = { createdAt: { $gte: new Date(date, 06, 01), $lte: new Date(date, 06, 31) } }
+  const july = await UserModel.find(queryJuly);
+  if (july.length > 0) {
+    results.push({ category: "Julio", value: july.length })
+  }
+  // results.push({ july: july.length })
+
+  const queryAugust = { createdAt: { $gte: new Date(date, 07, 01), $lte: new Date(date, 07, 31) } }
+  const august = await UserModel.find(queryAugust);
+  if (august.length > 0) {
+    results.push({ category: "Agosto", value: august.length })
+  }
+  // results.push({ august: august.length })
+
+  const querySeptember = { createdAt: { $gte: new Date(date, 08, 01), $lte: new Date(date, 08, 30) } }
+  const september = await UserModel.find(querySeptember);
+  if (september.length > 0) {
+    results.push({ category: "Septiembre", value: september.length })
+  }
+  // results.push({ september: september.length })
+
+  const queryOctober = { createdAt: { $gte: new Date(date, 09, 01), $lte: new Date(date, 09, 31) } }
+  const october = await UserModel.find(queryOctober);
+  if (october.length > 0) {
+    results.push({ category: "Octubre", value: october.length })
+  }
+  // results.push({ october: october.length })
+
+  const queryNovember = { createdAt: { $gte: new Date(date, 10, 01), $lte: new Date(date, 10, 30) } }
+  const november = await UserModel.find(queryNovember);
+  if (november.length > 0) {
+    results.push({ category: "Noviembre", value: november.length })
+  }
+  // results.push({ november: november.length })
+
+  const queryDecember = { createdAt: { $gte: new Date(date, 11, 01), $lte: new Date(date, 11, 31) } }
+  const december = await UserModel.find(queryDecember);
+  if (december.length > 0) {
+    results.push({ category: "Diciembre", value: december.length })
+  }
+  // results.push({ december: december.length })
+
+
+
+  return results;
+
+
 }
 
-const getCategoriesMostSelected = async () =>{
-let results = [];
+const getCategoriesMostSelected = async () => {
+  let results = [];
 
-const aventura = await userModel.find(queryAventura)
-results.push({category:"Aventura", value: aventura.length})
-const deportes = await userModel.find(queryDeportes)
-results.push({category:"Deportes", value: deportes.length})
-const noche = await userModel.find(queryNoche)
-results.push({category:"Noche", value: noche.length})
-const shopping = await userModel.find(queryShopping)
-results.push({category:"Shopping", value: shopping.length})
-const gastronomia = await userModel.find(queryGastronomia)
-results.push({category:"Gastronomía", value: gastronomia.length})
-const cultura = await userModel.find(queryCultura)
-results.push({category:"Cultura", value: cultura.length})
+  const aventura = await userModel.find(queryAventura)
+  results.push({ category: "Aventura", value: aventura.length })
+  const deportes = await userModel.find(queryDeportes)
+  results.push({ category: "Deportes", value: deportes.length })
+  const noche = await userModel.find(queryNoche)
+  results.push({ category: "Noche", value: noche.length })
+  const shopping = await userModel.find(queryShopping)
+  results.push({ category: "Shopping", value: shopping.length })
+  const gastronomia = await userModel.find(queryGastronomia)
+  results.push({ category: "Gastronomía", value: gastronomia.length })
+  const cultura = await userModel.find(queryCultura)
+  results.push({ category: "Cultura", value: cultura.length })
 
 
-return results;
+  return results;
 
 }
 
@@ -171,7 +184,7 @@ const getCategoriesPerGender = async () => {
 
   let results = [];
 
-    const queryFemNoche = { $and: [] }
+  const queryFemNoche = { $and: [] }
   queryFemNoche.$and.push(queryFem)
   queryFemNoche.$and.push(queryNoche)
   queryFemNoche.$and.push(queryGuia)
@@ -303,57 +316,96 @@ const getCategoriesPerGender = async () => {
 
 }
 
-const getUsersPerAge = async ()=>{
+const getUsersPerAge = async () => {
   let results = [];
 
-let hoy = new Date();
-let año = hoy.getFullYear();
-let año18 = año-18;
+  let hoy = new Date();
+  let año = hoy.getFullYear();
+  let año18 = año - 18;
 
-  const query1 ={ birthDate: { $gte: new Date(año18-7, 0, 01), $lte: new Date(año18, 11, 31) } }
-  const query2 ={ birthDate: { $gte: new Date(año18-14, 0, 01), $lte: new Date(año18-8, 11, 31) } }
-  const query3={ birthDate: { $gte: new Date(año18-21, 0, 01), $lte: new Date(año18-15, 11, 31) } }
-  const query4={ birthDate: { $gte: new Date(año18-28, 0, 01), $lte: new Date(año18-22, 11, 31) } }
-  const query5={ birthDate: { $lte: new Date(año18-29, 11, 31) } }
+  const query1 = { birthDate: { $gte: new Date(año18 - 7, 0, 01), $lte: new Date(año18, 11, 31) } }
+  const query2 = { birthDate: { $gte: new Date(año18 - 14, 0, 01), $lte: new Date(año18 - 8, 11, 31) } }
+  const query3 = { birthDate: { $gte: new Date(año18 - 21, 0, 01), $lte: new Date(año18 - 15, 11, 31) } }
+  const query4 = { birthDate: { $gte: new Date(año18 - 28, 0, 01), $lte: new Date(año18 - 22, 11, 31) } }
+  const query5 = { birthDate: { $lte: new Date(año18 - 29, 11, 31) } }
 
-  const rango1= await userModel.find(query1)
-  results.push({label:"18-24", value: rango1.length, color:"#F9AA68"})
+  const rango1 = await userModel.find(query1)
+  results.push({ label: "18-24", value: rango1.length, color: "#F9AA68" })
   const rango2 = await userModel.find(query2)
-  results.push({label:"25-35", value: rango2.length, color:"#9CD6AE"})
+  results.push({ label: "25-35", value: rango2.length, color: "#9CD6AE" })
   const rango3 = await userModel.find(query3)
-  results.push({label:"36-45", value: rango3.length, color:"#EA4E41"})
+  results.push({ label: "36-45", value: rango3.length, color: "#EA4E41" })
   const rango4 = await userModel.find(query4)
-  results.push({label:"46-56", value: rango4.length, color:"883128"})
+  results.push({ label: "46-56", value: rango4.length, color: "883128" })
   const rango5 = await userModel.find(query5)
-  results.push({label:"57 o más", value: rango5.length, color:"F7913C"})
+  results.push({ label: "57 o más", value: rango5.length, color: "F7913C" })
 
   return results;
 }
 
-const getUsersPerLanguages = async ()=>{
+const getUsersPerLanguages = async () => {
 
-  let languages =["Español", "Inglés", "Portugués", "Italiano", "Alemán", "Francés" ];
+  let languages = ["Español", "Inglés", "Portugués", "Italiano", "Alemán", "Francés"];
   let results = [];
   for (let index = 0; index < languages.length; index++) {
     const language = languages[index];
-    const queryLanguage =({languages: language})
+    const queryLanguage = ({ languages: language })
 
     const resultadoLanguages = await userModel.find(queryLanguage);
-    results.push({category: language, value: resultadoLanguages.length})
+    results.push({ category: language, value: resultadoLanguages.length })
   }
   return results;
 }
 
-const getUsersPerGender = async ()=>{
+const getUsersPerGender = async () => {
   let results = [];
   const femeninos = await userModel.find(queryFem)
-  results.push({label:"Femenino", value: femeninos.length, color: "#9CD6AE"})
-const masculinos = await userModel.find(queryMasc)
-results.push({label: "Masculino", value:masculinos.length, color:"#F9AA68"})
-const otros = await userModel.find(queryOtro)
-results.push({label: "Otro", value: otros.length, color:"#EA4E41"})
+  results.push({ label: "Femenino", value: femeninos.length, color: "#9CD6AE" })
+  const masculinos = await userModel.find(queryMasc)
+  results.push({ label: "Masculino", value: masculinos.length, color: "#F9AA68" })
+  const otros = await userModel.find(queryOtro)
+  results.push({ label: "Otro", value: otros.length, color: "#EA4E41" })
 
-return results;
+  return results;
+}
+
+const getCategoriesPerCity = async () => {
+  let ciudades = ["Buenos Aires", "Bariloche", "Comodoro Rivadavia", "Cordoba", "Corrientes", "Cosquin", "El Bolson", "El Chalten", "Esquel", "Formosa", "General Pico",
+    "Gualeguaychu", "Humauaca", "La Cumbrecita", "LaPlata", "La Rioja", "Mardel", "Mendoza", "Merlo", "Neuquen", "Mina Clavero", "Monte Hermoso", "Parana", "Perito Moreno",
+    "Pinamar", "Posadas", "Puerto Iguazu", "Puerto Madryn", "Resistencia", "Rio Gallegos", "Rio Grande", "Rosario", "Salta", "San Fernando del Valle de Catamarca", "San Juan", "San Luis", "San Martin de los Andes",
+    "San Miguel de Tucuman", "San Rafael", "San Salvador de Jujuy", "Santa Fe", "Santa Rosa", "Santiago Del Estero", "Termas de Rio Hondo", "Tilcara", "Trelew", "Ushuaia", "Villa Carlos Paz",
+    "Villa Maria",];
+
+  let categorias = ["aventura", "deportes", "noche", "shopping", "gastronomia", "cultura"];
+
+  
+  let results = [];
+
+  for (let i = 0; i < categorias.length; i++) {
+    const categoria = categorias[i];
+    
+    const queryCategoria = ({ knowledge: categoria })
+    
+    let resultsS = [];
+    
+    for (let index = 0; index < ciudades.length; index++) {
+      const queryAmbos = { $and: [] }
+      queryAmbos.$and.push(queryCategoria)
+      const ciudad = ciudades[index];
+      const queryCiudad = ({ city: ciudad })
+      queryAmbos.$and.push(queryCiudad)
+      let resultsCiudades = [];
+     
+      resultsCiudades = await userModel.find(queryAmbos)
+      if (resultsCiudades.length > 0) {
+
+        resultsS.push({ seriename: ciudad, value: resultsCiudades.length })
+      }
+    }
+    results.push({ label: categoria, resultsS })
+  }
+  console.log("categories per city" + results)
+  return results
 }
 
 module.exports = {
@@ -368,4 +420,5 @@ module.exports = {
   getUsersPerAge,
   getUsersPerLanguages,
   getUsersPerGender,
+  getCategoriesPerCity
 }

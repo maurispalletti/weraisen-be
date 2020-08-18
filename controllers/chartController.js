@@ -57,7 +57,10 @@ const getMatchesPerCategories = async (req, res) =>{
   const data = await chartDelegate.getMatchesPerCategories()
   res.json(data)
 }
-
+const getCategoriesPerCity = async (req, res) =>{
+  const data = await chartDelegate.getCategoriesPerCity()
+  res.json(data)
+}
 module.exports = {
   getMatchesPerMonth,
   getChartCategory,
@@ -70,4 +73,5 @@ module.exports = {
   getUsersPerLanguages,
   getUsersPerGender,
   getMatchesPerCategories,
+  getCategoriesPerCity,
 }
