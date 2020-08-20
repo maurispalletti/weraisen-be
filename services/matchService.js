@@ -5,8 +5,8 @@ const constants = require('../commons/constants')
 
 const { matches: { status: { ACTIVE } } } = constants;
 
-const createMatch = async ({ tourist, guide, chatId, status }) => {
-  const newMatch = new MatchModel({ tourist, guide, chatId, status })
+const createMatch = async ({ tourist, guide, chatId, status, matchDate }) => {
+  const newMatch = new MatchModel({ tourist, guide, chatId, status, matchDate })
 
   const savedMatch = await newMatch.save({ new: true })
 
@@ -82,6 +82,10 @@ const updateMatch = async (chatId, status) => {
 
 const updateMatchById = async (id, status) => {
   return MatchModel.findByIdAndUpdate(id, { $set: { status } }, { new: true })
+}
+
+const updateMatchByIdDate = async (id, matchDate) => {
+  return MatchModel.findByIdAndUpdate(id, { $set: {matchDate}}, {new:true} )
 }
 
 const getQuantityPerMonth = async () => {
@@ -171,4 +175,5 @@ module.exports = {
   getQuantityPerMonth,
   getActiveMatchesByUser,
   updateMatchById,
+  updateMatchByIdDate
 }

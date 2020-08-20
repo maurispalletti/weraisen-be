@@ -19,6 +19,8 @@ const MatchSchema = new Schema({
     required: true,
     default: PENDING
   },
+  matchDate:{ type: Date, required:true}
+
 })
 
 MatchSchema.plugin(timestamps, {
