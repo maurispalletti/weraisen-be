@@ -370,11 +370,12 @@ const getUsersPerGender = async () => {
 }
 
 const getCategoriesPerCity = async () => {
-  let ciudades = ["Buenos Aires", "Bariloche", "Comodoro Rivadavia", "Cordoba", "Corrientes", "Cosquin", "El Bolson", "El Chalten", "Esquel", "Formosa", "General Pico",
+  /*let ciudades = ["Buenos Aires", "Bariloche", "Comodoro Rivadavia", "Cordoba", "Corrientes", "Cosquin", "El Bolson", "El Chalten", "Esquel", "Formosa", "General Pico",
     "Gualeguaychu", "Humauaca", "La Cumbrecita", "LaPlata", "La Rioja", "Mardel", "Mendoza", "Merlo", "Neuquen", "Mina Clavero", "Monte Hermoso", "Parana", "Perito Moreno",
     "Pinamar", "Posadas", "Puerto Iguazu", "Puerto Madryn", "Resistencia", "Rio Gallegos", "Rio Grande", "Rosario", "Salta", "San Fernando del Valle de Catamarca", "San Juan", "San Luis", "San Martin de los Andes",
     "San Miguel de Tucuman", "San Rafael", "San Salvador de Jujuy", "Santa Fe", "Santa Rosa", "Santiago Del Estero", "Termas de Rio Hondo", "Tilcara", "Trelew", "Ushuaia", "Villa Carlos Paz",
-    "Villa Maria",];
+    "Villa Maria",];*/
+    let ciudades =["Buenos Aires", "Cordoba", "LaPlata", "Mar del Plata", "Neuquen", "Mendoza", "Rosario"];
 
   let categorias = ["aventura", "deportes", "noche", "shopping", "gastronomia", "cultura"];
 
@@ -397,10 +398,10 @@ const getCategoriesPerCity = async () => {
       let resultsCiudades = [];
      
       resultsCiudades = await userModel.find(queryAmbos)
-      if (resultsCiudades.length > 0) {
+     // if (resultsCiudades.length > 0) {
 
         resultsS.push({ seriename: ciudad, value: resultsCiudades.length })
-      }
+      //}
     }
     results.push({ label: categoria, resultsS })
   }
