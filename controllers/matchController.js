@@ -5,25 +5,16 @@ const createMatch = async (req, res) => {
   const requiredParams = [
     'tourist',
     'guide',
-<<<<<<< HEAD
     'city',
     'knowledge',
-=======
     'matchDate'
->>>>>>> eb564537f8b3d1a1cc11dcae7fee7380bc58430c
   ]
 
   validators.validateRequiredKeys(req.body, requiredParams)
 
-<<<<<<< HEAD
-  const { tourist, guide, city , knowledge} = req.body
+  const { tourist, guide, city , knowledge, matchDate} = req.body
 
-  const match = await matchDelegate.createMatch({ tourist, guide, city, knowledge })
-=======
-  const { tourist, guide, matchDate } = req.body
-
-  const match = await matchDelegate.createMatch({ tourist, guide, matchDate })
->>>>>>> eb564537f8b3d1a1cc11dcae7fee7380bc58430c
+  const match = await matchDelegate.createMatch({ tourist, guide, city, knowledge, matchDate })
   res.json(match)
 }
 
