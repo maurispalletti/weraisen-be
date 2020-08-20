@@ -5,13 +5,14 @@ const createMatch = async (req, res) => {
   const requiredParams = [
     'tourist',
     'guide',
+    'matchDate'
   ]
 
   validators.validateRequiredKeys(req.body, requiredParams)
 
-  const { tourist, guide } = req.body
+  const { tourist, guide, matchDate } = req.body
 
-  const match = await matchDelegate.createMatch({ tourist, guide })
+  const match = await matchDelegate.createMatch({ tourist, guide, matchDate })
   res.json(match)
 }
 
@@ -83,6 +84,18 @@ const updateMatchStatus = async (req, res) => {
   res.json(match)
 }
 
+const updateMatchDate = async (req, res) => {
+  validators.validateRequiredKeys(req.params, ['matchId'])
+  validators.validateRequiredKeys(req.body, ['matchDate'])
+
+  const { matchId } = req.params
+  const { matchDate } = req.body
+
+  const match = await matchDelegate.updateMatchDate(matchId, matchDate)
+  res.json(match)
+}
+
+
 module.exports = {
   createMatch,
   getMatchByUserIds,
@@ -92,4 +105,5 @@ module.exports = {
   updateMatch,
   getEndedMatchesByUserToReview,
   updateMatchStatus,
+  updateMatchDate
 }
