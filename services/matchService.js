@@ -7,8 +7,8 @@ const userModel = require('../models/userModel');
 
 const { matches: { status: { ACTIVE } } } = constants;
 
-const createMatch = async ({ tourist, guide, chatId, status, city, knowledge }) => {
-  const newMatch = new MatchModel({ tourist, guide, chatId, status, city, knowledge })
+const createMatch = async ({ tourist, guide, chatId, status, matchDate , city, knowledge}) => {
+  const newMatch = new MatchModel({ tourist, guide, chatId, status, matchDate , city, knowledge})
 
   const savedMatch = await newMatch.save({ new: true })
 
@@ -86,7 +86,9 @@ const updateMatchById = async (id, status) => {
   return MatchModel.findByIdAndUpdate(id, { $set: { status } }, { new: true })
 }
 
-
+const updateMatchByIdDate = async (id, matchDate) => {
+  return MatchModel.findByIdAndUpdate(id, { $set: {matchDate}}, {new:true} )
+}
 //informes
 const queryJanuary = { createdAt: { $gte: new Date(2020, 0, 01), $lte: new Date(2020, 0, 31) } }
 const queryFebruary = { createdAt: { $gte: new Date(2020, 01, 01), $lte: new Date(2020, 01, 28) } }
@@ -248,4 +250,5 @@ module.exports = {
   getCitiesPerMatch,
   getMatchesPerCategories,
 
+  updateMatchByIdDate
 }

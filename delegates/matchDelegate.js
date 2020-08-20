@@ -14,22 +14,34 @@ const {
   },
 } = constants
 
+<<<<<<< HEAD
 const createMatch = async ({ tourist, guide, city , knowledge}) => {
+=======
+const createMatch = async ({ tourist, guide, matchDate }) => {
+>>>>>>> eb564537f8b3d1a1cc11dcae7fee7380bc58430c
   try {
-    const match = await matchService.getMatchByUserIds({ tourist, guide })
+    const match = await matchService.getMatchByUserIds({ tourist, guide, matchDate })
     if (match && match.length > 0) {
       return match
     } else {
       console.log('Creating chat')
-      const { id: chatId } = await chatDelegate.createChat({ tourist, guide })
+      const { id: chatId } = await chatDelegate.createChat({ tourist, guide, matchDate })
       console.log(`Chat created - id ${chatId}`)
 
       console.log('Creating new match')
+<<<<<<< HEAD
       const newMatch = await matchService.createMatch({ tourist, guide, chatId, status: PENDING, city, knowledge})
       console.log(`Match created - new Match ${newMatch}`)
 
       if (newMatch) {
         const { id: matchId, tourist: touristId, guide: guideId, city: city, knowledge:knowledge } = newMatch
+=======
+      const newMatch = await matchService.createMatch({ tourist, guide, chatId, status: PENDING, matchDate })
+      console.log(`Match created - new Match ${newMatch}`)
+
+      if (newMatch) {
+        const { id: matchId, tourist: touristId, guide: guideId, matchDate:matchDate } = newMatch
+>>>>>>> eb564537f8b3d1a1cc11dcae7fee7380bc58430c
 
         const { firstName: guideName, lastName: guideLastName } = await userService.findUserById(guideId)
         
@@ -236,6 +248,13 @@ const updateMatchStatus = async (matchId, status) => {
   return updatedMatch
 }
 
+
+const updateMatchDate = async (matchId, matchDate) => {
+  const updatedMatch = await matchService.updateMatchByIdDate(matchId, matchDate)
+  return updatedMatch
+}
+
+
 module.exports = {
   createMatch,
   getMatchByUserIds,
@@ -245,4 +264,5 @@ module.exports = {
   getMatchByChatId,
   updateMatch,
   updateMatchStatus,
+  updateMatchDate
 }

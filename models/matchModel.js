@@ -19,8 +19,13 @@ const MatchSchema = new Schema({
     required: true,
     default: PENDING
   },
+<<<<<<< HEAD
   city:{ type: String},
   knowledge:[String]
+=======
+  matchDate:{ type: Date, required:true}
+
+>>>>>>> eb564537f8b3d1a1cc11dcae7fee7380bc58430c
 })
 
 MatchSchema.plugin(timestamps, {
