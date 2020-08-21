@@ -14,26 +14,29 @@ const {
   },
 } = constants
 
-const createMatch = async ({ tourist, guide }) => {
+const createMatch = async ({ tourist, guide, city , knowledge, matchDate}) => {
   try {
-    const match = await matchService.getMatchByUserIds({ tourist, guide })
+    const match = await matchService.getMatchByUserIds({ tourist, guide, matchDate })
     if (match && match.length > 0) {
       return match
     } else {
       console.log('Creating chat')
-      const { id: chatId } = await chatDelegate.createChat({ tourist, guide })
+      const { id: chatId } = await chatDelegate.createChat({ tourist, guide, matchDate })
       console.log(`Chat created - id ${chatId}`)
 
       console.log('Creating new match')
-      const newMatch = await matchService.createMatch({ tourist, guide, chatId, status: PENDING })
+      const newMatch = await matchService.createMatch({ tourist, guide, chatId, status: PENDING, city, knowledge, matchDate})
       console.log(`Match created - new Match ${newMatch}`)
 
       if (newMatch) {
-        const { id: matchId, tourist: touristId, guide: guideId } = newMatch
+        const { id: matchId, tourist: touristId, guide: guideId, city: city, knowledge:knowledge, matchDate:matchDate } = newMatch
 
         // const { firstName: guideName, lastName: guideLastName } = await userService.findUserById(guideId)
+        const { firstName: guideName, lastName: guideLastName } = await userService.findUserById(guideId)
+        
         const { firstName: touristName, lastName: touristLastName } = await userService.findUserById(touristId)
-
+        console.log("conocimientos"+ knowledge)
+        
         // // Create notification for tourist
         // const touristNotificationContent = {
         //   userId: touristId,
@@ -260,6 +263,13 @@ const updateMatchStatus = async (matchId, status) => {
   return updatedMatch
 }
 
+
+const updateMatchDate = async (matchId, matchDate) => {
+  const updatedMatch = await matchService.updateMatchByIdDate(matchId, matchDate)
+  return updatedMatch
+}
+
+
 module.exports = {
   createMatch,
   getMatchByUserIds,
@@ -269,4 +279,5 @@ module.exports = {
   getMatchByChatId,
   updateMatch,
   updateMatchStatus,
+  updateMatchDate
 }
