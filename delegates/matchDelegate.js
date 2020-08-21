@@ -14,7 +14,7 @@ const {
   },
 } = constants
 
-const createMatch = async ({ tourist, guide, matchDate }) => {
+const createMatch = async ({ tourist, guide, city , knowledge, matchDate}) => {
   try {
     const match = await matchService.getMatchByUserIds({ tourist, guide, matchDate })
     if (match && match.length > 0) {
@@ -25,15 +25,18 @@ const createMatch = async ({ tourist, guide, matchDate }) => {
       console.log(`Chat created - id ${chatId}`)
 
       console.log('Creating new match')
-      const newMatch = await matchService.createMatch({ tourist, guide, chatId, status: PENDING, matchDate })
+      const newMatch = await matchService.createMatch({ tourist, guide, chatId, status: PENDING, city, knowledge, matchDate})
       console.log(`Match created - new Match ${newMatch}`)
 
       if (newMatch) {
-        const { id: matchId, tourist: touristId, guide: guideId, matchDate:matchDate } = newMatch
+        const { id: matchId, tourist: touristId, guide: guideId, city: city, knowledge:knowledge, matchDate:matchDate } = newMatch
 
+        // const { firstName: guideName, lastName: guideLastName } = await userService.findUserById(guideId)
         const { firstName: guideName, lastName: guideLastName } = await userService.findUserById(guideId)
+        
         const { firstName: touristName, lastName: touristLastName } = await userService.findUserById(touristId)
-
+        console.log("conocimientos"+ knowledge)
+        
         // // Create notification for tourist
         // const touristNotificationContent = {
         //   userId: touristId,
@@ -175,7 +178,33 @@ const updateMatch = async (chatId, status) => {
 const updateMatchStatus = async (matchId, status) => {
   const updatedMatch = await matchService.updateMatchById(matchId, status)
 
-  // If new status is ACCEPTED, create notification saying match was accepted
+  // If new status is ACTIVE, create notification saying match was accepted
+  if (updatedMatch && updatedMatch.status === 'Activo') {
+    const { id: matchId, tourist: touristId, guide: guideId, chatId } = updatedMatch
+    const { firstName: guideName, lastName: guideLastName } = await userService.findUserById(guideId)
+    const { firstName: touristName, lastName: touristLastName } = await userService.findUserById(touristId)
+
+    // Create notification new chat for tourist
+    const touristNotificationContent = {
+      userId: touristId,
+      status: ACTIVE,
+      type: APROVED,
+      message: `Tu guía ${guideName} ${guideLastName} aceptó la solicitud de encuentro. Comenzá a chatear para planear tu próxima aventura.`,
+      contentId: chatId,
+    }
+    notificationService.createNotification(touristNotificationContent)
+
+
+    // Create notification new chat for guide
+    const guideNotificationContent = {
+      userId: guideId,
+      status: ACTIVE,
+      type: APROVED,
+      message: `Aceptaste el encuentro con ${touristName} ${touristLastName}. Comenzá a chatear para planear su próxima aventura.`,
+      contentId: chatId,
+    }
+    notificationService.createNotification(guideNotificationContent)
+  }
 
   // This notification is for Canceled requests
   if (updatedMatch && updatedMatch.status === CANCELED) {
