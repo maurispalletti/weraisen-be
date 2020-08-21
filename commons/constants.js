@@ -40,6 +40,7 @@ module.exports = {
   notifications: {
     status: {
       ACTIVE: 'Activa',
+      READ: 'Leida',
       CLOSED: 'Cerrada',
     },
     type: {

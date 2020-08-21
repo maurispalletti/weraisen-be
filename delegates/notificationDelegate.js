@@ -6,11 +6,21 @@ const getNotificationsByUserId = async (userId) => {
   return notificationService.getNotificationsByUserId(userId);
 }
 
+const getUnreadNotificationsByUserId = async (userId) => {
+  return notificationService.getUnreadNotificationsByUserId(userId);
+}
+
 const createNotification = async (notificationData) => {
   return notificationService.createNotification(notificationData)
+}
+
+const updateNotificationsStatus = async (userId, status) => {
+  notificationService.updateNotificationsStatus(userId, status)
 }
 
 module.exports = {
   getNotificationsByUserId,
   createNotification,
+  updateNotificationsStatus,
+  getUnreadNotificationsByUserId,
 }
