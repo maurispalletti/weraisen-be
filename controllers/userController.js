@@ -47,12 +47,7 @@ const findUserById = async (req, res) => {
 
 const uploadIdentification = async (req, res) => {
   validators.validateRequiredKeys(req, ['file'])
-
-
-  console.log(`controller - req.file:`);
-  console.log(req.file);
- 
-  
+console.log(req.file);
   const imageUrl = await userDelegate.uploadIdentification(req.file)
   // res.json(imageUrl)
 
