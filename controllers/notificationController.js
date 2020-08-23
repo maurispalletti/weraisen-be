@@ -10,6 +10,26 @@ const getNotificationsByUserId = async (req, res) => {
   res.json(notifications)
 }
 
+const getUnreadNotificationsByUserId = async (req, res) => {
+  validators.validateRequiredKeys(req.params, ['userId'])
+
+  const { userId } = req.params
+
+  const notifications = await notificationDelegate.getUnreadNotificationsByUserId(userId)
+  res.json(notifications)
+}
+
+const updateNotificationsStatus = async (req, res) => {
+  validators.validateRequiredKeys(req.params, ['userId'])
+  validators.validateRequiredKeys(req.body, ['status'])
+
+  const { userId } = req.params
+  const { status } = req.body
+
+  const notifications = await notificationDelegate.updateNotificationsStatus(userId, status)
+  res.json(notifications)
+}
+
 const createNotification = async (req, res) => {
   const requiredParams = [
     'userId',
@@ -38,6 +58,11 @@ const sendEmail = async (req, res) => {
 
 module.exports = {
   getNotificationsByUserId,
+  getUnreadNotificationsByUserId,
   createNotification,
+<<<<<<< HEAD
   sendEmail,
+=======
+  updateNotificationsStatus,
+>>>>>>> 38b137513386f31b327d049725c9caa66580dab2
 }

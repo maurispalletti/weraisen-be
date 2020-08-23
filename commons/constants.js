@@ -33,14 +33,14 @@ module.exports = {
       SEXUAL: 'Sexual',
       VIOLENCE: 'Violencia',
       DISCRIMINATION: 'Discriminacion',
-      PUNTUALITY: 'Puntualidad',
       FAKE: 'Suplantacion',
-      THREAT: 'Amenaza',
+      OTHER: 'Otro',
     },
   },
   notifications: {
     status: {
       ACTIVE: 'Activa',
+      READ: 'Leida',
       CLOSED: 'Cerrada',
     },
     type: {

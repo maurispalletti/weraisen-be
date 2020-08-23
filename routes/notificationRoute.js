@@ -7,6 +7,14 @@ router.get('/:userId', async (req, res) => {
   routeController.handleRequest(req, res, notificationController.getNotificationsByUserId)
 })
 
+router.put('/:userId', async (req, res) => {
+  routeController.handleRequest(req, res, notificationController.updateNotificationsStatus)
+})
+
+router.get('/unread/:userId', async (req, res) => {
+  routeController.handleRequest(req, res, notificationController.getUnreadNotificationsByUserId)
+})
+
 router.post('/', async (req, res) => {
   routeController.handleRequest(req, res, notificationController.createNotification)
 })

@@ -10,6 +10,10 @@ const getNotificationsByUserId = async (userId) => {
   return notificationService.getNotificationsByUserId(userId);
 }
 
+const getUnreadNotificationsByUserId = async (userId) => {
+  return notificationService.getUnreadNotificationsByUserId(userId);
+}
+
 const createNotification = async (notificationData) => {
   return notificationService.createNotification(notificationData)
 }
@@ -86,8 +90,14 @@ console.log(emailData);
   // res.send("ok");  
 }
 
+const updateNotificationsStatus = async (userId, status) => {
+  notificationService.updateNotificationsStatus(userId, status)
+}
+
 module.exports = {
   getNotificationsByUserId,
   createNotification,
-  sendEmail
+  sendEmail,
+  updateNotificationsStatus,
+  getUnreadNotificationsByUserId,
 }
