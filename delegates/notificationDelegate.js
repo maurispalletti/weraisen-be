@@ -42,7 +42,7 @@ console.log(emailData);
     case 1:
       textoMail = `¡Hola! Tu usuario fue aprobado con éxito. Estamos felices de darte la bienvenida a nuestra comunidad.
       Al presionar el siguiente link ya podrás disfrutar de nuestros servicios:
-      https://login
+      http://localhost:3000/login
       ¡Muchas gracias! El equipo de WeRaisen.`
 
       asuntoMail = "¡Usuario de WER aprobado!"
@@ -50,7 +50,7 @@ console.log(emailData);
       //Usuario denegado
     case 2:
       textoMail = `¡Hola! No pudimos validar tu usuario. Había inconsistencias en los datos ingresados. Si crees que hubo un error, volvé a intentarlo con el siguiente link:
-      https://signup
+      http://localhost:3000/signup
       ¡Muchas gracias! El equipo de WeRaisen.`
 
       asuntoMail = "Usuario de WER denegado"      
@@ -61,7 +61,7 @@ console.log(emailData);
 
         ¡Pero no te preocupes! Podes usar el siguiente link para restablecer tu contraseña: Si no usas este enlace dentro de las 3 horas, caducará. 
         
-        https://link.
+        http://localhost:3000/ChangePassword
         
         Gracias. El equipo de WeRaisen.`
 
