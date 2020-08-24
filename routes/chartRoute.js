@@ -60,4 +60,16 @@ router.get('/matchesPerCategories', async (req, res) => {
 router.get('/categoriesPerCity', async (req, res) => {
   routeController.handleRequest(req, res, chartController.getCategoriesPerCity)
 })
+
+router.get('/matchesPerMonthForGuide/:userId', async (req, res) => {
+  
+  routeController.handleRequest(req, res, chartController.getMatchesPerMonthForGuide)
+})
+router.get('/getMatchesByStatusForGuide/:userId', async (req, res) => {
+  
+  routeController.handleRequest(req, res, chartController.getMatchesByStatusForGuide)
+})
+
+
+
 module.exports = router

@@ -61,6 +61,18 @@ const getCategoriesPerCity = async (req, res) =>{
   const data = await chartDelegate.getCategoriesPerCity()
   res.json(data)
 }
+const getMatchesPerMonthForGuide = async (req, res) => {
+  validators.validateRequiredKeys(req.params, ['userId'])
+  const { userId } = req.params
+  const data = await chartDelegate.getMatchesPerMonthForGuide(userId)
+  res.json(data)
+}
+const getMatchesByStatusForGuide = async (req, res) => {
+  validators.validateRequiredKeys(req.params, ['userId'])
+  const { userId } = req.params
+  const data = await chartDelegate.getMatchesByStatusForGuide(userId)
+  res.json(data)
+}
 module.exports = {
   getMatchesPerMonth,
   getChartCategory,
@@ -74,4 +86,6 @@ module.exports = {
   getUsersPerGender,
   getMatchesPerCategories,
   getCategoriesPerCity,
+  getMatchesPerMonthForGuide,
+  getMatchesByStatusForGuide,
 }

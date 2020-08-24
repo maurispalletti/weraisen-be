@@ -405,7 +405,7 @@ const getCategoriesPerCity = async () => {
     }
     results.push({ label: categoria, resultsS })
   }
-  console.log("categories per city" + results)
+
   return results
 }
 
