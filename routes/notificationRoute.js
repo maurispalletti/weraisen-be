@@ -19,4 +19,8 @@ router.post('/', async (req, res) => {
   routeController.handleRequest(req, res, notificationController.createNotification)
 })
 
+router.post('/sendEmail', async (req, res) => {
+  routeController.handleRequest(req, res, notificationController.sendEmail)
+})
+
 module.exports = router
