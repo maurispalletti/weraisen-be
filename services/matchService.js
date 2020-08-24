@@ -7,8 +7,8 @@ const userModel = require('../models/userModel');
 
 const { matches: { status: { ACTIVE } } } = constants;
 
-const createMatch = async ({ tourist, guide, chatId, status, matchDate , city, knowledge}) => {
-  const newMatch = new MatchModel({ tourist, guide, chatId, status, matchDate , city, knowledge})
+const createMatch = async ({ tourist, guide, chatId, status, matchDate, city, knowledge }) => {
+  const newMatch = new MatchModel({ tourist, guide, chatId, status, matchDate, city, knowledge })
 
   const savedMatch = await newMatch.save({ new: true })
 
@@ -87,7 +87,7 @@ const updateMatchById = async (id, status) => {
 }
 
 const updateMatchByIdDate = async (id, matchDate) => {
-  return MatchModel.findByIdAndUpdate(id, { $set: {matchDate}}, {new:true} )
+  return MatchModel.findByIdAndUpdate(id, { $set: { matchDate } }, { new: true })
 }
 //informes
 const queryJanuary = { createdAt: { $gte: new Date(2020, 0, 01), $lte: new Date(2020, 0, 31) } }
@@ -221,21 +221,163 @@ const getMatchesPerCategories = async () => {
   const queryCultura = ({ knowledge: "cultura" })
   const queryGastronomia = ({ knowledge: "gastronomia" })
 
-  const noche= await MatchModel.find(queryNoche)
-  results.push({label:"Noche", value: noche.length, color:"#F9AA68"})
+  const noche = await MatchModel.find(queryNoche)
+  results.push({ label: "Noche", value: noche.length, color: "#F9AA68" })
   const deportes = await MatchModel.find(queryDeportes)
-  results.push({label:"Deportes", value: deportes.length, color:"#9CD6AE"})
+  results.push({ label: "Deportes", value: deportes.length, color: "#9CD6AE" })
   const aventura = await MatchModel.find(queryAventura)
-  results.push({label:"Aventura", value: aventura.length, color:"#EA4E41"})
+  results.push({ label: "Aventura", value: aventura.length, color: "#EA4E41" })
   const shopping = await MatchModel.find(queryShopping)
-  results.push({label:"Shopping", value: shopping.length, color:"#883128"})
+  results.push({ label: "Shopping", value: shopping.length, color: "#883128" })
   const cultura = await MatchModel.find(queryCultura)
-  results.push({label:"Cultura", value: cultura.length, color:"#F7913C"})
+  results.push({ label: "Cultura", value: cultura.length, color: "#F7913C" })
   const gastronomia = await MatchModel.find(queryGastronomia)
-  results.push({label:"Gastronomía", value: gastronomia.length, color:"#7DCA96"})
+  results.push({ label: "Gastronomía", value: gastronomia.length, color: "#7DCA96" })
   return results;
 }
 
+const getMatchesPerMonthForGuide = async userId => {
+  const queryGuide = { guide: userId }
+
+  let results = [];
+
+
+  const queryEnero = { $and: [] }
+  queryEnero.$and.push(queryGuide)
+  queryEnero.$and.push(queryJanuary)
+  const january = await MatchModel.find(queryEnero);
+  if (january.length > 0) {
+    results.push({ category: "Enero", value: january.length })
+  }
+  const queryFebrero = { $and: [] }
+  queryFebrero.$and.push(queryGuide)
+  queryFebrero.$and.push(queryFebruary)
+  const february = await MatchModel.find(queryFebrero);
+  if (february.length > 0) {
+    results.push({ category: "Febrero", value: february.length })
+  }
+  const queryMarzo = { $and: [] }
+  queryMarzo.$and.push(queryGuide)
+  queryMarzo.$and.push(queryMarch)
+  const march = await MatchModel.find(queryMarzo);
+  if (march.length > 0) {
+    results.push({ category: "Marzo", value: march.length })
+  }
+  const queryAbril = { $and: [] }
+  queryAbril.$and.push(queryGuide)
+  queryAbril.$and.push(queryApril)
+  const april = await MatchModel.find(queryAbril);
+  if (april.length > 0) {
+    results.push({ category: "Abril", value: april.length })
+  }
+  const queryMayo = { $and: [] }
+  queryMayo.$and.push(queryGuide)
+  queryMayo.$and.push(queryMay)
+  const may = await MatchModel.find(queryMayo);
+  if (may.length > 0) {
+    results.push({ category: "Mayo", value: may.length })
+  }
+  const queryJunio = { $and: [] }
+  queryJunio.$and.push(queryGuide)
+  queryJunio.$and.push(queryJune)
+  const june = await MatchModel.find(queryJunio);
+  if (june.length > 0) {
+    results.push({ category: "Junio", value: june.length })
+  }
+
+  const queryJulio = { $and: [] }
+  queryJulio.$and.push(queryGuide)
+  queryJulio.$and.push(queryJuly)
+  const july = await MatchModel.find(queryJulio);
+  if (july.length > 0) {
+    results.push({ category: "Julio", value: july.length })
+  }
+  const queryAgosto = { $and: [] }
+  queryAgosto.$and.push(queryGuide)
+  queryAgosto.$and.push(queryAugust)
+  const august = await MatchModel.find(queryAgosto);
+  if (august.length > 0) {
+    results.push({ category: "Agosto", value: august.length })
+  }
+  const querySeptiembre = { $and: [] }
+  querySeptiembre.$and.push(queryGuide)
+  querySeptiembre.$and.push(querySeptember)
+  const september = await MatchModel.find(querySeptiembre);
+  if (september.length > 0) {
+    results.push({ category: "Septiembre", value: september.length })
+  }
+  const queryOctubre = { $and: [] }
+  queryOctubre.$and.push(queryGuide)
+  queryOctubre.$and.push(queryOctober)
+  const october = await MatchModel.find(queryOctubre);
+  if (october.length > 0) {
+    results.push({ category: "Octubre", value: october.length })
+  }
+  const queryNoviembre = { $and: [] }
+  queryNoviembre.$and.push(queryGuide)
+  queryNoviembre.$and.push(queryNovember)
+  const november = await MatchModel.find(queryNoviembre);
+  if (november.length > 0) {
+    results.push({ category: "Noviembre", value: november.length })
+  }
+  const queryDiciembre = { $and: [] }
+  queryDiciembre.$and.push(queryGuide)
+  queryDiciembre.$and.push(queryDecember)
+  const december = await MatchModel.find(queryDiciembre);
+  if (december.length > 0) {
+    results.push({ category: "Diciembre", value: december.length })
+  }
+
+
+  return results;
+
+
+
+
+}
+
+const getMatchesByStatusForGuide = async userId => {
+  const queryGuide = { guide: userId }
+
+  queryPendiente = ({ status: "Pendiente" })
+  queryFinalizado = ({ status: "Finalizado" })
+  queryCancelado = ({ status: "Cancelado" })
+  queryActivo = ({ status: "Activo" })
+
+
+  let results = [];
+
+  const queryPendienteGuia = { $and: [] }
+  queryPendienteGuia.$and.push(queryGuide)
+  queryPendienteGuia.$and.push(queryPendiente)
+  const pendiente = await MatchModel.find(queryPendienteGuia);
+  if (pendiente.length > 0) {
+    results.push({ label: "Pendiente", value: pendiente.length, color: "#FBF34A" })
+  }
+  const queryFinalizadoGuia = { $and: [] }
+  queryFinalizadoGuia.$and.push(queryGuide)
+  queryFinalizadoGuia.$and.push(queryFinalizado)
+  const finalizado = await MatchModel.find(queryFinalizadoGuia);
+  if (finalizado.length > 0) {
+    results.push({ label: "Finalizado", value: finalizado.length, color: "#9CD6AE" })
+  }
+
+  const queryCanceladoGuia = { $and: [] }
+  queryCanceladoGuia.$and.push(queryGuide)
+  queryCanceladoGuia.$and.push(queryCancelado)
+  const cancelado = await MatchModel.find(queryCanceladoGuia);
+  if (cancelado.length > 0) {
+    results.push({ label: "Cancelado", value: cancelado.length, color: "#EA4E41" })
+  }
+  const queryActivoGuia = { $and: [] }
+  queryActivoGuia.$and.push(queryGuide)
+  queryActivoGuia.$and.push(queryActivo)
+  const activo = await MatchModel.find(queryActivoGuia);
+  if (activo.length > 0) {
+    results.push({ label: "Activo", value: cancelado.length, color: "#F9AA68" })
+  }
+  return results
+}
 module.exports = {
   createMatch,
   getMatchByUserIds,
@@ -249,6 +391,7 @@ module.exports = {
   updateMatchById,
   getCitiesPerMatch,
   getMatchesPerCategories,
-
+  getMatchesPerMonthForGuide,
+  getMatchesByStatusForGuide,
   updateMatchByIdDate
 }
