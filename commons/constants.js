@@ -32,8 +32,8 @@ module.exports = {
     reason: {
       SEXUAL: 'Sexual',
       VIOLENCE: 'Violencia',
-      DISCRIMINATION: 'Discriminacion',
-      FAKE: 'Suplantacion',
+      DISCRIMINATION: 'Discriminación',
+      FAKE: 'Suplantación',
       OTHER: 'Otro',
     },
   },
