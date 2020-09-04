@@ -70,12 +70,12 @@ console.log(emailData);
 
       //Cuenta bloqueada
       case 4:
-        textoMail = `Hola! Lamentamos comunicarte que tu cuenta de WeRaisen ha sido bloqueada durante 15 días, ya que consideramos que infringiste nuestras normas comunitarias.
-        En 15 días te esperamos para seguir formando parte de nuestra plataforma. En caso de que se vuelva a detectar un comportamiento inesperado, debemos bloquearte la cuenta de forma definitiva. ¡Esperamos no tener que llegar a eso!
+        textoMail = `Hola! Lamentamos comunicarte que tu cuenta de WeRaisen ha sido bloqueada ya que consideramos que infringiste nuestras normas comunitarias.
+        
         
         Saludos, el equipo de WeRaisen.`
 
-      asuntoMail = "Cuenta temporalmente bloqueada"      
+      asuntoMail = "Cuenta bloqueada"      
       break;
 
   }
