@@ -14,8 +14,16 @@ router.post('/login', async (req, res) => {
   routeController.handleRequest(req, res, userController.login)
 })
 
+router.post('/updatePassword/:userId', async (req, res) => {
+  routeController.handleRequest(req, res, userController.updatePassword)
+})
+
 router.post('/identification', upload.single('file'), async (req, res) => {
   routeController.handleRequest(req, res, userController.uploadIdentification)
+})
+
+router.get('/email/:email', async (req, res) => {
+  routeController.handleRequest(req, res, userController.findUserByEmail)
 })
 
 router.get('/:id', async (req, res) => {

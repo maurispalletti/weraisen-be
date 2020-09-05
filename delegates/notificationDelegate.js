@@ -1,5 +1,7 @@
 const notificationService = require('../services/notificationService')
 const matchDelegate = require('../delegates/matchDelegate')
+const userDelegate = require('../delegates/userDelegate')
+
 const email = require("../services/Email");
 //Plantillas de mails
 //const tmp_usuario_aprobado = require("../tmp_mails/tmp_usuario_aprobado.html")
@@ -57,12 +59,12 @@ console.log(emailData);
       break;
     //Restablecer contraseña
       case 3:
-        textoMail = `Hola! Sabemos que perdiste tu contraseña de WeRaisen. ¡Lo sentimos por eso!
+        const userIdResp = await userDelegate.findUserByEmail(emailData.emailDestino)
+        const idToSendEmail = userIdResp._id
 
+        textoMail = `Hola! Sabemos que perdiste tu contraseña de WeRaisen. ¡Lo sentimos por eso!
         ¡Pero no te preocupes! Podes usar el siguiente link para restablecer tu contraseña: Si no usas este enlace dentro de las 3 horas, caducará. 
-        
-        http://localhost:3000/ChangePassword
-        
+        http://localhost:3000/ChangePassword/${idToSendEmail}        
         Gracias. El equipo de WeRaisen.`
 
       asuntoMail = "Restablecé tu contraseña"      
