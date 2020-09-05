@@ -43,8 +43,16 @@ const login = async (email, password) => {
 	return userService.login(email, password)
 }
 
+const updatePassword = async (userId, password) => {
+	return userService.updatePassword(userId, password)
+}
+
 const findUserById = async id => {
 	return userService.findUserById(id)
+}
+
+const findUserByEmail = async email => {
+	return userService.findUserByEmail(email)
 }
 
 const uploadIdentification = async file => {
@@ -72,4 +80,6 @@ module.exports = {
 	findUserById,
 	uploadIdentification,
 	createCompliant,
+	findUserByEmail,
+	updatePassword,
 }

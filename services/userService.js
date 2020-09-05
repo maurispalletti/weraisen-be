@@ -31,6 +31,14 @@ const login = async (email, password) => {
   throw new error.AppError(exceptions.exceptionType.user.invalidUserOrPassword, 'userService.login')
 }
 
+const updatePassword = async (userId, password) => {
+  const user = await UserModel.findByIdAndUpdate(userId, { $set: { password } }, { new: true })
+  if (user) {
+    return user
+  }
+  throw new error.AppError(exceptions.exceptionType.user.invalidUserOrPassword, 'userService.updatePassword')
+}
+
 const findUserById = async id => {
   const user = UserModel.findById(id)
   if (user) {
@@ -39,6 +47,13 @@ const findUserById = async id => {
   throw new error.AppError(exceptions.exceptionType.user.userNotFound, 'userService.findUserById')
 }
 
+const findUserByEmail = async email => {
+  const userId = UserModel.findOne({ email })
+  if (userId) {
+    return userId
+  }
+  throw new error.AppError(exceptions.exceptionType.user.userNotFound, 'userService.findUserByEmail')
+}
 
 const updateUserStatus = async (id, status) => {
   return UserModel.findByIdAndUpdate(id, { $set: { status } }, { new: true })
@@ -426,5 +441,7 @@ module.exports = {
   getUsersPerAge,
   getUsersPerLanguages,
   getUsersPerGender,
-  getCategoriesPerCity
+  getCategoriesPerCity,
+  findUserByEmail,
+  updatePassword,
 }
