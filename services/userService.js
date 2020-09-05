@@ -233,27 +233,6 @@ const getUsersCreatedPerMonth = async () => {
 
 }
 
-const getCategoriesMostSelected = async () => {
-  let results = [];
-
-  const aventura = await userModel.find(queryAventura)
-  results.push({ category: "Aventura", value: aventura.length })
-  const deportes = await userModel.find(queryDeportes)
-  results.push({ category: "Deportes", value: deportes.length })
-  const noche = await userModel.find(queryNoche)
-  results.push({ category: "Noche", value: noche.length })
-  const shopping = await userModel.find(queryShopping)
-  results.push({ category: "Shopping", value: shopping.length })
-  const gastronomia = await userModel.find(queryGastronomia)
-  results.push({ category: "Gastronomía", value: gastronomia.length })
-  const cultura = await userModel.find(queryCultura)
-  results.push({ category: "Cultura", value: cultura.length })
-
-
-  return results;
-
-}
-
 const getCategoriesPerGender = async () => {
 
   let results = [];
@@ -384,6 +363,18 @@ const getCategoriesPerGender = async () => {
   const otroGastronomia = await userModel.find(queryotroGastronomia)
   results.push({ category: "Gastronomia", value: otroGastronomia.length })
 
+  const aventura = await userModel.find(queryAventura)
+  results.push({ category: "Aventura", value: aventura.length })
+  const deportes = await userModel.find(queryDeportes)
+  results.push({ category: "Deportes", value: deportes.length })
+  const noche = await userModel.find(queryNoche)
+  results.push({ category: "Noche", value: noche.length })
+  const shopping = await userModel.find(queryShopping)
+  results.push({ category: "Shopping", value: shopping.length })
+  const gastronomia = await userModel.find(queryGastronomia)
+  results.push({ category: "Gastronomía", value: gastronomia.length })
+  const cultura = await userModel.find(queryCultura)
+  results.push({ category: "Cultura", value: cultura.length })
 
   return results;
 
@@ -572,6 +563,8 @@ const getUsersPerLanguages = async () => {
 
 const getUsersPerGender = async () => {
   let results = [];
+
+
   const queryFemGuias = { $and: [] }
   queryFemGuias.$and.push(queryFem)
   queryFemGuias.$and.push(queryGuia)
@@ -608,6 +601,20 @@ const getUsersPerGender = async () => {
   const otroT = await userModel.find(queryOtroTuristas)
   results.push({ label: "Turistas-Otro", value: otroT.length, color: "#883128" })
   
+const femenino = await userModel.find(queryFem)
+results.push({ label: "Femenino", value: femenino.length, color: "#9CD6AE" })
+
+const masculino = await userModel.find(queryMasc)
+results.push({ label: "Masculino", value: masculino.length, color: "#F9AA68" })
+
+const otro = await userModel.find(queryOtro)
+results.push({ label: "Otro", value: otro.length, color: "#EA4E41" })
+
+const turistas = await userModel.find(queryTuristas)
+results.push({ label: "Turistas", value: turistas.length, color: "#9CD6AE" })
+
+const guias = await userModel.find(queryGuia)
+results.push({label:"Guías", value: guias.length, color:"#F9AA68"})
 
   return results;
 }
@@ -660,7 +667,6 @@ module.exports = {
   updateUserStatus,
   getUsersCreatedPerMonth,
   getCategoriesPerGender,
-  getCategoriesMostSelected,
   getUsersPerAge,
   getUsersPerLanguages,
   getUsersPerGender,
