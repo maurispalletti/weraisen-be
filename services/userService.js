@@ -6,14 +6,19 @@ const userModel = require('../models/userModel')
 const { query } = require('express')
 
 const createUser = async user => {
-  const newUser = new UserModel(user)
-  const savedUser = await newUser.save({ new: true })
-  if (savedUser) {
-    return { id: savedUser.id }
+  const { email } = user;
+  const userAlreadyCreated = await UserModel.findOne({ email })
+  if (userAlreadyCreated) {
+    return { repeatedEmail: true }
+  } else {
+    const newUser = new UserModel(user)
+    const savedUser = await newUser.save({ new: true })
+    if (savedUser) {
+      return { id: savedUser.id }
+    }
+    throw new error.AppError(exceptions.exceptionType.user.cannotCreateUser, 'userService.createUser')
 
   }
-  throw new error.AppError(exceptions.exceptionType.user.cannotCreateUser, 'userService.createUser')
-
 }
 
 const login = async (email, password) => {
@@ -26,6 +31,14 @@ const login = async (email, password) => {
   throw new error.AppError(exceptions.exceptionType.user.invalidUserOrPassword, 'userService.login')
 }
 
+const updatePassword = async (userId, password) => {
+  const user = await UserModel.findByIdAndUpdate(userId, { $set: { password } }, { new: true })
+  if (user) {
+    return user
+  }
+  throw new error.AppError(exceptions.exceptionType.user.invalidUserOrPassword, 'userService.updatePassword')
+}
+
 const findUserById = async id => {
   const user = UserModel.findById(id)
   if (user) {
@@ -34,6 +47,13 @@ const findUserById = async id => {
   throw new error.AppError(exceptions.exceptionType.user.userNotFound, 'userService.findUserById')
 }
 
+const findUserByEmail = async email => {
+  const userId = UserModel.findOne({ email })
+  if (userId) {
+    return userId
+  }
+  throw new error.AppError(exceptions.exceptionType.user.userNotFound, 'userService.findUserByEmail')
+}
 
 const updateUserStatus = async (id, status) => {
   return UserModel.findByIdAndUpdate(id, { $set: { status } }, { new: true })
@@ -375,20 +395,20 @@ const getCategoriesPerCity = async () => {
     "Pinamar", "Posadas", "Puerto Iguazu", "Puerto Madryn", "Resistencia", "Rio Gallegos", "Rio Grande", "Rosario", "Salta", "San Fernando del Valle de Catamarca", "San Juan", "San Luis", "San Martin de los Andes",
     "San Miguel de Tucuman", "San Rafael", "San Salvador de Jujuy", "Santa Fe", "Santa Rosa", "Santiago Del Estero", "Termas de Rio Hondo", "Tilcara", "Trelew", "Ushuaia", "Villa Carlos Paz",
     "Villa Maria",];*/
-    let ciudades =["Buenos Aires", "Cordoba", "LaPlata", "Mar del Plata", "Neuquen", "Mendoza", "Rosario"];
+  let ciudades = ["Buenos Aires", "Cordoba", "LaPlata", "Mar del Plata", "Neuquen", "Mendoza", "Rosario"];
 
   let categorias = ["aventura", "deportes", "noche", "shopping", "gastronomia", "cultura"];
 
-  
+
   let results = [];
 
   for (let i = 0; i < categorias.length; i++) {
     const categoria = categorias[i];
-    
+
     const queryCategoria = ({ knowledge: categoria })
-    
+
     let resultsS = [];
-    
+
     for (let index = 0; index < ciudades.length; index++) {
       const queryAmbos = { $and: [] }
       queryAmbos.$and.push(queryCategoria)
@@ -396,16 +416,16 @@ const getCategoriesPerCity = async () => {
       const queryCiudad = ({ city: ciudad })
       queryAmbos.$and.push(queryCiudad)
       let resultsCiudades = [];
-     
-      resultsCiudades = await userModel.find(queryAmbos)
-     // if (resultsCiudades.length > 0) {
 
-        resultsS.push({ seriename: ciudad, value: resultsCiudades.length })
+      resultsCiudades = await userModel.find(queryAmbos)
+      // if (resultsCiudades.length > 0) {
+
+      resultsS.push({ seriename: ciudad, value: resultsCiudades.length })
       //}
     }
     results.push({ label: categoria, resultsS })
   }
-  console.log("categories per city" + results)
+
   return results
 }
 
@@ -421,5 +441,7 @@ module.exports = {
   getUsersPerAge,
   getUsersPerLanguages,
   getUsersPerGender,
-  getCategoriesPerCity
+  getCategoriesPerCity,
+  findUserByEmail,
+  updatePassword,
 }

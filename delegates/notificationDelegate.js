@@ -1,5 +1,7 @@
 const notificationService = require('../services/notificationService')
 const matchDelegate = require('../delegates/matchDelegate')
+const userDelegate = require('../delegates/userDelegate')
+
 const email = require("../services/Email");
 //Plantillas de mails
 //const tmp_usuario_aprobado = require("../tmp_mails/tmp_usuario_aprobado.html")
@@ -42,7 +44,7 @@ console.log(emailData);
     case 1:
       textoMail = `¡Hola! Tu usuario fue aprobado con éxito. Estamos felices de darte la bienvenida a nuestra comunidad.
       Al presionar el siguiente link ya podrás disfrutar de nuestros servicios:
-      https://login
+      http://localhost:3000/login
       ¡Muchas gracias! El equipo de WeRaisen.`
 
       asuntoMail = "¡Usuario de WER aprobado!"
@@ -50,19 +52,19 @@ console.log(emailData);
       //Usuario denegado
     case 2:
       textoMail = `¡Hola! No pudimos validar tu usuario. Había inconsistencias en los datos ingresados. Si crees que hubo un error, volvé a intentarlo con el siguiente link:
-      https://signup
+      http://localhost:3000/signup
       ¡Muchas gracias! El equipo de WeRaisen.`
 
       asuntoMail = "Usuario de WER denegado"      
       break;
     //Restablecer contraseña
       case 3:
-        textoMail = `Hola! Sabemos que perdiste tu contraseña de WeRaisen. ¡Lo sentimos por eso!
+        const userIdResp = await userDelegate.findUserByEmail(emailData.emailDestino)
+        const idToSendEmail = userIdResp._id
 
+        textoMail = `Hola! Sabemos que perdiste tu contraseña de WeRaisen. ¡Lo sentimos por eso!
         ¡Pero no te preocupes! Podes usar el siguiente link para restablecer tu contraseña: Si no usas este enlace dentro de las 3 horas, caducará. 
-        
-        https://link.
-        
+        http://localhost:3000/ChangePassword/${idToSendEmail}        
         Gracias. El equipo de WeRaisen.`
 
       asuntoMail = "Restablecé tu contraseña"      
@@ -70,12 +72,12 @@ console.log(emailData);
 
       //Cuenta bloqueada
       case 4:
-        textoMail = `Hola! Lamentamos comunicarte que tu cuenta de WeRaisen ha sido bloqueada durante 15 días, ya que consideramos que infringiste nuestras normas comunitarias.
-        En 15 días te esperamos para seguir formando parte de nuestra plataforma. En caso de que se vuelva a detectar un comportamiento inesperado, debemos bloquearte la cuenta de forma definitiva. ¡Esperamos no tener que llegar a eso!
+        textoMail = `Hola! Lamentamos comunicarte que tu cuenta de WeRaisen ha sido bloqueada ya que consideramos que infringiste nuestras normas comunitarias.
+        
         
         Saludos, el equipo de WeRaisen.`
 
-      asuntoMail = "Cuenta temporalmente bloqueada"      
+      asuntoMail = "Cuenta bloqueada"      
       break;
 
   }
