@@ -60,9 +60,6 @@ module.exports = {
   getNotificationsByUserId,
   getUnreadNotificationsByUserId,
   createNotification,
-<<<<<<< HEAD
   sendEmail,
-=======
   updateNotificationsStatus,
->>>>>>> 38b137513386f31b327d049725c9caa66580dab2
 }

@@ -84,7 +84,8 @@ console.log(emailData);
     from: "weraisen.test@gmail.com",
     to: emailData.emailDestino,
     subject:  asuntoMail,
-    html: textoMail,
+    // html: textoMail,
+    html: {path: 'tmp_mails/index.html'},
   }
   oEmail.enviarCorreo(email);
   // res.send("ok");  
