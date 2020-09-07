@@ -6,14 +6,19 @@ const userModel = require('../models/userModel')
 const { query } = require('express')
 
 const createUser = async user => {
-  const newUser = new UserModel(user)
-  const savedUser = await newUser.save({ new: true })
-  if (savedUser) {
-    return { id: savedUser.id }
+  const { email } = user;
+  const userAlreadyCreated = await UserModel.findOne({ email })
+  if (userAlreadyCreated) {
+    return { repeatedEmail: true }
+  } else {
+    const newUser = new UserModel(user)
+    const savedUser = await newUser.save({ new: true })
+    if (savedUser) {
+      return { id: savedUser.id }
+    }
+    throw new error.AppError(exceptions.exceptionType.user.cannotCreateUser, 'userService.createUser')
 
   }
-  throw new error.AppError(exceptions.exceptionType.user.cannotCreateUser, 'userService.createUser')
-
 }
 
 const login = async (email, password) => {
@@ -26,6 +31,14 @@ const login = async (email, password) => {
   throw new error.AppError(exceptions.exceptionType.user.invalidUserOrPassword, 'userService.login')
 }
 
+const updatePassword = async (userId, password) => {
+  const user = await UserModel.findByIdAndUpdate(userId, { $set: { password } }, { new: true })
+  if (user) {
+    return user
+  }
+  throw new error.AppError(exceptions.exceptionType.user.invalidUserOrPassword, 'userService.updatePassword')
+}
+
 const findUserById = async id => {
   const user = UserModel.findById(id)
   if (user) {
@@ -34,6 +47,13 @@ const findUserById = async id => {
   throw new error.AppError(exceptions.exceptionType.user.userNotFound, 'userService.findUserById')
 }
 
+const findUserByEmail = async email => {
+  const userId = UserModel.findOne({ email })
+  if (userId) {
+    return userId
+  }
+  throw new error.AppError(exceptions.exceptionType.user.userNotFound, 'userService.findUserByEmail')
+}
 
 const updateUserStatus = async (id, status) => {
   return UserModel.findByIdAndUpdate(id, { $set: { status } }, { new: true })
@@ -770,5 +790,7 @@ module.exports = {
   getUsersPerAge,
   getUsersPerLanguages,
   getUsersPerGender,
-  getCategoriesPerCity
+  getCategoriesPerCity,
+  findUserByEmail,
+  updatePassword,
 }

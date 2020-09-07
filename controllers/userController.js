@@ -36,6 +36,17 @@ const login = async (req, res) => {
   res.json(user)
 }
 
+const updatePassword = async (req, res) => {
+  validators.validateRequiredKeys(req.params, ['userId'])
+  validators.validateRequiredKeys(req.body, ['password'])
+
+  const { password } = req.body
+  const { userId } = req.params
+
+  const user = await userDelegate.updatePassword(userId, password)
+  res.json(user)
+}
+
 const findUserById = async (req, res) => {
   validators.validateRequiredKeys(req.params, ['id'])
 
@@ -43,6 +54,15 @@ const findUserById = async (req, res) => {
 
   const user = await userDelegate.findUserById(id)
   res.json(user)
+}
+
+const findUserByEmail = async (req, res) => {
+  validators.validateRequiredKeys(req.params, ['email'])
+
+  const email = req.params.email
+
+  const userId = await userDelegate.findUserByEmail(email)
+  res.json(userId)
 }
 
 const uploadIdentification = async (req, res) => {
@@ -93,4 +113,6 @@ module.exports = {
   uploadIdentification,
   uploadIdImage,
   createCompliant,
+  findUserByEmail,
+  updatePassword,
 }
