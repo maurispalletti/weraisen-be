@@ -10,7 +10,7 @@ const {
     type: { REVIEW, ADVICE, ELECTED, APROVED, REJECTED },
   },
   matches: {
-    status: { PENDING, CANCELED, ENDED },
+    status: { PENDING, CANCELED, ENDED, ANULATED },
   },
 } = constants
 
