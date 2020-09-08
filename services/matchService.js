@@ -107,75 +107,89 @@ const queryDecember = { createdAt: { $gte: new Date(2020, 11, 01), $lte: new Dat
 
 const getMatchesPerMonth = async () => {
   let results = [];
+  let years = [2019, 2020, 2021];
 
-  try {
+  for (let index = 0; index < years.length; index++) {
+    const year = years[index];
+    const queryJanuary = { createdAt: { $gte: new Date(year, 0, 01), $lte: new Date(year, 0, 31) } }
+    const queryFebruary = { createdAt: { $gte: new Date(year, 01, 01), $lte: new Date(year, 01, 28) } }
+    const queryMarch = { createdAt: { $gte: new Date(year, 02, 01), $lte: new Date(year, 02, 31) } }
+    const queryApril = { createdAt: { $gte: new Date(year, 03, 01), $lte: new Date(year, 03, 30) } }
+    const queryMay = { createdAt: { $gte: new Date(year, 04, 01), $lte: new Date(year, 04, 31) } }
+    const queryJune = { createdAt: { $gte: new Date(year, 05, 01), $lte: new Date(year, 05, 30) } }
+    const queryJuly = { createdAt: { $gte: new Date(year, 06, 01), $lte: new Date(year, 06, 31) } }
+    const queryAugust = { createdAt: { $gte: new Date(year, 07, 01), $lte: new Date(year, 07, 31) } }
+    const querySeptember = { createdAt: { $gte: new Date(year, 08, 01), $lte: new Date(year, 08, 30) } }
+    const queryOctober = { createdAt: { $gte: new Date(year, 09, 01), $lte: new Date(year, 09, 31) } }
+    const queryNovember = { createdAt: { $gte: new Date(year, 10, 01), $lte: new Date(year, 10, 30) } }
+    const queryDecember = { createdAt: { $gte: new Date(year, 11, 01), $lte: new Date(year, 11, 31) } }
+
+
 
     const january = await MatchModel.find(queryJanuary);
     if (january.length > 0) {
-      results.push({ category: "Enero", value: january.length })
+      results.push({ category: "Enero", value: january.length, year: year })
     }
 
     const february = await MatchModel.find(queryFebruary);
     if (february.length > 0) {
-      results.push({ category: "Febrero", value: february.length })
+      results.push({ category: "Febrero", value: february.length, year: year })
     }
 
     const march = await MatchModel.find(queryMarch);
     if (march.length > 0) {
-      results.push({ category: "Marzo", value: march.length })
+      results.push({ category: "Marzo", value: march.length, year: year })
     }
 
     const april = await MatchModel.find(queryApril);
     if (april.length > 0) {
-      results.push({ category: "Abril", value: april.length })
+      results.push({ category: "Abril", value: april.length, year: year })
     }
 
     const may = await MatchModel.find(queryMay);
     if (may.length > 0) {
-      results.push({ category: "Mayo", value: may.length })
+      results.push({ category: "Mayo", value: may.length, year: year })
     }
 
     const june = await MatchModel.find(queryJune);
     if (june.length > 0) {
-      results.push({ category: "Junio", value: june.length })
+      results.push({ category: "Junio", value: june.length, year: year })
     }
 
     const july = await MatchModel.find(queryJuly);
     if (july.length > 0) {
-      results.push({ category: "Julio", value: july.length })
+      results.push({ category: "Julio", value: july.length, year: year })
     }
 
     const august = await MatchModel.find(queryAugust);
     if (august.length > 0) {
-      results.push({ category: "Agosto", value: august.length })
+      results.push({ category: "Agosto", value: august.length, year: year })
     }
 
     const september = await MatchModel.find(querySeptember);
     if (september.length > 0) {
-      results.push({ category: "Septiembre", value: september.length })
+      results.push({ category: "Septiembre", value: september.length, year: year })
     }
 
     const october = await MatchModel.find(queryOctober);
     if (october.length > 0) {
-      results.push({ category: "Octubre", value: october.length })
+      results.push({ category: "Octubre", value: october.length, year: year })
     }
 
     const november = await MatchModel.find(queryNovember);
     if (november.length > 0) {
-      results.push({ category: "Noviembre", value: november.length })
+      results.push({ category: "Noviembre", value: november.length, year: year })
     }
 
     const december = await MatchModel.find(queryDecember);
     if (december.length > 0) {
-      results.push({ category: "Diciembre", value: december.length })
+      results.push({ category: "Diciembre", value: december.length, year: year })
     }
 
-
-    return results;
-
-  } catch (error) {
-    throw new error.AppError(exceptions.exceptionType.match.queryFailed, 'matchService.getQuantityPerMonth')
   }
+  return results;
+
+
 
 }
 
@@ -195,17 +209,22 @@ const getCitiesPerMatch = async () => {
   for (let index = 0; index < ciudades.length; index++) {
     const ciudad = ciudades[index];
 
-    const queryCiudad = { city: ciudad }
-
-
-
-    const resultadoCiudades = await MatchModel.find(queryCiudad);
-    //return { category: ciudad, value: resultadoCiudades.length }
-    if (resultadoCiudades.length > 0) {
-      results.push({ category: ciudad, value: resultadoCiudades.length })
+    let years = [2019, 2020, 2021]
+    for (let i = 0; i < years.length; i++) {
+     const year = years[i];
+    // const year = i;
+      const queryCiudad = { city: ciudad }
+      const queryCiudadAño = { $and: [] }
+     
+      const queryYear = { createdAt: { $gte: new Date(year, 00, 01), $lte: new Date(year, 11, 31) } }
+      queryCiudadAño.$and.push(queryCiudad)
+      queryCiudadAño.$and.push(queryYear)
+      const resultadosCiudadAño = await MatchModel.find(queryCiudadAño)
+      if (resultadosCiudadAño.length > 0) {
+        results.push({ category: ciudad, value: resultadosCiudadAño.length, year: year })
+      }
     }
   }
-
 
   return results
 }

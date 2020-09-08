@@ -27,29 +27,47 @@ const getCompliantsList = async (status) => {
 const getUsersReportedPerReason= async()=>{
 
 let results=[];
+const years=[2019,2020,2021];
+for (let i = 0; i < years.length; i++) {
+const year = years[i];
 
-  
+const queryYear={ createdAt: { $gte: new Date(year, 00, 01), $lte: new Date(year, 11, 31) } }
+
+const queryViolenceYear = { $and: [] }
 const queryViolence ={ reason:"Violencia"}
-const violence = await CompliantModel.find(queryViolence)
-results.push({category: "Violencia", value: violence.length})
+queryViolenceYear.$and.push(queryViolence)
+queryViolenceYear.$and.push(queryYear)
+const violence = await CompliantModel.find(queryViolenceYear)
+results.push({category: "Violencia", value: violence.length, year:year})
 
+const querySexualYear = { $and: [] }
 const querySexual ={reason: "Sexual"}
-const sexual = await CompliantModel.find(querySexual)
-results.push({category: "Acoso sexual y/o verbal", value: sexual.length})
+querySexualYear.$and.push(querySexual)
+querySexualYear.$and.push(queryYear)
+const sexual = await CompliantModel.find(querySexualYear)
+results.push({category: "Acoso sexual y/o verbal", value: sexual.length, year:year})
 
+const queryDiscriminationYear = { $and: [] }
 const queryDiscrimination ={reason: "Discriminacion"}
-const discrimination = await CompliantModel.find(queryDiscrimination)
-results.push({category: "Discriminacion", value: discrimination.length})
+queryDiscriminationYear.$and.push(queryDiscrimination)
+queryDiscriminationYear.$and.push(queryYear)
+const discrimination = await CompliantModel.find(queryDiscriminationYear)
+results.push({category: "Discriminacion", value: discrimination.length, year:year})
 
-
+const queryFakeYear = { $and: [] }
 const queryFake={reason: "Suplantación"}
-const fake = await CompliantModel.find(queryFake)
-results.push({category: "Perfil Falso", value: fake.length})
+queryFakeYear.$and.push(queryFake)
+queryFakeYear.$and.push(queryYear)
+const fake = await CompliantModel.find(queryFakeYear)
+results.push({category: "Perfil Falso", value: fake.length, year:year})
 
+const queryOtherYear = { $and: [] }
 const queryOther={reason: "Otro"}
-const other= await CompliantModel.find(queryOther)
-results.push({category: "Otros motivos", value: other.length})
-
+queryOtherYear.$and.push(queryOther)
+queryOtherYear.$and.push(queryYear)
+const other= await CompliantModel.find(queryOtherYear)
+results.push({category: "Otros motivos", value: other.length, year:year})
+}
 return results;
 
 

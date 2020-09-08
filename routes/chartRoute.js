@@ -32,10 +32,6 @@ router.get('/categoriesPerGender', async (req, res) => {
   routeController.handleRequest(req, res, chartController.getCategoriesPerGender)
 })
 
-//GRÁFICO CATEOGRÍA mas elegidad
-router.get('/categoriesMostSelected', async (req, res) => {
-  routeController.handleRequest(req, res, chartController.getCategoriesMostSelected)
-})
 //GRÁFICO usuarios por edad
 router.get('/usersPerAge', async (req, res) => {
   routeController.handleRequest(req, res, chartController.getUsersPerAge)
