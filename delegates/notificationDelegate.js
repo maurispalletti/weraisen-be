@@ -1,6 +1,8 @@
 const notificationService = require('../services/notificationService')
 const matchDelegate = require('../delegates/matchDelegate')
 const userDelegate = require('../delegates/userDelegate')
+const handlebars = require('handlebars');
+const fs = require('fs');
 
 const email = require("../services/Email");
 //Plantillas de mails
@@ -32,6 +34,7 @@ const oEmail = new email({
     "pass": "alvo1234"
   }
 });
+
 
 
 const sendEmail = async (emailData) => {
