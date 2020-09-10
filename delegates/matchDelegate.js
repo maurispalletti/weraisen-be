@@ -10,7 +10,7 @@ const {
     type: { REVIEW, ADVICE, ELECTED, APROVED, REJECTED },
   },
   matches: {
-    status: { PENDING, CANCELED, ENDED },
+    status: { PENDING, CANCELED, ENDED, ANULATED },
   },
 } = constants
 
@@ -232,6 +232,24 @@ const updateMatchStatus = async (matchId, status) => {
     }
     notificationService.createNotification(guideNotificationContent)
   }
+
+  // This notification is for Anulated requests
+if (updatedMatch && updatedMatch.status === ANULATED) {
+  const { id: matchId, tourist: touristId, guide: guideId } = updatedMatch
+  const { firstName: guideName, lastName: guideLastName } = await userService.findUserById(guideId)
+  const { firstName: touristName, lastName: touristLastName } = await userService.findUserById(touristId)
+
+  // Create notification anulated for tourist
+  const touristNotificationContent = {
+    userId: touristId,
+    status: ACTIVE,
+    type: REJECTED,
+    message: `${guideName} ${guideLastName} rechazó tu solicitud de encuentro.`,
+    contentId: matchId,
+  }
+  notificationService.createNotification(touristNotificationContent)
+}
+
 
   // This notification is for Ended requests
   if (updatedMatch && updatedMatch.status === ENDED) {

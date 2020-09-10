@@ -28,9 +28,6 @@ const getCitiesPerMatch= async()=>{
 const getCategoriesPerGender = async()=>{
   return userService.getCategoriesPerGender()
 }
-const getCategoriesMostSelected= async()=>{
-  return userService.getCategoriesMostSelected()
-}
 const getUsersPerAge= async()=>{
   return userService.getUsersPerAge()
 }
@@ -58,7 +55,6 @@ const getMatchesByStatusForGuide = async userId => {
     getUsersReportedPerReason,
     getCitiesPerMatch,
     getCategoriesPerGender,
-    getCategoriesMostSelected,
     getUsersPerAge,
     getUsersPerLanguages,
     getUsersPerGender,

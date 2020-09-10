@@ -37,10 +37,7 @@ const getCategoriesPerGender = async (req, res) =>{
 
 
 }
-const getCategoriesMostSelected = async (req, res) =>{
-  const data = await chartDelegate.getCategoriesMostSelected()
-  res.json(data)
-}
+
 const getUsersPerAge = async (req, res) =>{
   const data = await chartDelegate.getUsersPerAge()
   res.json(data)
@@ -80,7 +77,6 @@ module.exports = {
   getUsersReportedPerReason,
   getCitiesPerMatch,
   getCategoriesPerGender,
-  getCategoriesMostSelected,
   getUsersPerAge,
   getUsersPerLanguages,
   getUsersPerGender,
