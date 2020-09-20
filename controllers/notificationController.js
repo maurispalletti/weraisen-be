@@ -46,13 +46,43 @@ const createNotification = async (req, res) => {
   res.json(notification)
 }
 
-const sendEmail = async (req, res) => {
- 
+const sendEmailRestablecerContraseña = async (req, res) => { 
 
-  console.log(req.body)
-  
+  console.log(req.body)  
 
-  const email = await notificationDelegate.sendEmail(req.body)
+  const email = await notificationDelegate.sendEmailRestablecerContraseña(req.body)
+  res.json(email)
+}
+
+const sendEmailUsuarioDenegado = async (req, res) => { 
+
+  console.log(req.body)  
+
+  const email = await notificationDelegate.sendsendEmailUsuarioDenegadoEmail(req.body)
+  res.json(email)
+}
+
+const sendEmailUsuarioAprobado = async (req, res) => { 
+
+  console.log(req.body)  
+
+  const email = await notificationDelegate.sendEmailUsuarioAprobado(req.body)
+  res.json(email)
+}
+
+const sendEmailCuentaBloqueada = async (req, res) => { 
+
+  console.log(req.body)  
+
+  const email = await notificationDelegate.sendEmailCuentaBloqueada(req.body)
+  res.json(email)
+}
+
+const sendEmailEncuentro = async (req, res) => { 
+
+   
+
+  const email = await notificationDelegate.sendEmailEncuentro(req.body)
   res.json(email)
 }
 
@@ -60,6 +90,10 @@ module.exports = {
   getNotificationsByUserId,
   getUnreadNotificationsByUserId,
   createNotification,
-  sendEmail,
+  sendEmailRestablecerContraseña,
+  sendEmailUsuarioDenegado,
+  sendEmailUsuarioAprobado,
+  sendEmailCuentaBloqueada,
+  sendEmailEncuentro,
   updateNotificationsStatus,
 }
