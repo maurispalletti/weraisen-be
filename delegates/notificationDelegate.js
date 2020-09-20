@@ -1,12 +1,13 @@
 const notificationService = require('../services/notificationService')
 const matchDelegate = require('../delegates/matchDelegate')
 const userDelegate = require('../delegates/userDelegate')
-const handlebars = require('handlebars');
-const fs = require('fs');
-
+const nodemailer = require("nodemailer");
+const hbs = require('nodemailer-express-handlebars');
+const ics = require('ics')
+// const hbs = require('handlebars')
 const email = require("../services/Email");
-//Plantillas de mails
-//const tmp_usuario_aprobado = require("../tmp_mails/tmp_usuario_aprobado.html")
+
+
 
 
 const getNotificationsByUserId = async (userId) => {
@@ -22,9 +23,9 @@ const createNotification = async (notificationData) => {
   return notificationService.createNotification(notificationData)
 }
 
-//SendEmail
 
-const oEmail = new email({
+
+var mailer = nodemailer.createTransport({
   "host": "smtp.gmail.com",
   "port": "465",
   "secure": true,
@@ -34,55 +35,303 @@ const oEmail = new email({
     "pass": "alvo1234"
   }
 });
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 
+const sendEmailCuentaBloqueada = async (emailData) => {  
 
-const sendEmail = async (emailData) => {
-  console.log(emailData);
-  var textoMail = ``;
-  var asuntoMail = "";
-  switch (emailData.origen) {
+  var destinatario = await userDelegate.findUserByEmail(emailData.emailDestino)
+  
+  var options = {
+    viewEngine: {
+      extname: '.hbs', // handlebars extension
+      layoutsDir: `tmp_mails/Alvo`, // location of handlebars templates
+      defaultLayout: 'tmpl_cuenta_bloqueada', // name of main template
+    },
+    viewPath: `tmp_mails/Alvo`,
+    extName: '.hbs'
+  };
 
-    //Usuario aprobado
-    case 1:
-      textoMail = 'tmp_mails/tmp_usuario_aprobado.html'
-      asuntoMail = "¡Usuario de WER aprobado!"
-      break;
-    //Usuario denegado
-    case 2:
-      textoMail = 'tmp_mails/tmp_usuario_denegado.html'
-      asuntoMail = "Usuario de WER denegado"
-      break;
-    //Restablecer contraseña
-    case 3:
-      const userIdResp = await userDelegate.findUserByEmail(emailData.emailDestino)
-      const idToSendEmail = userIdResp._id
+  mailer.use("compile", hbs(options))
 
-      textoMail = `Hola! Sabemos que perdiste tu contraseña de WeRaisen. ¡Lo sentimos por eso!
-        ¡Pero no te preocupes! Podes usar el siguiente link para restablecer tu contraseña: Si no usas este enlace dentro de las 3 horas, caducará. 
-        http://localhost:3000/ChangePassword/${idToSendEmail}        
-        Gracias. El equipo de WeRaisen.`
-
-      asuntoMail = "Restablecé tu contraseña"
-      break;
-
-    //Cuenta bloqueada
-    case 4:
-      textoMail = 'tmp_mails/tmp_cuenta_bloqueada.html'
-      asuntoMail = "Cuenta bloqueada"
-      break;
-
-  }
-
-  let email = {
+  mailer.sendMail({
     from: "weraisen.test@gmail.com",
     to: emailData.emailDestino,
-    subject: asuntoMail,    
-    html: { path: textoMail },
-  }
-  oEmail.enviarCorreo(email);
-  // res.send("ok");  
+    subject: "Cuenta bloqueada",
+    template: 'tmpl_cuenta_bloqueada',
+    context: {
+      username: destinatario.firstName,
+      id: destinatario._id
+    },
+    icalEvent: {
+      filename: 'invitation.ics',
+      method: 'request',
+      content: value
+    }
+  }, function (err, response) {
+    if (err) {
+      console.log("bad email");
+      console.log(err);
+    } else {
+      console.log("good email");
+      tmplMail = ``;
+    }
+  });
+  mailer.close();
 }
+
+const sendEmailRestablecerContraseña = async (emailData) => {
+  
+  var destinatario = await userDelegate.findUserByEmail(emailData.emailDestino)  
+
+  var options = {
+    viewEngine: {
+      extname: '.hbs', // handlebars extension
+      layoutsDir: `tmp_mails/Alvo`, // location of handlebars templates
+      defaultLayout: 'tmpl_restablecer_contrasena', // name of main template
+    },
+    viewPath: `tmp_mails/Alvo`,
+    extName: '.hbs'
+  };
+
+  mailer.use("compile", hbs(options))
+
+  mailer.sendMail({
+    from: "weraisen.test@gmail.com",
+    to: emailData.emailDestino,
+    subject: "Restablecé tu contraseña",
+    template: 'tmpl_restablecer_contrasena',
+    context: {
+      username: destinatario.firstName,
+      id: destinatario._id
+    },
+    icalEvent: {
+      filename: 'invitation.ics',
+      method: 'request',
+      content: value
+    }
+  }, function (err, response) {
+    if (err) {
+      console.log("bad email");
+      console.log(err);
+    } else {
+      console.log("good email");
+      tmplMail = ``;
+    }
+  });
+  mailer.close();
+}
+
+const sendEmailUsuarioDenegado = async (emailData) => { 
+
+  var destinatario = await userDelegate.findUserByEmail(emailData.emailDestino)
+  
+  var options = {
+    viewEngine: {
+      extname: '.hbs', // handlebars extension
+      layoutsDir: `tmp_mails/Alvo`, // location of handlebars templates
+      defaultLayout: 'tmpl_usuario_denegado', // name of main template
+    },
+    viewPath: `tmp_mails/Alvo`,
+    extName: '.hbs'
+  };
+
+  mailer.use("compile", hbs(options))
+
+  mailer.sendMail({
+    from: "weraisen.test@gmail.com",
+    to: emailData.emailDestino,
+    subject: "Usuario de WER denegado",
+    template: 'tmpl_usuario_denegado',
+    context: {
+      username: destinatario.firstName,
+      id: destinatario._id
+    },
+    icalEvent: {
+      filename: 'invitation.ics',
+      method: 'request',
+      content: value
+    }
+  }, function (err, response) {
+    if (err) {
+      console.log("bad email");
+      console.log(err);
+    } else {
+      console.log("good email");
+      tmplMail = ``;
+    }
+  });
+  mailer.close();
+}
+
+
+const sendEmailUsuarioAprobado = async (emailData) => { 
+
+  var destinatario = await userDelegate.findUserByEmail(emailData.emailDestino)  
+
+  var options = {
+    viewEngine: {
+      extname: '.hbs', // handlebars extension
+      layoutsDir: `tmp_mails/Alvo`, // location of handlebars templates
+      defaultLayout: 'tmpl_usuario_aprobado', // name of main template
+    },
+    viewPath: `tmp_mails/Alvo`,
+    extName: '.hbs'
+  };
+
+  mailer.use("compile", hbs(options))
+
+  mailer.sendMail({
+    from: "weraisen.test@gmail.com",
+    to: emailData.emailDestino,
+    subject: "¡Usuario de WER aprobado!",
+    template: 'tmpl_usuario_aprobado',
+    context: {
+      username: destinatario.firstName,
+      id: destinatario._id
+    },
+    icalEvent: {
+      filename: 'invitation.ics',
+      method: 'request',
+      content: value
+    }
+  }, function (err, response) {
+    if (err) {
+      console.log("bad email");
+      console.log(err);
+    } else {
+      console.log("good email");
+      tmplMail = ``;
+    }
+  });
+  mailer.close();
+}
+
+const sendEmailEncuentro = async (emailData) => {
+  console.log(emailData);
+  var Turisra = await userDelegate.findUserById(emailData.match.tourist)
+  var Guia = await userDelegate.findUserById(emailData.match.guide)
+console.log(Turisra);
+
+  //Datos del archivo .ics
+  const event = {
+    start: emailData.FechaHoraEncuentro, //[2018, 5, 30, 6, 30], //Arreglo [año, mes, dia, hora, minuto]
+    duration: { hours: 2, minutes: 30 },
+    title: 'Encuentro Weraisen',
+    location: emailData.match.city,//'Folsom Field, University of Colorado (finish line)',//va abajo del titulo
+    description: 'Annual 10-kilometer run in Boulder, Colorado', //nota        
+    status: 'CONFIRMED',
+    busyStatus: 'BUSY',
+    organizer: { name: Guia.firstName, email: Guia.email }, //Aca va el guia o el turista  
+  }
+
+  var options = {
+    viewEngine: {
+      extname: '.hbs', // handlebars extension
+      layoutsDir: `tmp_mails/Alvo`, // location of handlebars templates
+      defaultLayout: `tmpl_Calendar`, // name of main template
+    },
+    viewPath: `tmp_mails/Alvo`,
+    extName: '.hbs'
+  };
+
+  mailer.use("compile", hbs(options))
+
+  ics.createEvent(event, (error, value) => {
+    if (error) {
+      console.log(error)
+      return
+    }
+
+    mailer.sendMail({
+      from: "weraisen.test@gmail.com",
+      to: "alvoscares@gmail.com",//Turisra.email,
+      subject: "Mail Ecunetro",
+      template: `tmpl_Calendar`,
+      context: {
+        username: Turisra.firstName
+      },
+      icalEvent: {
+        filename: 'invitation.ics',
+        method: 'request',
+        content: value
+      }
+    }, function (err, response) {
+      if (err) {
+        console.log("bad email");
+        console.log(err);
+      } else {
+        console.log("good email");
+        tmplMail = ``;
+      }
+    });
+    mailer.close();
+    sendEmailEncuentroGuia(emailData);
+
+  })
+};
+
+const sendEmailEncuentroGuia = async (emailData) => {
+
+  const Turisra = await userDelegate.findUserById(emailData.match.tourist)
+  const Guia = await userDelegate.findUserById(emailData.match.guide)
+
+  //Datos del archivo .ics
+  const event = {
+    start: emailData.FechaHoraEncuentro, //[2018, 5, 30, 6, 30], //Arreglo [año, mes, dia, hora, minuto]
+    duration: { hours: 2, minutes: 30 },
+    title: 'Encuentro Weraisen',
+    location: emailData.match.city,//'Folsom Field, University of Colorado (finish line)',//va abajo del titulo
+    description: 'Annual 10-kilometer run in Boulder, Colorado', //nota        
+    status: 'CONFIRMED',
+    busyStatus: 'BUSY',
+    organizer: { name: Guia.firstName, email: Guia.email }, //Aca va el guia o el turista  
+  }
+
+  var options = {
+    viewEngine: {
+      extname: '.hbs', // handlebars extension
+      layoutsDir: `tmp_mails/Alvo`, // location of handlebars templates
+      defaultLayout: `tmpl_Calendar`, // name of main template
+    },
+    viewPath: `tmp_mails/Alvo`,
+    extName: '.hbs'
+  };
+
+  mailer.use("compile", hbs(options))
+
+  ics.createEvent(event, (error, value) => {
+    if (error) {
+      console.log(error)
+      return
+    }
+
+    mailer.sendMail({
+      from: "weraisen.test@gmail.com",
+      to: "alvoscares@gmail.com",//Guia.email,
+      subject: "Mail Ecunetro",
+      template: `tmpl_Calendar`,
+      context: {
+        username: Guia.firstName
+      },
+      icalEvent: {
+        filename: 'invitation.ics',
+        method: 'request',
+        content: value
+      }
+    }, function (err, response) {
+      if (err) {
+        console.log("bad email");
+        console.log(err);
+      } else {
+        console.log("good email");
+        tmplMail = ``;
+      }
+    });
+    mailer.close();
+
+  })
+};
 
 const updateNotificationsStatus = async (userId, status) => {
   notificationService.updateNotificationsStatus(userId, status)
@@ -91,7 +340,11 @@ const updateNotificationsStatus = async (userId, status) => {
 module.exports = {
   getNotificationsByUserId,
   createNotification,
-  sendEmail,
+  sendEmailCuentaBloqueada,
+  sendEmailRestablecerContraseña,
+  sendEmailUsuarioDenegado,
+  sendEmailUsuarioAprobado,
+  sendEmailEncuentro,
   updateNotificationsStatus,
   getUnreadNotificationsByUserId,
 }

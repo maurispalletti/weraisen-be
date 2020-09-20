@@ -19,8 +19,21 @@ router.post('/', async (req, res) => {
   routeController.handleRequest(req, res, notificationController.createNotification)
 })
 
-router.post('/sendEmail', async (req, res) => {
+router.post('/sendEmailUsuarioAprobado', async (req, res) => {
   routeController.handleRequest(req, res, notificationController.sendEmail)
+})
+router.post('/sendEmailUsuarioDenegado', async (req, res) => {
+  routeController.handleRequest(req, res, notificationController.sendEmail)
+})
+router.post('/sendEmailRestablecerContraseña', async (req, res) => {
+  routeController.handleRequest(req, res, notificationController.sendEmail)
+})
+router.post('/sendEmailCuentaBloqueada', async (req, res) => {
+  routeController.handleRequest(req, res, notificationController.sendEmail)
+})
+
+router.post('/sendEmailEncuentro', async (req, res) => {
+  routeController.handleRequest(req, res, notificationController.sendEmailEncuentro)
 })
 
 module.exports = router
