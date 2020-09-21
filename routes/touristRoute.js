@@ -7,5 +7,9 @@ router.put('/:userId', async (req, res) => {
   routeController.handleRequest(req, res, touristController.updateTourist)
 })
 
+router.put('/updateGuiaActivo/:userId', async (req, res) => {
+  routeController.handleRequest(req, res, touristController.updateGuiaActivo)
+})
+
 
 module.exports = router

@@ -10,6 +10,14 @@ const updateTourist = async (userId, tourist) => {
 	return updatedTourist
 }
 
+const updateGuiaActivo = async (userId, tourist) => {
+	const updatedTourist = touristService.updateGuiaActivo(userId, tourist)
+
+	validateTouristExists(userId, updatedTourist)
+
+	return updateGuiaActivo
+}
+
 const validateTouristExists = (id, tourist) => {
   if (!tourist) {
     throw new error.AppError(
@@ -21,5 +29,6 @@ const validateTouristExists = (id, tourist) => {
 } 
 
 module.exports = {
-	updateTourist
+  updateTourist,
+  updateGuiaActivo
 }
