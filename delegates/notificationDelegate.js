@@ -46,7 +46,7 @@ const sendEmailCuentaBloqueada = async (emailData) => {
     viewEngine: {
       extname: '.hbs', // handlebars extension
       layoutsDir: `tmp_mails/Alvo`, // location of handlebars templates
-      defaultLayout: 'tmpl_cuenta_bloqueada', // name of main template
+      defaultLayout: 'mailAlvo', // name of main template
     },
     viewPath: `tmp_mails/Alvo`,
     extName: '.hbs'
@@ -61,13 +61,10 @@ const sendEmailCuentaBloqueada = async (emailData) => {
     template: 'tmpl_cuenta_bloqueada',
     context: {
       username: destinatario.firstName,
-      id: destinatario._id
+      id: destinatario._id,
+      textoEmail:"Lamentamos comunicarte que tu cuenta de WeRaisen ha sido bloqueada, ya que consideramos que infringiste nuestras normas comunitarias."
     },
-    icalEvent: {
-      filename: 'invitation.ics',
-      method: 'request',
-      content: value
-    }
+    
   }, function (err, response) {
     if (err) {
       console.log("bad email");
@@ -88,7 +85,7 @@ const sendEmailRestablecerContraseña = async (emailData) => {
     viewEngine: {
       extname: '.hbs', // handlebars extension
       layoutsDir: `tmp_mails/Alvo`, // location of handlebars templates
-      defaultLayout: 'tmpl_restablecer_contrasena', // name of main template
+      defaultLayout: 'mailAlvo', // name of main template
     },
     viewPath: `tmp_mails/Alvo`,
     extName: '.hbs'
@@ -103,13 +100,10 @@ const sendEmailRestablecerContraseña = async (emailData) => {
     template: 'tmpl_restablecer_contrasena',
     context: {
       username: destinatario.firstName,
-      id: destinatario._id
+      id: destinatario._id,
+      textoEmail:"Sabemos que perdiste tu contraseña de WeRaisen. ¡Lo sentimos por eso! <br>¡Pero no te preocupes! Podes usar el siguiente link para restablecer tu contraseña http://localhost:3000/ChangePassword/"+destinatario._id
     },
-    icalEvent: {
-      filename: 'invitation.ics',
-      method: 'request',
-      content: value
-    }
+    
   }, function (err, response) {
     if (err) {
       console.log("bad email");
@@ -130,7 +124,7 @@ const sendEmailUsuarioDenegado = async (emailData) => {
     viewEngine: {
       extname: '.hbs', // handlebars extension
       layoutsDir: `tmp_mails/Alvo`, // location of handlebars templates
-      defaultLayout: 'tmpl_usuario_denegado', // name of main template
+      defaultLayout: 'mailAlvo', // name of main template
     },
     viewPath: `tmp_mails/Alvo`,
     extName: '.hbs'
@@ -145,13 +139,10 @@ const sendEmailUsuarioDenegado = async (emailData) => {
     template: 'tmpl_usuario_denegado',
     context: {
       username: destinatario.firstName,
-      id: destinatario._id
+      id: destinatario._id,
+      textoEmail:"No pudimos validar tu usuario. Había inconsistencias en los datos ingresados. Si crees que hubo un error, comunícate a weraisen.test@gmail.com"
     },
-    icalEvent: {
-      filename: 'invitation.ics',
-      method: 'request',
-      content: value
-    }
+    
   }, function (err, response) {
     if (err) {
       console.log("bad email");
@@ -173,7 +164,7 @@ const sendEmailUsuarioAprobado = async (emailData) => {
     viewEngine: {
       extname: '.hbs', // handlebars extension
       layoutsDir: `tmp_mails/Alvo`, // location of handlebars templates
-      defaultLayout: 'tmpl_usuario_aprobado', // name of main template
+      defaultLayout: 'mailAlvo', // name of main template
     },
     viewPath: `tmp_mails/Alvo`,
     extName: '.hbs'
@@ -188,13 +179,10 @@ const sendEmailUsuarioAprobado = async (emailData) => {
     template: 'tmpl_usuario_aprobado',
     context: {
       username: destinatario.firstName,
-      id: destinatario._id
+      id: destinatario._id,
+      textoEmail:"Tu usuario fue aprobado con éxito. Estamos felices de darte la bienvenida a nuestra comunidad. Al presionar el siguiente link ya podrás disfrutar de nuestros servicios: https://www.weraisen.com/login ¡Muchas gracias!"
     },
-    icalEvent: {
-      filename: 'invitation.ics',
-      method: 'request',
-      content: value
-    }
+    
   }, function (err, response) {
     if (err) {
       console.log("bad email");
@@ -229,7 +217,7 @@ console.log(Turisra);
     viewEngine: {
       extname: '.hbs', // handlebars extension
       layoutsDir: `tmp_mails/Alvo`, // location of handlebars templates
-      defaultLayout: `tmpl_Calendar`, // name of main template
+      defaultLayout: `mailAlvo`, // name of main template
     },
     viewPath: `tmp_mails/Alvo`,
     extName: '.hbs'
@@ -246,10 +234,12 @@ console.log(Turisra);
     mailer.sendMail({
       from: "weraisen.test@gmail.com",
       to: Turisra.email,
-      subject: "Mail Ecuentro",
+      subject: "¡Tu encuentro ha sido agendado!",
       template: `tmpl_Calendar`,
       context: {
-        username: Turisra.firstName
+        username: Turisra.firstName,
+        textoEmail:"Tu encuentro fue agendado con éxito. Haciendo click en el archivo adjunto podrás añadirlo a tu calendario personal."
+
       },
       icalEvent: {
         filename: 'invitation.ics',
@@ -292,7 +282,7 @@ const sendEmailEncuentroGuia = async (emailData) => {
     viewEngine: {
       extname: '.hbs', // handlebars extension
       layoutsDir: `tmp_mails/Alvo`, // location of handlebars templates
-      defaultLayout: `tmpl_Calendar`, // name of main template
+      defaultLayout: `mailAlvo`, // name of main template
     },
     viewPath: `tmp_mails/Alvo`,
     extName: '.hbs'
@@ -309,10 +299,11 @@ const sendEmailEncuentroGuia = async (emailData) => {
     mailer.sendMail({
       from: "weraisen.test@gmail.com",
       to: Guia.email,
-      subject: "Mail Ecuentro",
+      subject: "¡Tu encuentro ha sido agendado!",
       template: `tmpl_Calendar`,
       context: {
-        username: Guia.firstName
+        username: Guia.firstName,
+        textoEmail:"Tu encuentro fue agendado con éxito. Haciendo click en el archivo adjunto podrás añadirlo a tu calendario personal."
       },
       icalEvent: {
         filename: 'invitation.ics',
