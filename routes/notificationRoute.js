@@ -20,16 +20,16 @@ router.post('/', async (req, res) => {
 })
 
 router.post('/sendEmailUsuarioAprobado', async (req, res) => {
-  routeController.handleRequest(req, res, notificationController.sendEmail)
+  routeController.handleRequest(req, res, notificationController.sendEmailUsuarioAprobado)
 })
 router.post('/sendEmailUsuarioDenegado', async (req, res) => {
-  routeController.handleRequest(req, res, notificationController.sendEmail)
+  routeController.handleRequest(req, res, notificationController.sendEmailUsuarioDenegado)
 })
 router.post('/sendEmailRestablecerContraseña', async (req, res) => {
-  routeController.handleRequest(req, res, notificationController.sendEmail)
+  routeController.handleRequest(req, res, notificationController.sendEmailRestablecerContraseña)
 })
 router.post('/sendEmailCuentaBloqueada', async (req, res) => {
-  routeController.handleRequest(req, res, notificationController.sendEmail)
+  routeController.handleRequest(req, res, notificationController.sendEmailCuentaBloqueada)
 })
 
 router.post('/sendEmailEncuentro', async (req, res) => {

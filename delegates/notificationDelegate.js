@@ -219,7 +219,7 @@ console.log(Turisra);
     duration: { hours: 2, minutes: 30 },
     title: 'Encuentro Weraisen',
     location: emailData.match.city,//'Folsom Field, University of Colorado (finish line)',//va abajo del titulo
-    description: 'Annual 10-kilometer run in Boulder, Colorado', //nota        
+    description: 'Encuentro WERAISEN', //nota        
     status: 'CONFIRMED',
     busyStatus: 'BUSY',
     organizer: { name: Guia.firstName, email: Guia.email }, //Aca va el guia o el turista  
@@ -245,8 +245,8 @@ console.log(Turisra);
 
     mailer.sendMail({
       from: "weraisen.test@gmail.com",
-      to: "alvoscares@gmail.com",//Turisra.email,
-      subject: "Mail Ecunetro",
+      to: Turisra.email,
+      subject: "Mail Ecuentro",
       template: `tmpl_Calendar`,
       context: {
         username: Turisra.firstName
@@ -282,7 +282,7 @@ const sendEmailEncuentroGuia = async (emailData) => {
     duration: { hours: 2, minutes: 30 },
     title: 'Encuentro Weraisen',
     location: emailData.match.city,//'Folsom Field, University of Colorado (finish line)',//va abajo del titulo
-    description: 'Annual 10-kilometer run in Boulder, Colorado', //nota        
+    description: 'Encuentro Weraisen', //nota        
     status: 'CONFIRMED',
     busyStatus: 'BUSY',
     organizer: { name: Guia.firstName, email: Guia.email }, //Aca va el guia o el turista  
@@ -308,8 +308,8 @@ const sendEmailEncuentroGuia = async (emailData) => {
 
     mailer.sendMail({
       from: "weraisen.test@gmail.com",
-      to: "alvoscares@gmail.com",//Guia.email,
-      subject: "Mail Ecunetro",
+      to: Guia.email,
+      subject: "Mail Ecuentro",
       template: `tmpl_Calendar`,
       context: {
         username: Guia.firstName
