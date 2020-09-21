@@ -58,7 +58,7 @@ const sendEmailUsuarioDenegado = async (req, res) => {
 
   console.log(req.body)  
 
-  const email = await notificationDelegate.sendsendEmailUsuarioDenegadoEmail(req.body)
+  const email = await notificationDelegate.sendEmailUsuarioDenegado(req.body)
   res.json(email)
 }
 

@@ -256,7 +256,8 @@ const getMatchesPerCategories = async () => {
 }
 
 const getMatchesPerMonthForGuide = async userId => {
-  const queryGuide = { guide: userId }
+  const queryGuide = { $or: [{ tourist: userId }, { guide: userId }]}
+ 
 
   let results = [];
 
@@ -356,7 +357,7 @@ const getMatchesPerMonthForGuide = async userId => {
 }
 
 const getMatchesByStatusForGuide = async userId => {
-  const queryGuide = { guide: userId }
+  const queryGuide = { $or: [{ tourist: userId }, { guide: userId }]}
 
   queryPendiente = ({ status: "Pendiente" })
   queryFinalizado = ({ status: "Finalizado" })
