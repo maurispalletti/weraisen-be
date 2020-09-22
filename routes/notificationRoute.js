@@ -25,8 +25,8 @@ router.post('/sendEmailUsuarioAprobado', async (req, res) => {
 router.post('/sendEmailUsuarioDenegado', async (req, res) => {
   routeController.handleRequest(req, res, notificationController.sendEmailUsuarioDenegado)
 })
-router.post('/sendEmailRestablecerContraseña', async (req, res) => {
-  routeController.handleRequest(req, res, notificationController.sendEmailRestablecerContraseña)
+router.post('/sendEmailRestablecerPass', async (req, res) => {
+  routeController.handleRequest(req, res, notificationController.sendEmailRestablecerPass)
 })
 router.post('/sendEmailCuentaBloqueada', async (req, res) => {
   routeController.handleRequest(req, res, notificationController.sendEmailCuentaBloqueada)
