@@ -46,11 +46,11 @@ const createNotification = async (req, res) => {
   res.json(notification)
 }
 
-const sendEmailRestablecerContraseña = async (req, res) => { 
+const sendEmailRestablecerPass = async (req, res) => { 
 
   console.log(req.body)  
 
-  const email = await notificationDelegate.sendEmailRestablecerContraseña(req.body)
+  const email = await notificationDelegate.sendEmailRestablecerPass(req.body)
   res.json(email)
 }
 
@@ -90,7 +90,7 @@ module.exports = {
   getNotificationsByUserId,
   getUnreadNotificationsByUserId,
   createNotification,
-  sendEmailRestablecerContraseña,
+  sendEmailRestablecerPass,
   sendEmailUsuarioDenegado,
   sendEmailUsuarioAprobado,
   sendEmailCuentaBloqueada,

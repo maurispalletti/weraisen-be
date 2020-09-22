@@ -77,7 +77,7 @@ const sendEmailCuentaBloqueada = async (emailData) => {
   mailer.close();
 }
 
-const sendEmailRestablecerContraseña = async (emailData) => {
+const sendEmailRestablecerPass = async (emailData) => {
   
   var destinatario = await userDelegate.findUserByEmail(emailData.emailDestino)  
 
@@ -332,7 +332,7 @@ module.exports = {
   getNotificationsByUserId,
   createNotification,
   sendEmailCuentaBloqueada,
-  sendEmailRestablecerContraseña,
+  sendEmailRestablecerPass,
   sendEmailUsuarioDenegado,
   sendEmailUsuarioAprobado,
   sendEmailEncuentro,
