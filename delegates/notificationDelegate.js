@@ -101,7 +101,7 @@ const sendEmailRestablecerPass = async (emailData) => {
     context: {
       username: destinatario.firstName,
       id: destinatario._id,
-      textoEmail:"Sabemos que perdiste tu contraseña de WeRaisen. ¡Lo sentimos por eso! <br>¡Pero no te preocupes! Podes usar el siguiente link para restablecer tu contraseña http://localhost:3000/ChangePassword/"+destinatario._id
+      textoEmail:"Sabemos que perdiste tu contraseña de WeRaisen. ¡Lo sentimos por eso! ¡Pero no te preocupes! Podes usar el siguiente link para restablecer tu contraseña http://localhost:3000/ChangePassword/"+destinatario._id
     },
     
   }, function (err, response) {
@@ -242,7 +242,7 @@ console.log(Turisra);
 
       },
       icalEvent: {
-        filename: 'invitation.ics',
+        filename: 'invite.ics',
         method: 'request',
         content: value
       }
@@ -306,7 +306,7 @@ const sendEmailEncuentroGuia = async (emailData) => {
         textoEmail:"Tu encuentro fue agendado con éxito. Haciendo click en el archivo adjunto podrás añadirlo a tu calendario personal."
       },
       icalEvent: {
-        filename: 'invitation.ics',
+        filename: 'invite.ics',
         method: 'request',
         content: value
       }
