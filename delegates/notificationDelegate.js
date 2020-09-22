@@ -55,9 +55,9 @@ const sendEmailCuentaBloqueada = async (emailData) => {
   mailer.use("compile", hbs(options))
 
   mailer.sendMail({
-    from: "weraisen.test@gmail.com",
+    from: '"WeRaisen📍🗺️" <weraisen.test@gmail.com>',
     to: emailData.emailDestino,
-    subject: "Cuenta bloqueada",
+    subject: "Cuenta bloqueada ❌",
     template: 'tmpl_cuenta_bloqueada',
     context: {
       username: destinatario.firstName,
@@ -94,9 +94,9 @@ const sendEmailRestablecerPass = async (emailData) => {
   mailer.use("compile", hbs(options))
 
   mailer.sendMail({
-    from: "weraisen.test@gmail.com",
+    from:'"WeRaisen📍🗺️" <weraisen.test@gmail.com>',
     to: emailData.emailDestino,
-    subject: "Restablecé tu contraseña",
+    subject: "Restablecé tu contraseña🔐",
     template: 'tmpl_restablecer_contrasena',
     context: {
       username: destinatario.firstName,
@@ -133,9 +133,9 @@ const sendEmailUsuarioDenegado = async (emailData) => {
   mailer.use("compile", hbs(options))
 
   mailer.sendMail({
-    from: "weraisen.test@gmail.com",
+    from:  '"WeRaisen📍🗺️" <weraisen.test@gmail.com>',
     to: emailData.emailDestino,
-    subject: "Usuario de WER denegado",
+    subject: "Usuario de WER denegado❌",
     template: 'tmpl_usuario_denegado',
     context: {
       username: destinatario.firstName,
@@ -173,9 +173,9 @@ const sendEmailUsuarioAprobado = async (emailData) => {
   mailer.use("compile", hbs(options))
 
   mailer.sendMail({
-    from: "weraisen.test@gmail.com",
+    from: '"WeRaisen📍🗺️" <weraisen.test@gmail.com>',
     to: emailData.emailDestino,
-    subject: "¡Usuario de WER aprobado!",
+    subject: "¡Usuario de WER aprobado! ✅",
     template: 'tmpl_usuario_aprobado',
     context: {
       username: destinatario.firstName,
@@ -232,9 +232,9 @@ console.log(Turisra);
     }
 
     mailer.sendMail({
-      from: "weraisen.test@gmail.com",
+      from: '"WeRaisen📍🗺️" <weraisen.test@gmail.com>',
       to: Turisra.email,
-      subject: "¡Tu encuentro ha sido agendado!",
+      subject: "¡Tu encuentro ha sido agendado!📆",
       template: `tmpl_Calendar`,
       context: {
         username: Turisra.firstName,
@@ -297,9 +297,9 @@ const sendEmailEncuentroGuia = async (emailData) => {
     }
 
     mailer.sendMail({
-      from: "weraisen.test@gmail.com",
+      from: '"WeRaisen📍🗺️" <weraisen.test@gmail.com>',
       to: Guia.email,
-      subject: "¡Tu encuentro ha sido agendado!",
+      subject: "¡Tu encuentro ha sido agendado!📆",
       template: `tmpl_Calendar`,
       context: {
         username: Guia.firstName,
