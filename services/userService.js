@@ -6,10 +6,13 @@ const userModel = require('../models/userModel')
 const { query } = require('express')
 
 const createUser = async user => {
-  const { email } = user;
-  const userAlreadyCreated = await UserModel.findOne({ email })
-  if (userAlreadyCreated) {
+  const { email, identification } = user;
+  const userWithEmailAlreadyCreated = await UserModel.findOne({ email })
+  const userWithIdentificationAlreadyCreated = await UserModel.findOne({ identification })
+  if (userWithEmailAlreadyCreated) {
     return { repeatedEmail: true }
+  } else if (userWithIdentificationAlreadyCreated) {
+    return { repeatedId: true }
   } else {
     const newUser = new UserModel(user)
     const savedUser = await newUser.save({ new: true })
