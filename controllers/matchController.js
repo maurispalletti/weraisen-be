@@ -45,6 +45,15 @@ const getMatchesByUser = async (req, res) => {
   res.json(matches)
 }
 
+const getActiveMatchesByGuide = async (req, res) => {
+  validators.validateRequiredKeys(req.params, ['userId'])
+
+  const { userId } = req.params
+  const matches = await matchDelegate.getActiveMatchesByGuide(userId)
+
+  res.json(matches)
+}
+
 const getEndedMatchesByUserToReview = async (req, res) => {
   validators.validateRequiredKeys(req.params, ['userId'])
 
@@ -107,5 +116,6 @@ module.exports = {
   updateMatch,
   getEndedMatchesByUserToReview,
   updateMatchStatus,
-  updateMatchDate
+  updateMatchDate,
+  getActiveMatchesByGuide
 }
