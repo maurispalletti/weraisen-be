@@ -27,6 +27,10 @@ router.get('/users/:userId', async (req, res) => {
   routeController.handleRequest(req, res, matchController.getMatchesByUser)
 })
 
+router.get('/guide/:userId', async (req, res) => {
+  routeController.handleRequest(req, res, matchController.getActiveMatchesByGuide)
+})
+
 router.get('/reviews/:userId', async (req, res) => {
   routeController.handleRequest(req, res, matchController.getEndedMatchesByUserToReview)
 })

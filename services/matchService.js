@@ -50,6 +50,17 @@ const getActiveMatchesByUser = async userId => {
   return []
 }
 
+const getActiveMatchesByGuide = async userId => {
+  const query = { guide: userId, status: ACTIVE }
+
+  const matches = await MatchModel.find(query)
+
+  if (matches) {
+    return matches
+  }
+  return []
+}
+
 const getMatch = async id => {
   const match = MatchModel.findById(id)
   if (match) {
@@ -413,5 +424,6 @@ module.exports = {
   getMatchesPerCategories,
   getMatchesPerMonthForGuide,
   getMatchesByStatusForGuide,
-  updateMatchByIdDate
+  updateMatchByIdDate,
+  getActiveMatchesByGuide
 }

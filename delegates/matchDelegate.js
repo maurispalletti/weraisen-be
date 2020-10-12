@@ -74,6 +74,10 @@ const getMatchByUserIds = async ({ tourist, guide }) => {
   return matchService.getMatchByUserIds({ tourist, guide })
 }
 
+const getActiveMatchesByGuide = async (userId) => {
+  return matchService.getActiveMatchesByGuide(userId)
+}
+
 const getEndedMatchesByUserToReview = async (userId) => {
   const matches = await matchService.getActiveMatchesByUser(userId)
   
@@ -297,5 +301,6 @@ module.exports = {
   getMatchByChatId,
   updateMatch,
   updateMatchStatus,
-  updateMatchDate
+  updateMatchDate,
+  getActiveMatchesByGuide
 }
