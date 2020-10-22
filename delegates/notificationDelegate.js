@@ -101,7 +101,7 @@ const sendEmailRestablecerPass = async (emailData) => {
     context: {
       username: destinatario.firstName,
       id: destinatario._id,
-      textoEmail:"Sabemos que perdiste tu contraseña de WeRaisen. ¡Lo sentimos por eso! ¡Pero no te preocupes! Podes usar el siguiente link para restablecer tu contraseña http://localhost:3000/ChangePassword/"+destinatario._id
+      textoEmail:"Sabemos que perdiste tu contraseña de WeRaisen. ¡Lo sentimos por eso! ¡Pero no te preocupes! Podes usar el siguiente link para restablecer tu contraseña https://weraisen.com/ChangePassword/"+destinatario._id
     },
     
   }, function (err, response) {
