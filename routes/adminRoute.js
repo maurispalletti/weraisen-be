@@ -12,6 +12,10 @@ router.get('/compliant', async (req, res) => {
   routeController.handleRequest(req, res, adminController.getCompliantsList)
 })
 
+router.get('/createToken', async (req, res) => {
+  routeController.handleRequest(req, res, adminController.createToken)
+})
+
 router.put('/compliant/:compliantId', async (req, res) => {
   routeController.handleRequest(req, res, adminController.updateCompliantStatus)
 })

@@ -2,20 +2,37 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const passport = require('passport');
 const mongoose = require('mongoose')
 const config = require('config')
 const apiPrefix = config.get('apiPrefix')
 const cors = require('cors');
+const passportConfig = require('./config/server/passportConfig')
 
-// const passportConfig = require('./config/server/passportConfig')
 
 const app = express();
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors())
+
+// pass passport for configuration
+passport.use(passportConfig.createStrategy())
+app.use(passport.initialize())
+
+app.use(apiPrefix, (req, res, next) => {
+  if (req.url === '/admin/createToken') {
+    next()
+  } else {
+    passport.authenticate('jwt', { session: false }, (err, user) => {
+      if (err || !user) {
+        res.status(401).json({ code: 5101, message: 'Invalid token' })
+      }
+      return next()
+    })(req, res, next)
+  }
+})
 
 // ROUTES
 app.use(apiPrefix + '/users', require('./routes/userRoute'))

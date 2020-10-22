@@ -4,8 +4,8 @@ module.exports = {
   apiConfig: 'default',
   apiPrefix: '/api/v1',
   mongo: {
-    url: 'mongodb+srv://spallettimauricio:7a016B22%2F@weraisen-test-mjlak.mongodb.net/test',
-    // url: 'mongodb://127.0.0.1:27017',
+    // url: 'mongodb+srv://spallettimauricio:7a016B22%2F@weraisen-test-mjlak.mongodb.net/test',
+    url: process.env.MONGO_URI,
     options: {
       dbName: 'weraisen-test',
       socketTimeoutMS: 30000,
@@ -17,6 +17,9 @@ module.exports = {
       useCreateIndex: true,
       useFindAndModify: false,
     }
+  },
+  auth: {
+    secret: process.env.JWT_SECRET,
   },
   aws: {
     S3: {
