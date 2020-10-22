@@ -1,3 +1,6 @@
+const jwt = require('jsonwebtoken')
+const config = require('config')
+
 const adminDelegate = require('../delegates/adminDelegate')
 const validators = require('../commons/validators')
 
@@ -32,9 +35,34 @@ const updateCompliantStatus = async (req, res) => {
   res.json(updatedCompliant)
 }
 
+const secrets = {
+  user: config.get('auth.secret'),
+};
+
+const createToken = async (req, res) => {
+  const token = jwt.sign(
+    {
+      userId: 'testUserId',
+      type: 'user',
+      kid: 'user'
+    },
+    secrets.user,
+    {
+      expiresIn: '30d'
+    }
+  );
+
+  res.json({ token });
+};
+
+
+
+
+
 module.exports = {
   getPendingUsersList,
   updateUserStatus,
   updateCompliantStatus,
   getCompliantsList,
+  createToken,
 }
