@@ -1,4 +1,4 @@
-const MatchModel = require('../models/MatchModel')
+const MatchModel = require('../models/matchModel')
 const exceptions = require('../commons/exceptions')
 const error = require('../commons/error')
 const constants = require('../commons/constants');

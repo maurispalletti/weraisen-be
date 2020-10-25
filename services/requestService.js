@@ -1,4 +1,4 @@
-const RequestModel = require('../models/RequestModel')
+const RequestModel = require('../models/requestModel')
 const exceptions = require('../commons/exceptions')
 const error = require('../commons/error')
 const constants = require('../commons/constants')

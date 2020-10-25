@@ -1,4 +1,4 @@
-const ReviewModel = require('../models/ReviewModel')
+const ReviewModel = require('../models/reviewModel')
 const exceptions = require('../commons/exceptions')
 const error = require('../commons/error')
 
