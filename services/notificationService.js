@@ -1,4 +1,4 @@
-const NotificationModel = require('../models/NotificationModel')
+const NotificationModel = require('../models/notificationModel')
 const exceptions = require('../commons/exceptions')
 const error = require('../commons/error')
 const constants = require('../commons/constants')
