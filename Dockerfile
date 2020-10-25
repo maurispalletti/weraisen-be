@@ -7,9 +7,9 @@ RUN apk add --update bash git make python g++
 
 # Install app dependencies
 COPY package.json /service/package.json
-COPY package-lock.json /service/package-lock.json
+# COPY package-lock.json /service/package-lock.json
 
-RUN cd /service; npm install --production=true
+RUN cd /service; npm install
 
 # Copy app source
 COPY . /service
@@ -18,12 +18,12 @@ COPY . /service
 WORKDIR /service
 
 # set your port
-ENV PORT 3001
+ENV PORT 2300
 
 # expose the port to outside world
-EXPOSE  3001
+EXPOSE 2300
 
 RUN apk del python make g++
 
 # start command as per package.json
-CMD ["node", "app"]
+CMD ["node", "bin/www"]

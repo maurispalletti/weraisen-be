@@ -22,7 +22,7 @@ passport.use(passportConfig.createStrategy())
 app.use(passport.initialize())
 
 app.use(apiPrefix, (req, res, next) => {
-  if (req.url === '/admin/createToken') {
+  if (req.url === '/admin/createToken' || req.url === '/') {
     next()
   } else {
     passport.authenticate('jwt', { session: false }, (err, user) => {
@@ -47,7 +47,7 @@ app.use(apiPrefix + '/notifications', require('./routes/notificationRoute'))
 app.use(apiPrefix + '/admin', require('./routes/adminRoute'))
 
 /* GET home page. */
-app.get('/', (req, res) => {
+app.get(apiPrefix + '/', (req, res) => {
   res.json("API Dashboard back-end is up in '" + config.get('apiConfig') + "' mode.")
 })
 
